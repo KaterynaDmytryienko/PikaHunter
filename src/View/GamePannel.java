@@ -2,28 +2,36 @@ package View;
 
 import Controller.KeyHandler;
 import Model.Player;
+import Controller.TileManager;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class GamePannel extends JPanel implements Runnable {
-    final int ORIGINAL_SIZE = 16; // size for characters and items
-    final int SCALE = 3;
-    public final int PLAYER_SIZE = ORIGINAL_SIZE * SCALE; // 48*48 size of a character
-    final int MAX_SCREEN_COL = 16;
-    final int MAX_SCREEN_ROW = 12;
-    final int SCREEN_WIDTH = PLAYER_SIZE * MAX_SCREEN_COL; //768px
-    final int SCREEN_HEIGHT = PLAYER_SIZE * MAX_SCREEN_ROW;//576px
+    final int originalSize = 16; // size for characters and items
+    final int scale = 3;
+    public final int playerSize = originalSize * scale; // 48*48 size of a character
+    public final int maxScreenCol = 16;
+    public final int maxScreenRow = 12;
+    public final int screenWidth = playerSize * maxScreenCol; //768px
+    public final int screenHeight = playerSize * maxScreenRow;//576px
+
+    //WORLD MAP SETTINGS
+     public final int maxworldcol = 50;
+    public final int maxworldrow = 50;
+    public final int worldwidth = playerSize * maxworldcol;
+    public final int worldheight = playerSize * maxworldrow;
 
     //setting FPS for the game
-    int FPS = 60;
+    public int FPS = 60;
 
+    TileManager tileManager = new TileManager(this);
     Thread gameThread;
 
-    Player player;
+    public Player player;
 
     public GamePannel(KeyHandler keyHandler) {
-        this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
+        this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.black);
         this.setDoubleBuffered(true);
         this.addKeyListener(keyHandler);
@@ -33,7 +41,7 @@ public class GamePannel extends JPanel implements Runnable {
 
 
     /**
-     * starts main game loop
+     * Starts main game loop.
      */
     public void startGameThread() {
         gameThread = new Thread(this);
@@ -41,7 +49,7 @@ public class GamePannel extends JPanel implements Runnable {
     }
 
     /**
-     * creates main game loop
+     * Creates main game loop.
      */
     @Override
     public void run() {
@@ -71,7 +79,7 @@ public class GamePannel extends JPanel implements Runnable {
     }
 
     /**
-     * invokes method update() on a Player instance
+     * Invokes method update() on a Player instance.
      */
     public void update() {
         player.update();
@@ -79,13 +87,14 @@ public class GamePannel extends JPanel implements Runnable {
 
 
     /**
-     * draws Player instance on a screen
+     * Draws Player instance on a screen.
      *
      * @param g the <code>Graphics</code> object to protect
      */
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
+        tileManager.draw(g2);
         player.draw(g2);
         g2.dispose();
     }

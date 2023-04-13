@@ -11,28 +11,34 @@ public class Enemy extends Entity{
     }
 
     /**
-     * sets default values for an instance
+     * Sets default values for an instance.
      */
     public void setDefault(){
-        x = 100;
-        y = 100;
+        worldx = 100;
+        worldy = 100;
         speed = 4;
-        this.healthPoints = 3;
     }
 
 
     /**
-     * gets images of an instance
+     * Gets images of an instance.
      */
     public void getEnemyImage(){
 
     }
 
     /**
-     * attacks a Player instance and getting healthPoints of a Player instance down
+     * Attacks a Player instance and getting healthPoints of a Player instance down.
      */
     public void attack(){
         
     }
 
+    public int getHealthPoints() {
+        return healthPoints;
+    }
+
+    public void setHealthPoints(int healthPoints) {
+        this.healthPoints = healthPoints;
+    }
 }

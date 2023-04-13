@@ -3,17 +3,18 @@ package Model;
 import java.awt.image.BufferedImage;
 
 public class Entity {
-    public int x, y;
+    public int worldx, worldy;
     public int speed;
 
-    public BufferedImage front; //image with an accessible buffer of image data
+    public BufferedImage front;
     public String direction;
+    private Coordinates coordinates;
 
     public int getX() {
-        return x;
+        return worldx;
     }
 
     public int getY() {
-        return y;
+        return worldy;
     }
 }

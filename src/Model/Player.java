@@ -8,15 +8,22 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 import java.io.IOException;
-import java.util.Objects;
-
 
 public class Player extends Entity{
     GamePannel gameP;
     KeyHandler keyHandler;
+    public Coordinates coordinates;
     private int healthPoints;
 
+    public final int screenx;
+    public final int screeny;
+    private Item[] inventory;
+
+
     public Player(GamePannel gameP, KeyHandler keyHandler){
+        screenx = gameP.screenWidth / 2 - (gameP.playerSize /2); /* returns the halfway point of the screen
+                                             */
+        screeny = gameP.screenHeight / 2 - (gameP.playerSize /2);
         this.gameP = gameP;
         this.keyHandler = keyHandler;
         setDefault();
@@ -24,11 +31,12 @@ public class Player extends Entity{
     }
 
     /**
-     * setting default values for an instance
+     * Setting default values for an instance.
      */
     public void setDefault(){
-        this.x = 100;
-        this.y = 100;
+       this.worldx = gameP.playerSize * 23;
+       this.worldy = gameP.playerSize * 21;
+
         speed = 5;
         direction = "front";
         this.healthPoints = 3;
@@ -36,11 +44,11 @@ public class Player extends Entity{
     }
 
     /**
-     * gets images of an instance
+     * Gets images of an instance.
      */
     public void getPlayerImage(){
         try{
-            front = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/img/Pikachu.png")));
+            front = ImageIO.read(getClass().getResourceAsStream("/img/Pikachu.png"));
         }
         catch (IOException e){
             e.printStackTrace();
@@ -48,33 +56,33 @@ public class Player extends Entity{
     }
 
     /**
-     * updates position of a Player instance on a screen and changes variable direction
+     * Updates position of a Player instance on a screen and changes variable direction.
      */
     public void update(){
         if (keyHandler.pressedUp){
             direction = "front";
-            this.y -= speed;
+            this.worldy -= speed;
         }
 
         else if(keyHandler.pressedDown){ // player coordinate Y increases by 4 px (player speed)
             direction = "front";
-            this.y += speed;
+            this.worldy += speed;
         }
 
         else if(keyHandler.pressedRight){
             direction = "front";
-            this.x += speed;
+            this.worldx += speed;
         }
 
         else if(keyHandler.pressedLeft){
             direction = "front";
-            this.x -= speed;
+            this.worldx -= speed;
         }
 
     }
 
     /**
-     * draws Player instance on a screen and changes images depending on direction of a Player instance
+     * Draws Player instance on a screen and changes images depending on direction of a Player instance.
      *
      * @param g2
      */
@@ -87,7 +95,7 @@ public class Player extends Entity{
             default -> null;
         };
 
-        g2.drawImage(front, x, y, gameP.PLAYER_SIZE, gameP.PLAYER_SIZE, null);
+        g2.drawImage(front, screenx, screeny, gameP.playerSize, gameP.playerSize, null);
     }
 
 

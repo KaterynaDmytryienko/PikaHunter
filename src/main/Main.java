@@ -10,10 +10,10 @@ public class Main {
         JFrame window = new JFrame();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
-        window.setTitle("JHunter");
+        window.setTitle("PikaHunter");
 
         KeyHandler keyHandler = new KeyHandler();
-        
+
         window.addKeyListener(keyHandler);
         window.setLocationRelativeTo(null);
         window.setVisible(true);
@@ -21,5 +21,6 @@ public class Main {
         window.add(gamepanel);
         window.pack();
         gamepanel.startGameThread();
+
     }
 }

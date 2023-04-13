@@ -8,7 +8,7 @@ public class KeyHandler implements KeyListener {
     public boolean pressedUp, pressedDown, pressedLeft, pressedRight;
 
     /**
-     * invokes when a key has been typed
+     * Invokes when a key has been typed.
      *
      * @param e the event to be processed
      */
@@ -16,8 +16,8 @@ public class KeyHandler implements KeyListener {
     public void keyTyped(KeyEvent e) {
     }
 
-    /**sets variables pressedUp, pressedDown, pressedRight and pressedLeft to "true"
-     * depending on a key that has been pressed
+    /** Sets variables pressedUp, pressedDown, pressedRight and pressedLeft to "true"
+     * depending on a key that has been pressed.
      *
      * @param e the event to be processed
      */
@@ -27,6 +27,7 @@ public class KeyHandler implements KeyListener {
 
         if (code == KeyEvent.VK_UP){//press up
             pressedUp = true;
+
         }
 
         if (code == KeyEvent.VK_DOWN){//press down
@@ -48,8 +49,8 @@ public class KeyHandler implements KeyListener {
 
     }
 
-    /**sets variables pressedUp, pressedDown, pressedRight and pressedLeft to "false"
-     * depending on a key that has been released
+    /** Sets variables pressedUp, pressedDown, pressedRight and pressedLeft to "false"
+     * depending on a key that has been released.
      *
      * @param e the event to be processed
      */
