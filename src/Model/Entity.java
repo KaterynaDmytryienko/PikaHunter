@@ -1,5 +1,6 @@
 package Model;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Entity {
@@ -7,8 +8,14 @@ public class Entity {
     public int speed;
 
     public BufferedImage front;
+    public BufferedImage right;
+    public BufferedImage left;
+    public BufferedImage back;
     public String direction;
     private Coordinates coordinates;
+
+    public Rectangle solidArea; // class for abstract rectangle
+    public boolean collisionOn = false;
 
     public int getX() {
         return worldx;

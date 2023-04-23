@@ -1,5 +1,6 @@
 package View;
 
+import Controller.CollisionController;
 import Controller.KeyHandler;
 import Model.Player;
 import Controller.TileManager;
@@ -25,8 +26,10 @@ public class GamePannel extends JPanel implements Runnable {
     //setting FPS for the game
     public int FPS = 60;
 
-    TileManager tileManager = new TileManager(this);
+    public TileManager tileManager = new TileManager(this);
     Thread gameThread;
+
+    public CollisionController collisionController = new CollisionController(this);
 
     public Player player;
 
