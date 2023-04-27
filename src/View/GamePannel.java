@@ -1,7 +1,9 @@
 package View;
 
+import Controller.AssetSetter;
 import Controller.CollisionController;
 import Controller.KeyHandler;
+import Model.Item;
 import Model.Player;
 import Controller.TileManager;
 
@@ -27,11 +29,23 @@ public class GamePannel extends JPanel implements Runnable {
     public int FPS = 60;
 
     public TileManager tileManager = new TileManager(this);
+    public UserInterface userInterface = new UserInterface(this);
     Thread gameThread;
 
     public CollisionController collisionController = new CollisionController(this);
 
+    public AssetSetter assetSetter = new AssetSetter(this);
     public Player player;
+    public Item item[] = new Item[10]; //preparing 10 slots for objects(displaying up to 10 objects at the same time)
+
+
+    //GAME STATE
+    public static int gameState;
+    public static final int playState = 1;
+    public static final int pauseState = 2;
+
+
+
 
     public GamePannel(KeyHandler keyHandler) {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -40,6 +54,11 @@ public class GamePannel extends JPanel implements Runnable {
         this.addKeyListener(keyHandler);
         this.setFocusable(true);
         player = new Player(this, keyHandler);
+    }
+
+    public void setupGame(){
+        assetSetter.setObject();
+        gameState = playState;
     }
 
 
@@ -85,7 +104,14 @@ public class GamePannel extends JPanel implements Runnable {
      * Invokes method update() on a Player instance.
      */
     public void update() {
-        player.update();
+        if(gameState == playState){
+            player.update();
+        }
+
+        if(gameState == pauseState){
+            // we dont update player state
+        }
+
     }
 
 
@@ -97,8 +123,21 @@ public class GamePannel extends JPanel implements Runnable {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
+        //TILE
         tileManager.draw(g2);
+
+        //OBJECT
+        for(int i = 0; i < item.length; i++){
+            if(item[i] != null){
+                item[i].draw(g2, this);
+            }
+        }
+
+
+        //PLAYER
         player.draw(g2);
+        userInterface.draw(g2);
+
         g2.dispose();
     }
 }

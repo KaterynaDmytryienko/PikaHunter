@@ -15,6 +15,8 @@ public class Entity {
     private Coordinates coordinates;
 
     public Rectangle solidArea; // class for abstract rectangle
+
+    public int solidAreaDefaultX, solidAreaDefaultY;
     public boolean collisionOn = false;
 
     public int getX() {

@@ -4,7 +4,6 @@ import View.GamePannel;
 import Controller.KeyHandler;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
@@ -20,14 +19,24 @@ public class Player extends Entity{
     public final int screeny;
     private Item[] inventory;
 
+    public int keyAmount = 0;
+    public int elixirAmount = 0;
+
 
     public Player(GamePannel gameP, KeyHandler keyHandler){
         screenx = gameP.screenWidth / 2 - (gameP.playerSize /2); /* returns the halfway point of the screen
                                              */
         screeny = gameP.screenHeight / 2 - (gameP.playerSize /2);
 
-        solidArea = new Rectangle(10, 20, 30, 32); // setting collision area for collision detection
 
+        solidArea = new Rectangle(); // setting collision area for collision detection
+
+        solidArea.x = 10;
+        solidArea.y = 20;
+        solidAreaDefaultX = solidArea.x;
+        solidAreaDefaultY = solidArea.y;
+        solidArea.width = 30;
+        solidArea.height = 32;
         this.gameP = gameP;
         this.keyHandler = keyHandler;
         setDefault();
@@ -81,25 +90,52 @@ public class Player extends Entity{
         else if(keyHandler.pressedLeft){
             direction = "left";
         }
+//        else {
+//            direction = "none";
+//        }
 
         //CHECK TILE COLLISION !!!!!!!!!!!!!!!!!!!!!!S
         collisionOn = false;
         gameP.collisionController.checkTile(this);
 
+        //CHECK OBJECT COLLISION
+        int objectIndex = gameP.collisionController.checkObject(this, true);
+        pickUpObject(objectIndex);
+
+
         //IF COLLISION == FALSE, player can move
-        if(collisionOn == false){
-            switch (direction){
-                case "up":
-                    this.worldy -= speed; break;
-                case "down":
-                    this.worldy += speed; break;
-                case "left":
-                    this.worldx -= speed; break;
-                case "right":
-                    this.worldx += speed; break;
+        if(!collisionOn && (keyHandler.pressedUp || keyHandler.pressedDown || keyHandler.pressedLeft
+                || keyHandler.pressedRight)){
+            switch (direction) {
+                case "up" -> this.worldy -= speed;
+                case "down" -> this.worldy += speed;
+                case "left" -> this.worldx -= speed;
+                case "right" -> this.worldx += speed;
             }
         }
 
+    }
+
+    public void pickUpObject(int i){
+       if(i != 999){
+//           gameP.objectSuper[i] = null; //delete the object that we just touched
+           String objectName = gameP.item[i].name;
+
+           switch (objectName){
+               case "key":
+                   keyAmount ++;
+                   gameP.item[i] = null;
+                   break;
+
+               case "chest":
+                   if(keyAmount > 0){
+                       keyAmount--;
+                       elixirAmount++;
+                       gameP.item[i] = null;
+                   }
+                   break;
+           }
+       }
     }
 
     /**
@@ -108,18 +144,15 @@ public class Player extends Entity{
      * @param g2
      */
     public void draw(Graphics2D g2) {
-        BufferedImage image = null;
-
-        switch (direction){
-            case "up":
-               image = back; break;
-            case "left":
-            image = left; break;
-            case "right":
-                image = right; break;
-            case "down":
-                image = front; break;
+        BufferedImage image = switch (direction) {
+            case "up" -> back;
+            case "left" -> left;
+            case "right" -> right;
+            case "down" -> front;
+            default -> null;
         };
+
+        ;
 
         g2.drawImage(image, screenx, screeny, gameP.playerSize, gameP.playerSize, null);
     }

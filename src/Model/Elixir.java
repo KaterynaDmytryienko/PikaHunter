@@ -1,13 +1,16 @@
 package Model;
 
+import javax.imageio.ImageIO;
+import java.io.IOException;
+
 public class Elixir extends Item {
-    private int strength;
-
-
-    /**
-     * Method allows to drink elixir.
-     */
-    public void drink(){
-
+    public Elixir(){
+        name = "elixir";
+        try{
+            image = ImageIO.read(getClass().getResourceAsStream("/objectsImages/elixir.png"));
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        }
     }
 }

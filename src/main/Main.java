@@ -20,6 +20,7 @@ public class Main {
         GamePannel gamepanel = new GamePannel(keyHandler);
         window.add(gamepanel);
         window.pack();
+        gamepanel.setupGame();
         gamepanel.startGameThread();
 
     }

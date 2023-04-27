@@ -1,10 +1,20 @@
 package Model;
 
-public class TreasureChest extends Item {
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
-    /**
-     * Method allows to open a treasure chest
-     */
-    public void open(){
+
+public class TreasureChest extends Item {
+    public TreasureChest(){
+        name = "chest";
+        try{
+            image = ImageIO.read(getClass().getResourceAsStream("/objectsImages/chest.png"));
+            image2 =  ImageIO.read(getClass().getResourceAsStream("/objectsImages/chest_opened.png"));
+
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        }
     }
 }

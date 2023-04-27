@@ -62,4 +62,83 @@ public class CollisionController {
         }
 
     }
+
+    public int checkObject(Entity entity, boolean isPlayer){
+        int index = 999;
+
+        for(int i = 0; i < gp.item.length; i++){
+            if(gp.item[i] != null){
+
+                //Get entity solid area position
+                  entity.solidArea.x = entity.worldx + entity.solidArea.x;
+                  entity.solidArea.y = entity.worldy + entity.solidArea.y;
+
+
+                //Get the object solid area position
+                gp.item[i].solidArea.x = gp.item[i].worldX + gp.item[i].solidArea.x;
+                gp.item[i].solidArea.y = gp.item[i].worldY + gp.item[i].solidArea.y;
+
+                switch (entity.direction){
+                    case "up":
+                        entity.solidArea.y -= entity.speed;
+                        if(entity.solidArea.intersects(gp.item[i].solidArea)){ //checks if two tiles are touching or not
+                         if(gp.item[i].collision){
+                             entity.collisionOn = true;
+                         }
+
+                         if(isPlayer){
+                             index = i;
+                         }
+
+                        }
+                        break;
+                    case "down":
+                        entity.solidArea.y += entity.speed;
+                        if(entity.solidArea.intersects(gp.item[i].solidArea)){ //checks if two tiles are touching or not
+                            if(gp.item[i].collision){
+                                entity.collisionOn = true;
+                            }
+
+                            if(isPlayer){
+                                index = i;
+                            }
+
+                        }
+                        break;
+                    case "left":
+                        entity.solidArea.x -= entity.speed;
+                        if(entity.solidArea.intersects(gp.item[i].solidArea)){ //checks if two tiles are touching or not
+                            if(gp.item[i].collision){
+                                entity.collisionOn = true;
+                            }
+
+                            if(isPlayer){
+                                index = i;
+                            }
+
+                        }
+                        break;
+                    case"right":
+                        entity.solidArea.x += entity.speed;
+                        if(entity.solidArea.intersects(gp.item[i].solidArea)){ //checks if two tiles are touching or not
+                            if(gp.item[i].collision){
+                                entity.collisionOn = true;
+                            }
+
+                            if(isPlayer){
+                                index = i;
+                            }
+
+                        }
+                        break;
+                }
+                entity.solidArea.x = entity.solidAreaDefaultX;
+                entity.solidArea.y = entity.solidAreaDefaultY;
+                gp.item[i].solidArea.x = gp.item[i].solidAreaDefaultX;
+                gp.item[i].solidArea.y = gp.item[i].solidAreaDefaultY;
+            }
+
+        }
+        return index;
+    }
 }

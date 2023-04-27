@@ -1,12 +1,14 @@
 package Controller;
 
+import Model.Key;
+import View.GamePannel;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class KeyHandler implements KeyListener {
 
     public boolean pressedUp, pressedDown, pressedLeft, pressedRight;
-
     /**
      * Invokes when a key has been typed.
      *
@@ -27,7 +29,6 @@ public class KeyHandler implements KeyListener {
 
         if (code == KeyEvent.VK_UP){//press up
             pressedUp = true;
-
         }
 
         if (code == KeyEvent.VK_DOWN){//press down
@@ -42,6 +43,16 @@ public class KeyHandler implements KeyListener {
 
         if (code == KeyEvent.VK_RIGHT){//press right
             pressedRight = true;
+
+        }
+
+
+        if (code == KeyEvent.VK_P){//press right
+           if(GamePannel.gameState == GamePannel.playState){
+               GamePannel.gameState = GamePannel.pauseState;
+           } else if (GamePannel.gameState == GamePannel.pauseState) {
+               GamePannel.gameState = GamePannel.playState;
+           }
 
         }
 

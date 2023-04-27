@@ -1,15 +1,15 @@
 package Model;
 
 import javax.imageio.ImageIO;
+import javax.swing.plaf.PanelUI;
 import java.io.IOException;
 
-public class Key extends Item {
-    public Key(){
-        name = "key";
-        try{
+public class Door extends Item{
+    public Door() {
+        name = "door";
+        try {
             image = ImageIO.read(getClass().getResourceAsStream("/objectsImages/key.png"));
-        }
-        catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
