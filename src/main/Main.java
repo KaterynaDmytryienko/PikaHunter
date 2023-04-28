@@ -11,13 +11,10 @@ public class Main {
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
         window.setTitle("PikaHunter");
-
-        KeyHandler keyHandler = new KeyHandler();
-
-        window.addKeyListener(keyHandler);
         window.setLocationRelativeTo(null);
         window.setVisible(true);
-        GamePannel gamepanel = new GamePannel(keyHandler);
+        GamePannel gamepanel = new GamePannel();
+        window.addKeyListener(gamepanel.getKeyHandler());
         window.add(gamepanel);
         window.pack();
         gamepanel.setupGame();

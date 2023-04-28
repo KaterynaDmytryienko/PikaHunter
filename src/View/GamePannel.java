@@ -27,7 +27,7 @@ public class GamePannel extends JPanel implements Runnable {
 
     //setting FPS for the game
     public int FPS = 60;
-
+    private final KeyHandler keyHandler = new KeyHandler(this);
     public TileManager tileManager = new TileManager(this);
     public UserInterface userInterface = new UserInterface(this);
     Thread gameThread;
@@ -40,25 +40,27 @@ public class GamePannel extends JPanel implements Runnable {
 
 
     //GAME STATE
-    public static int gameState;
-    public static final int playState = 1;
-    public static final int pauseState = 2;
+    public int gameState;
+    public final int playState = 1;
+    public final int pauseState = 2;
+
+    public final int titleState = 0;
 
 
 
 
-    public GamePannel(KeyHandler keyHandler) {
+    public GamePannel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.black);
         this.setDoubleBuffered(true);
-        this.addKeyListener(keyHandler);
+        this.addKeyListener(this.keyHandler);
         this.setFocusable(true);
-        player = new Player(this, keyHandler);
+        player = new Player(this, this.keyHandler);
     }
 
     public void setupGame(){
         assetSetter.setObject();
-        gameState = playState;
+        gameState = titleState;
     }
 
 
@@ -107,11 +109,6 @@ public class GamePannel extends JPanel implements Runnable {
         if(gameState == playState){
             player.update();
         }
-
-        if(gameState == pauseState){
-            // we dont update player state
-        }
-
     }
 
 
@@ -123,22 +120,32 @@ public class GamePannel extends JPanel implements Runnable {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
-        //TILE
-        tileManager.draw(g2);
 
-        //OBJECT
-        for(int i = 0; i < item.length; i++){
-            if(item[i] != null){
-                item[i].draw(g2, this);
-            }
+        //TITLE SCREEN
+        if(gameState == titleState){
+            userInterface.drawTitleScreen(g2);
         }
 
+        else {
+            //TILE
+            tileManager.draw(g2);
 
-        //PLAYER
-        player.draw(g2);
-        userInterface.draw(g2);
+            //OBJECT
+            for(int i = 0; i < item.length; i++){
+                if(item[i] != null){
+                    item[i].draw(g2, this);
+                }
+            }
 
-        g2.dispose();
+            //PLAYER
+            player.draw(g2);
+            userInterface.draw(g2);
+            g2.dispose();
+        }
+    }
+
+    public KeyHandler getKeyHandler() {
+        return keyHandler;
     }
 }
 

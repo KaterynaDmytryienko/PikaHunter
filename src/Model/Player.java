@@ -38,7 +38,7 @@ public class Player extends Entity{
         solidArea.width = 30;
         solidArea.height = 32;
         this.gameP = gameP;
-        this.keyHandler = keyHandler;
+        this.keyHandler = gameP.getKeyHandler();
         setDefault();
         getPlayerImage();
     }
@@ -90,11 +90,7 @@ public class Player extends Entity{
         else if(keyHandler.pressedLeft){
             direction = "left";
         }
-//        else {
-//            direction = "none";
-//        }
 
-        //CHECK TILE COLLISION !!!!!!!!!!!!!!!!!!!!!!S
         collisionOn = false;
         gameP.collisionController.checkTile(this);
 
@@ -118,7 +114,6 @@ public class Player extends Entity{
 
     public void pickUpObject(int i){
        if(i != 999){
-//           gameP.objectSuper[i] = null; //delete the object that we just touched
            String objectName = gameP.item[i].name;
 
            switch (objectName){
