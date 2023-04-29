@@ -52,7 +52,9 @@ public class Player extends Entity{
 
         speed = 3;
         direction = "left";
-        this.healthPoints = 3;
+       //PLAYER STATUS where halfHeart is 1 life, 6 half hearts are 3 lives  (two lives - one heart)
+        setMaxLife(6);
+        setLife(getMaxLife());
 
     }
 
@@ -93,6 +95,9 @@ public class Player extends Entity{
 
         collisionOn = false;
         gameP.collisionController.checkTile(this);
+
+        //CHECK EVENT
+        gameP.eventHandler.checkEvent();
 
         //CHECK OBJECT COLLISION
         int objectIndex = gameP.collisionController.checkObject(this, true);

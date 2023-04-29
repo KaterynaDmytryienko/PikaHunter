@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 public class Item {
     public BufferedImage image;
     public BufferedImage image2;
+    public BufferedImage image3;
     public String name;
     public boolean collision = false;
     public int worldX;

@@ -29,7 +29,7 @@ public class AssetSetter {
         gp.item[3] = new TreasureChest();
         gp.item[3].worldX = 25 * gp.playerSize;
         gp.item[3].worldY = 42 * gp.playerSize;
-
+        gp.item[3].collision = true;
 
     }
 

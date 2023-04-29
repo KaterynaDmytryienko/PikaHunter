@@ -1,6 +1,8 @@
 package View;
 
 import Model.Elixir;
+import Model.Heart;
+import Model.Item;
 import Model.Key;
 
 import java.awt.*;
@@ -12,6 +14,8 @@ public class UserInterface {
     Font arial;
     BufferedImage keyImage;
     BufferedImage elixirImage;
+
+    BufferedImage heart_full, heart_half, heart_blank;
     double playTime; //creating game timer
     public int commandNum = 0;
 
@@ -25,6 +29,13 @@ public class UserInterface {
 
         Elixir elixir = new Elixir();
         elixirImage = elixir.image;
+
+        //CREATE HEART OBJECT
+        Item heart = new Heart(gp);
+        heart_full = heart.image;
+        heart_half = heart.image2;
+        heart_blank = heart.image3;
+
     }
 
     public void draw(Graphics2D g2) {
@@ -36,14 +47,15 @@ public class UserInterface {
             drawTitleScreen(g2);
         }
 
+         drawPlayerLife(g2);
          g2.drawImage(keyImage, gp.playerSize / 2, gp.playerSize/2, gp.playerSize, gp.playerSize, null);
          g2.drawString("x " + gp.player.keyAmount, 74, 65);
         g2.drawImage(elixirImage, 24, 80, gp.playerSize, gp.playerSize, null);
         g2.drawString("x " + gp.player.elixirAmount, 74, 110);
 
-         //TIME
-        playTime += (double) 1/60;
-        g2.drawString("Time :" + decimalFormat.format(playTime), gp.playerSize*11,65 );
+//         //TIME
+//        playTime += (double) 1/60;
+//        g2.drawString("Time :" + decimalFormat.format(playTime), gp.playerSize*11,65 );
     }
 
     public void drawTitleScreen(Graphics2D g2) {
@@ -100,6 +112,36 @@ public class UserInterface {
             g2.drawString(">", x - gp.playerSize, y);
         }
 
+
+    }
+
+    public void drawPlayerLife(Graphics2D g2){
+        int x = gp.playerSize* 12;
+        int y = gp.playerSize;
+
+        int i = 0;
+
+        //DRAW MAX LIFE
+        while (i < gp.player.getMaxLife()/2){
+            g2.drawImage(heart_blank, x, y, gp.playerSize, gp.playerSize, null);
+            i++;
+            x += gp.playerSize + 5;
+        }
+        //RESET
+         x = gp.playerSize* 12;
+         y = gp.playerSize;
+         i = 0;
+
+         //DRAW CURRENT LIFE
+        while (i < gp.player.getLife()) {
+            g2.drawImage(heart_half, x, y, gp.playerSize, gp.playerSize, null);
+            i++;
+            if (i < gp.player.getLife()) {
+                g2.drawImage(heart_full, x, y, gp.playerSize, gp.playerSize, null);
+            }
+            i++;
+            x += gp.playerSize + 5;
+        }
 
     }
 

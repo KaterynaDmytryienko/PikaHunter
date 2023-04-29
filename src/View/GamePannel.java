@@ -1,11 +1,8 @@
 package View;
 
-import Controller.AssetSetter;
-import Controller.CollisionController;
-import Controller.KeyHandler;
+import Controller.*;
 import Model.Item;
 import Model.Player;
-import Controller.TileManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -30,6 +27,7 @@ public class GamePannel extends JPanel implements Runnable {
     private final KeyHandler keyHandler = new KeyHandler(this);
     public TileManager tileManager = new TileManager(this);
     public UserInterface userInterface = new UserInterface(this);
+    public EventHandler eventHandler = new EventHandler(this);
     Thread gameThread;
 
     public CollisionController collisionController = new CollisionController(this);

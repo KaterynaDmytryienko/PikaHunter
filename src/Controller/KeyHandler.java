@@ -9,7 +9,7 @@ import java.awt.event.KeyListener;
 
 public class KeyHandler implements KeyListener {
 
-    public boolean pressedUp, pressedDown, pressedLeft, pressedRight;
+    public boolean pressedUp, pressedDown, pressedLeft, pressedRight, pressedEnter;
 
     private final GamePannel gp;
 
@@ -81,6 +81,11 @@ public class KeyHandler implements KeyListener {
 
         if (code == KeyEvent.VK_RIGHT) {//press right
             pressedRight = true;
+
+        }
+
+        if (code == KeyEvent.VK_ENTER) {//press right
+            pressedEnter = true;
 
         }
 
