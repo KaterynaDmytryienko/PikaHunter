@@ -10,23 +10,17 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public class Player extends Entity{
-    GamePannel gameP;
     KeyHandler keyHandler;
-    public Coordinates coordinates;
-    private int healthPoints;
-
     public final int screenx;
     public final int screeny;
-    private Item[] inventory;
-
     public int keyAmount = 0;
     public int elixirAmount = 0;
 
-
-    public Player(GamePannel gameP, KeyHandler keyHandler){
-        screenx = gameP.screenWidth / 2 - (gameP.playerSize /2); /* returns the halfway point of the screen
+    public Player(GamePannel gp, KeyHandler keyHandler){
+        super(gp);
+        screenx = gp.screenWidth / 2 - (gp.playerSize /2); /* returns the halfway point of the screen
                                              */
-        screeny = gameP.screenHeight / 2 - (gameP.playerSize /2);
+        screeny = gp.screenHeight / 2 - (gp.playerSize /2);
 
 
         solidArea = new Rectangle(); // setting collision area for collision detection
@@ -37,8 +31,7 @@ public class Player extends Entity{
         solidAreaDefaultY = solidArea.y;
         solidArea.width = 30;
         solidArea.height = 32;
-        this.gameP = gameP;
-        this.keyHandler = gameP.getKeyHandler();
+        this.keyHandler = gp.getKeyHandler();
         setDefault();
         getPlayerImage();
     }
@@ -47,8 +40,8 @@ public class Player extends Entity{
      * Setting default values for an instance.
      */
     public void setDefault(){
-       this.worldx = gameP.playerSize * 23;
-       this.worldy = gameP.playerSize * 21;
+       this.worldx = gp.playerSize * 23;
+       this.worldy = gp.playerSize * 21;
 
         speed = 3;
         direction = "left";
@@ -94,14 +87,17 @@ public class Player extends Entity{
         }
 
         collisionOn = false;
-        gameP.collisionController.checkTile(this);
+        gp.collisionController.checkTile(this);
 
         //CHECK EVENT
-        gameP.eventHandler.checkEvent();
+        gp.eventHandler.checkEvent();
 
         //CHECK OBJECT COLLISION
-        int objectIndex = gameP.collisionController.checkObject(this, true);
+        int objectIndex = gp.collisionController.checkObject(this, true);
         pickUpObject(objectIndex);
+
+        //CHECK MONSTER COLLISION
+        int monsterIndex = gp.collisionController.checkEntity(this, gp.monster);
 
 
         //IF COLLISION == FALSE, player can move
@@ -119,19 +115,19 @@ public class Player extends Entity{
 
     public void pickUpObject(int i){
        if(i != 999){
-           String objectName = gameP.item[i].name;
+           String objectName = gp.item[i].name;
 
            switch (objectName){
                case "key":
                    keyAmount ++;
-                   gameP.item[i] = null;
+                   gp.item[i] = null;
                    break;
 
                case "chest":
                    if(keyAmount > 0){
                        keyAmount--;
                        elixirAmount++;
-                       gameP.item[i] = null;
+                       gp.item[i] = null;
                    }
                    break;
            }
@@ -152,9 +148,8 @@ public class Player extends Entity{
             default -> null;
         };
 
-        ;
 
-        g2.drawImage(image, screenx, screeny, gameP.playerSize, gameP.playerSize, null);
+        g2.drawImage(image, screenx, screeny, gp.playerSize, gp.playerSize, null);
     }
 
 

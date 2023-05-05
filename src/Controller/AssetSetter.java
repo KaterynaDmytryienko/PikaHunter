@@ -1,10 +1,9 @@
 package Controller;
 
-import Model.Door;
-import Model.Elixir;
-import Model.TreasureChest;
-import Model.Key;
+import Model.*;
 import View.GamePannel;
+
+import java.io.IOException;
 
 public class AssetSetter {
     GamePannel gp;
@@ -33,5 +32,9 @@ public class AssetSetter {
 
     }
 
-
+    public void setMonster() throws IOException {
+        gp.monster[0] = new Enemy(gp);
+        gp.monster[0].worldX = 21 * gp.playerSize;
+        gp.monster[0].worldY = 21 * gp.playerSize;
+    }
 }

@@ -16,7 +16,7 @@ public class UserInterface {
     BufferedImage elixirImage;
 
     BufferedImage heart_full, heart_half, heart_blank;
-    double playTime; //creating game timer
+//    double playTime; //creating game timer
     public int commandNum = 0;
 
     DecimalFormat decimalFormat = new DecimalFormat("#0.00"); //format the game time (DISPLAY 2 PLACES OF DECIMALS)

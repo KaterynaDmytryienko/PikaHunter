@@ -1,11 +1,14 @@
 package View;
 
 import Controller.*;
+import Model.Enemy;
+import Model.Entity;
 import Model.Item;
 import Model.Player;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
 public class GamePannel extends JPanel implements Runnable {
     final int originalSize = 16; // size for characters and items
@@ -36,18 +39,23 @@ public class GamePannel extends JPanel implements Runnable {
     public Player player;
     public Item item[] = new Item[10]; //preparing 10 slots for objects(displaying up to 10 objects at the same time)
 
+    //CREATING MONSTER ARRAY
+    public Entity monster[] = new Entity[20];
+
+
+
 
     //GAME STATE
     public int gameState;
     public final int playState = 1;
-    public final int pauseState = 2;
+//    public final int pauseState = 2;
 
     public final int titleState = 0;
 
 
 
 
-    public GamePannel() {
+    public GamePannel() throws IOException {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.black);
         this.setDoubleBuffered(true);
@@ -56,8 +64,9 @@ public class GamePannel extends JPanel implements Runnable {
         player = new Player(this, this.keyHandler);
     }
 
-    public void setupGame(){
+    public void setupGame() throws IOException {
         assetSetter.setObject();
+        assetSetter.setMonster();
         gameState = titleState;
     }
 
@@ -105,9 +114,19 @@ public class GamePannel extends JPanel implements Runnable {
      */
     public void update() {
         if(gameState == playState){
+
+            //PLAYER UPDATE
             player.update();
+
+            //MONSTER UPDATE
+            for(int i = 0; i < monster.length; i++){
+                if(monster[i]!=null){
+                    monster[i].update();
+                }
+            }
         }
     }
+
 
 
     /**
@@ -135,11 +154,19 @@ public class GamePannel extends JPanel implements Runnable {
                 }
             }
 
+            //MONSTER
+            for(int i = 0; i < monster.length; i++) {
+                if (monster[i] != null) {
+                    monster[i].draw(g2, this);
+                }
+            }
+
             //PLAYER
             player.draw(g2);
             userInterface.draw(g2);
-            g2.dispose();
+            g2.dispose(); 
         }
+
     }
 
     public KeyHandler getKeyHandler() {
