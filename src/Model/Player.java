@@ -98,6 +98,7 @@ public class Player extends Entity{
 
         //CHECK MONSTER COLLISION
         int monsterIndex = gp.collisionController.checkEntity(this, gp.monster);
+        interactMonster(monsterIndex);
 
 
         //IF COLLISION == FALSE, player can move
@@ -108,6 +109,14 @@ public class Player extends Entity{
                 case "down" -> this.worldy += speed;
                 case "left" -> this.worldx -= speed;
                 case "right" -> this.worldx += speed;
+            }
+        }
+
+        if(isInvincible()){
+            invincibleCounter++;
+            if(invincibleCounter > 60){
+                setInvincible(false);
+                invincibleCounter = 0;
             }
         }
 
@@ -134,6 +143,20 @@ public class Player extends Entity{
        }
     }
 
+    public void interactMonster(int index){
+        if(index != 999){
+            if(isInvincible() == false) {// player receives damage only if he is not invincible
+
+                System.out.println("Im receiving damage!");
+
+                setLife(getLife()-1);
+                setInvincible(true);
+            }
+
+        }
+
+    }
+
     /**
      * Draws Player instance on a screen and changes images depending on direction of a Player instance.
      *
@@ -148,8 +171,15 @@ public class Player extends Entity{
             default -> null;
         };
 
+        if(isInvincible()){
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f)); //setting opacity level for player image
+        }
 
         g2.drawImage(image, screenx, screeny, gp.playerSize, gp.playerSize, null);
+
+        //Reset opacity
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+
     }
 
 

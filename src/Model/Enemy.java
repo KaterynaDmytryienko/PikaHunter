@@ -6,6 +6,7 @@ import View.GamePannel;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.IOException;
+import java.sql.Struct;
 import java.util.Objects;
 import java.util.Random;
 
@@ -18,7 +19,7 @@ public class Enemy extends Entity{
         setLife(getMaxLife());
 
         solidArea.x = 3;
-        solidArea.y = 18;
+        solidArea.y = 15;
         solidArea.width = 20;
         solidArea.height = 25;
 
@@ -40,9 +41,7 @@ public class Enemy extends Entity{
 
     //SETTING SLIME BEHAVIOUR
     public void setAction(){
-        System.out.println("setting action!");
         actionLockCounter ++;
-        System.out.println(actionLockCounter);
 
         if(actionLockCounter == 120){
 
@@ -51,28 +50,34 @@ public class Enemy extends Entity{
             System.out.println(i);
             if(i <= 25){
                 direction = "up";
-                System.out.println("direction is up!");
             }
 
             if(i>25 && i <= 50){
                 direction = "down";
-                System.out.println("direction is down!");
             }
 
             if(i > 50 && i <= 75){
                 direction = "left";
-                System.out.println("direction is left!");
             }
 
             if(i > 75 && i <= 100){
                 direction = "right";
-                System.out.println("direction is right!");
             }
 
             actionLockCounter = 0;
             gp.collisionController.checkTile(this);
             gp.collisionController.checkObject(this, false);
-//            gp.collisionController.checkEntity(this, gp.monster);
+            gp.collisionController.checkEntity(this, gp.monster);
+            boolean contactPlayer = gp.collisionController.checkPlayer(this);
+
+            if(contactPlayer){
+                System.out.println("Contacted with a player! Im enemy");
+                if(gp.player.isInvincible() == false){
+                    // monster can give damage
+                    gp.player.setLife(gp.player.getLife()-1);
+                    gp.player.setInvincible(true);
+                }
+            }
         }
     }
 }

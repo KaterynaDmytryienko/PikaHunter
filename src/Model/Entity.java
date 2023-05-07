@@ -24,6 +24,10 @@ public class Entity {
     public int solidAreaDefaultX = 0, solidAreaDefaultY = 0;
     public boolean collisionOn = false;
 
+    private boolean invincible = false;
+
+    public int invincibleCounter;
+
     //CHARACTER STATUS
     private int maxLife;
     private int life;
@@ -48,6 +52,15 @@ public class Entity {
         return life;
     }
 
+    public boolean isInvincible() {
+        return invincible;
+    }
+
+    public void setInvincible(boolean invincible) {
+        this.invincible = invincible;
+    }
+
+
     public void setLife(int life) {
         this.life = life;
     }
@@ -65,11 +78,9 @@ public class Entity {
 
 
     public void update(){
-        setAction();
         collisionOn = false;
-
-        if (collisionOn == false){
-
+        setAction();
+        if (!collisionOn){
 
             switch (direction){
                 case "up":
