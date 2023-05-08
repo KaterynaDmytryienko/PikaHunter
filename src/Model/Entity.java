@@ -6,16 +6,19 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Entity {
+    public int spriteCounter;
     public boolean collision;  //ABSTRACT CLASS
     GamePannel gp;
     public int speed;
-
+    private boolean attacking = false;
     public BufferedImage front;
     public BufferedImage right;
     public BufferedImage left;
     public BufferedImage back;
     public String direction;
+    public BufferedImage backWithSword, frontWithSword, leftWithSword, rightWithSword;
     public Rectangle solidArea = new Rectangle(); // class for abstract rectangle
+    public Rectangle attackArea = new Rectangle(0, 0, 0, 0); //entity attack area
     public int worldX;
     public int worldY;
 
@@ -60,6 +63,13 @@ public class Entity {
         this.invincible = invincible;
     }
 
+    public boolean isAttacking() {
+        return attacking;
+    }
+
+    public void setAttacking(boolean attacking) {
+        this.attacking = attacking;
+    }
 
     public void setLife(int life) {
         this.life = life;
@@ -93,6 +103,15 @@ public class Entity {
                 case "right":
                     worldX += speed; break;
             }
+
+
+            if(isInvincible()){
+                invincibleCounter++;
+                if(invincibleCounter > 40){
+                    setInvincible(false);
+                    invincibleCounter = 0;
+                }
+            }
         }
 
     }
@@ -120,7 +139,15 @@ public class Entity {
                     image = back;
                     break;
             }
+
+
+            if(isInvincible()){
+                g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f)); //setting opacity level for player image
+            }
             g2.drawImage(image, screenX, screenY, gp.playerSize, gp.playerSize, null);
+            //Reset opacity
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+
         }
     }
 

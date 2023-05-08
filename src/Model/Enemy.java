@@ -78,6 +78,8 @@ public class Enemy extends Entity{
                     gp.player.setInvincible(true);
                 }
             }
+
+
         }
     }
 }

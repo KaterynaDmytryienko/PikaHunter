@@ -16,7 +16,7 @@ public class Player extends Entity{
     public int keyAmount = 0;
     public int elixirAmount = 0;
 
-    public Player(GamePannel gp, KeyHandler keyHandler){
+    public Player(GamePannel gp, KeyHandler keyHandler) throws IOException {
         super(gp);
         screenx = gp.screenWidth / 2 - (gp.playerSize /2); /* returns the halfway point of the screen
                                              */
@@ -32,8 +32,12 @@ public class Player extends Entity{
         solidArea.width = 30;
         solidArea.height = 32;
         this.keyHandler = gp.getKeyHandler();
+        attackArea.width = 36;
+        attackArea.height = 36;
+
         setDefault();
         getPlayerImage();
+        getPlayerAttackImages();
     }
 
     /**
@@ -57,8 +61,8 @@ public class Player extends Entity{
     public void getPlayerImage(){
         try{
             front = ImageIO.read(getClass().getResourceAsStream("/img/frontfront.png"));
-            right = ImageIO.read(getClass().getResourceAsStream("/img/right.png"));
-            left = ImageIO.read(getClass().getResourceAsStream("/img/Pikachu.png"));
+            right = ImageIO.read(getClass().getResourceAsStream("/img/right1.png"));
+            left = ImageIO.read(getClass().getResourceAsStream("/img/left1.png"));
             back = ImageIO.read(getClass().getResourceAsStream("/img/back.png"));
         }
         catch (IOException e){
@@ -66,11 +70,24 @@ public class Player extends Entity{
         }
     }
 
+    public void getPlayerAttackImages() throws IOException {
+        frontWithSword = ImageIO.read(getClass().getResourceAsStream("/img/frontWithSword.png"));
+        backWithSword = ImageIO.read(getClass().getResourceAsStream("/img/backWithSword.png"));
+        leftWithSword = ImageIO.read(getClass().getResourceAsStream("/img/leftWithSword.png"));
+        rightWithSword = ImageIO.read(getClass().getResourceAsStream("/img/rightWithSword.png"));
+    }
     /**
      * Updates position of a Player instance on a screen and changes variable direction.
      */
     public void update(){
-        if (keyHandler.pressedUp){
+
+        if(gp.getKeyHandler().pressedSpace){
+            System.out.println("Im attacking");
+            setAttacking(true);
+            attacking();
+        }
+
+        else if (keyHandler.pressedUp){
             direction = "up";
         }
 
@@ -122,6 +139,50 @@ public class Player extends Entity{
 
     }
 
+    public void attacking() {
+        spriteCounter++;
+        if (spriteCounter < 25) {
+            int currentWorldX = worldX;
+            int currentWorldY = worldY;
+            int solidAreaWidth = solidArea.width;
+            int solidAreaHeight = solidArea.height;
+
+            //Adjust player worldX/Y for the attackArea
+            switch (direction) {
+                case "up":
+                    worldY -= attackArea.height;
+                    break;
+                case "down":
+                    worldY += attackArea.height;
+                    break;
+                case "left":
+                    worldX -= attackArea.width;
+                    break;
+                case "right":
+                    worldX += attackArea.width;
+                    break;
+            }
+
+            solidArea.width = attackArea.width; //change size of player solid area to attack area
+            solidArea.height = attackArea.height;
+
+            //check monster collision with updated worldX worldY and solidArea
+            int monsterIndex = gp.collisionController.checkEntity(this, gp.monster);
+            damageMonster(monsterIndex);
+
+            //restoring the original data
+            worldX = currentWorldX;
+            worldY = currentWorldY;
+
+            solidArea.width = solidAreaWidth;
+            solidArea.height = solidAreaHeight;
+        }
+        else {
+            spriteCounter = 0;
+            setAttacking(false);
+        }
+
+    }
     public void pickUpObject(int i){
        if(i != 999){
            String objectName = gp.item[i].name;
@@ -151,10 +212,25 @@ public class Player extends Entity{
 
                 setLife(getLife()-1);
                 setInvincible(true);
+
+
             }
 
         }
 
+    }
+
+    public void damageMonster(int i){
+        if(i != 999){
+           if(gp.monster[i].isInvincible() == false){
+               gp.monster[i].setLife(gp.monster[i].getLife()-1);
+               gp.monster[i].setInvincible(true);
+
+               if(gp.monster[i].getLife() <= 0){
+                   gp.monster[i] = null;
+               }
+           }
+        }
     }
 
     /**
@@ -163,13 +239,44 @@ public class Player extends Entity{
      * @param g2
      */
     public void draw(Graphics2D g2) {
-        BufferedImage image = switch (direction) {
-            case "up" -> back;
-            case "left" -> left;
-            case "right" -> right;
-            case "down" -> front;
-            default -> null;
-        };
+        BufferedImage image = null;
+        switch (direction) {
+            case "up":
+                if(isAttacking() == false){
+                    image = back;
+                }
+                if(isAttacking()){
+                    image = backWithSword;
+                }
+                break;
+
+            case "left":
+                if(isAttacking() == false){
+                    image = left;
+                }
+                if(isAttacking()){
+                    image = leftWithSword;
+                }
+                break;
+
+            case "right":
+                if(isAttacking() == false){
+                    image = right;
+                }
+                if(isAttacking()){
+                    image = rightWithSword;
+                }
+                break;
+
+            case "down":
+                if(isAttacking() == false){
+                    image = front;
+                }
+                if(isAttacking()){
+                    image = frontWithSword;
+                }
+                break;
+        }
 
         if(isInvincible()){
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f)); //setting opacity level for player image

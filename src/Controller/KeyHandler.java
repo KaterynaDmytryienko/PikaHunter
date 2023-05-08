@@ -1,5 +1,6 @@
 package Controller;
 
+import Model.Entity;
 import Model.Key;
 import View.GamePannel;
 
@@ -9,9 +10,9 @@ import java.awt.event.KeyListener;
 
 public class KeyHandler implements KeyListener {
 
-    public boolean pressedUp, pressedDown, pressedLeft, pressedRight, pressedEnter;
+    public boolean pressedUp, pressedDown, pressedLeft, pressedRight, pressedEnter, pressedSpace;
 
-    private final GamePannel gp;
+    private GamePannel gp;
 
     public KeyHandler(GamePannel gamePannel) {
         this.gp = gamePannel;
@@ -89,6 +90,10 @@ public class KeyHandler implements KeyListener {
 
         }
 
+        if (code == KeyEvent.VK_SPACE) { // press space for attack
+            pressedSpace = true;
+        }
+
 
     }
 
@@ -115,6 +120,10 @@ public class KeyHandler implements KeyListener {
 
         if (code == KeyEvent.VK_RIGHT) {//press right
             pressedRight = false;
+        }
+
+        if (code == KeyEvent.VK_SPACE) {//press right
+            pressedSpace = false;
         }
     }
 }
