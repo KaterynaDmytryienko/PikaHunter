@@ -207,9 +207,6 @@ public class Player extends Entity{
     public void interactMonster(int index){
         if(index != 999){
             if(isInvincible() == false) {// player receives damage only if he is not invincible
-
-                System.out.println("Im receiving damage!");
-
                 setLife(getLife()-1);
                 setInvincible(true);
 

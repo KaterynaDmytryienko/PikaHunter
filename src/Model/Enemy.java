@@ -71,7 +71,6 @@ public class Enemy extends Entity{
             boolean contactPlayer = gp.collisionController.checkPlayer(this);
 
             if(contactPlayer){
-                System.out.println("Contacted with a player! Im enemy");
                 if(gp.player.isInvincible() == false){
                     // monster can give damage
                     gp.player.setLife(gp.player.getLife()-1);

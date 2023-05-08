@@ -80,7 +80,7 @@ public class UserInterface {
         //DISPLAYING PIKA IMAGE
         x = gp.screenWidth/2 - (gp.playerSize*2)/2;
         y += gp.playerSize*2;
-        g2.drawImage(gp.player.left, x, y, gp.playerSize*2, gp.playerSize*2, null);
+        g2.drawImage(gp.player.front, x, y, gp.playerSize*2, gp.playerSize*2, null);
 
         //MENU BAR
         g2.setFont(g2.getFont().deriveFont(Font.BOLD, 48F));

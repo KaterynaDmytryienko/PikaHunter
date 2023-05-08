@@ -173,15 +173,11 @@ public class CollisionController {
         entity.solidArea.x = entity.worldX + entity.solidArea.x;
         entity.solidArea.y = entity.worldY + entity.solidArea.y;
 
-        System.out.println("Entity worldx" + entity.worldx);
-        System.out.println("Entity worldy" + entity.worldy);
 
 
         //Get the object solid area position
         gp.player.solidArea.x =gp.player.worldX + gp.player.solidArea.x;
         gp.player.solidArea.y = gp.player.worldY +gp.player.solidArea.y;
-        System.out.println("Player wordlx" + gp.player.worldx);
-        System.out.println("Player wordly" + gp.player.worldy);
 
 
         switch (entity.direction){
@@ -204,9 +200,6 @@ public class CollisionController {
 
 
         if(entity.solidArea.intersects(gp.player.solidArea)){
-            System.out.println("Entity total solid area is " + entity.solidArea);
-            System.out.println("Player total solid area is " + gp.player.solidArea);
-            System.out.println("Im touching the player");//checks if two tiles are touching or not
             entity.collisionOn = true;
             contactPlayer = true;
         }

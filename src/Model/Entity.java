@@ -30,12 +30,15 @@ public class Entity {
     private boolean invincible = false;
 
     public int invincibleCounter;
+    private boolean hpBarOn = false;
 
     //CHARACTER STATUS
     private int maxLife;
     private int life;
     private String name;
     public int actionLockCounter = 0;
+
+    public int hpBarCounter = 0;
 
     public Entity(GamePannel gp){
         this.gp = gp;
@@ -86,6 +89,13 @@ public class Entity {
     public void setAction() {
     }
 
+    public boolean isHpBarOn() {
+        return hpBarOn;
+    }
+
+    public void setHpBarOn(boolean hpBarOn) {
+        this.hpBarOn = hpBarOn;
+    }
 
     public void update(){
         collisionOn = false;
@@ -140,8 +150,27 @@ public class Entity {
                     break;
             }
 
+            //MONSTER HEALTH BAR
+            if(isHpBarOn()) {
+                double oneScale = (double) gp.playerSize / getMaxLife(); // for changing health bar
+                double hpBarValue = oneScale * getLife();
+
+
+                g2.setColor(new Color(35, 35, 35));
+                g2.fillRect(screenX - 1, screenY - 16, gp.playerSize + 2, 12);
+                g2.setColor(new Color(255, 0, 30)); //red colour
+                g2.fillRect(screenX, screenY - 15, (int) hpBarValue, 10); //setting health bar slightly above the entity
+                hpBarCounter ++;
+
+                if(hpBarCounter > 600){
+                    hpBarCounter = 0;
+                    setHpBarOn(false);
+                }
+            }
 
             if(isInvincible()){
+                setHpBarOn(true);
+                hpBarCounter = 0;
                 g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f)); //setting opacity level for player image
             }
             g2.drawImage(image, screenX, screenY, gp.playerSize, gp.playerSize, null);
