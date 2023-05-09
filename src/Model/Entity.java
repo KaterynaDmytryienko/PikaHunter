@@ -39,6 +39,101 @@ public class Entity {
     public int actionLockCounter = 0;
 
     public int hpBarCounter = 0;
+    private int level;
+    private int strength;
+    private int dexterity;
+    private int attack;
+    private int defense;
+    private int exp;
+    private Entity currentWeapon;
+    private Entity currentShield;
+
+
+    //ITEM ATTRIBUTES
+    private int attackValue;
+    private int defenceValue;
+
+    public int getAttackValue() {
+        return attackValue;
+    }
+
+    public void setAttackValue(int attackValue) {
+        this.attackValue = attackValue;
+    }
+
+    public int getDefenceValue() {
+        return defenceValue;
+    }
+
+    public void setDefenceValue(int defenceValue) {
+        this.defenceValue = defenceValue;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public int getStrength() {
+        return strength;
+    }
+
+    public void setStrength(int strength) {
+        this.strength = strength;
+    }
+
+    public int getDexterity() {
+        return dexterity;
+    }
+
+    public void setDexterity(int dexterity) {
+        this.dexterity = dexterity;
+    }
+
+    public int getAttack() {
+        return attack;
+    }
+
+    public int setAttack(int attack) {
+        this.attack = attack;
+        return attack;
+    }
+
+    public int getDefense() {
+        return defense;
+    }
+
+    public int setDefense(int defense) {
+        this.defense = defense;
+        return defense;
+    }
+
+    public int getExp() {
+        return exp;
+    }
+
+    public void setExp(int exp) {
+        this.exp = exp;
+    }
+
+    public Entity getCurrentWeapon() {
+        return currentWeapon;
+    }
+
+    public void setCurrentWeapon(Entity currentWeapon) {
+        this.currentWeapon = currentWeapon;
+    }
+
+    public Entity getCurrentShield() {
+        return currentShield;
+    }
+
+    public void setCurrentShield(Entity currentShield) {
+        this.currentShield = currentShield;
+    }
 
     public Entity(GamePannel gp){
         this.gp = gp;

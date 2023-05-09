@@ -39,33 +39,46 @@ public class KeyHandler implements KeyListener {
 
         //TITLE STATE
         if (gp.gameState == gp.titleState) {
-            if (code == KeyEvent.VK_W) {
-                gp.userInterface.setCommandNum(gp.userInterface.getCommandNum() - 1);
-                if (gp.userInterface.getCommandNum() < 0) {
-                    gp.userInterface.setCommandNum(2);
-                }
-            }
+             titleState(code);
+        }
+        else if (gp.gameState == gp.playState) {
+            playState(code);
+        }
+        else if(gp.gameState == gp.characterState){
+           characterState(code);
+        }
+    }
 
-            if (code == KeyEvent.VK_S) {
-                gp.userInterface.setCommandNum(gp.userInterface.getCommandNum() + 1);
-                if (gp.userInterface.getCommandNum() > 2) {
-                    gp.userInterface.setCommandNum(0);
-                }
-            }
-
-            if(code == KeyEvent.VK_ENTER){ // start new game
-                if(gp.userInterface.getCommandNum() == 0){
-                    gp.gameState = gp.playState;
-                }
-                if(gp.userInterface.getCommandNum() == 1){
-                    //LOAD GAME
-                }
-
-                if(gp.userInterface.getCommandNum() == 2){
-                    System.exit(0);
-                }
+    public void titleState(int code){
+        if (code == KeyEvent.VK_W) {
+            gp.userInterface.setCommandNum(gp.userInterface.getCommandNum() - 1);
+            if (gp.userInterface.getCommandNum() < 0) {
+                gp.userInterface.setCommandNum(2);
             }
         }
+
+        if (code == KeyEvent.VK_S) {
+            gp.userInterface.setCommandNum(gp.userInterface.getCommandNum() + 1);
+            if (gp.userInterface.getCommandNum() > 2) {
+                gp.userInterface.setCommandNum(0);
+            }
+        }
+
+        if (code == KeyEvent.VK_ENTER) { // start new game
+            if (gp.userInterface.getCommandNum() == 0) {
+                gp.gameState = gp.playState;
+            }
+            if (gp.userInterface.getCommandNum() == 1) {
+                //LOAD GAME
+            }
+
+            if (gp.userInterface.getCommandNum() == 2) {
+                System.exit(0);
+            }
+        }
+    }
+
+    public void playState(int code){
         if (code == KeyEvent.VK_UP) {//press up
             pressedUp = true;
         }
@@ -84,6 +97,10 @@ public class KeyHandler implements KeyListener {
             pressedRight = true;
 
         }
+        //setting key for a character state
+        if(code == KeyEvent.VK_C){
+            gp.gameState = gp.characterState;
+        }
 
         if (code == KeyEvent.VK_ENTER) {//press right
             pressedEnter = true;
@@ -95,6 +112,12 @@ public class KeyHandler implements KeyListener {
         }
 
 
+    }
+
+    public void characterState(int code){
+        if(code == KeyEvent.VK_C){
+            gp.gameState = gp.playState;
+        }
     }
 
     /** Sets variables pressedUp, pressedDown, pressedRight and pressedLeft to "false"

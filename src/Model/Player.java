@@ -43,18 +43,32 @@ public class Player extends Entity{
     /**
      * Setting default values for an instance.
      */
-    public void setDefault(){
+    public void setDefault() throws IOException {
        this.worldx = gp.playerSize * 23;
        this.worldy = gp.playerSize * 21;
 
         speed = 3;
         direction = "left";
        //PLAYER STATUS where halfHeart is 1 life, 6 half hearts are 3 lives  (two lives - one heart)
+        setLevel(1);
         setMaxLife(6);
         setLife(getMaxLife());
-
+        setStrength(1);
+        setDexterity(1);
+//        setExp(0);
+        setCurrentWeapon(new Sword(gp));
+        setCurrentShield(new Shield(gp));
+        setAttack(getAttackVariable());
+        setDefense(getDefenseVariable());
     }
 
+    public int getAttackVariable(){
+        return setAttack(getStrength()*getCurrentWeapon().getAttackValue());
+    }
+
+    public int getDefenseVariable(){
+        return setDefense(getDexterity()* getCurrentShield().getDefenceValue());
+    }
     /**
      * Gets images of an instance.
      */

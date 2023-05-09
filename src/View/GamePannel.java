@@ -32,6 +32,7 @@ public class GamePannel extends JPanel implements Runnable {
     public UserInterface userInterface = new UserInterface(this);
     public EventHandler eventHandler = new EventHandler(this);
     Thread gameThread;
+    public final int characterState = 4;
 
     public CollisionController collisionController = new CollisionController(this);
 
