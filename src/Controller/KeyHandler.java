@@ -118,6 +118,27 @@ public class KeyHandler implements KeyListener {
         if(code == KeyEvent.VK_C){
             gp.gameState = gp.playState;
         }
+        if(code == KeyEvent.VK_W){
+            if(gp.userInterface.slotRow != 0) {
+                gp.userInterface.slotRow--;
+            }
+        }
+
+        if(code == KeyEvent.VK_A){
+            if(gp.userInterface.slotCol != 0) {
+                gp.userInterface.slotCol--;
+            }
+        }
+        if(code == KeyEvent.VK_S){
+            if(gp.userInterface.slotRow != 3) {
+                gp.userInterface.slotRow++;
+            }
+        }
+        if(code == KeyEvent.VK_D){
+            if(gp.userInterface.slotCol!=4) {
+                gp.userInterface.slotCol++;
+            }
+        }
     }
 
     /** Sets variables pressedUp, pressedDown, pressedRight and pressedLeft to "false"

@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Player extends Entity{
     KeyHandler keyHandler;
@@ -15,6 +16,8 @@ public class Player extends Entity{
     public final int screeny;
     public int keyAmount = 0;
     public int elixirAmount = 0;
+    public ArrayList<Entity> inventory = new ArrayList<>();
+    public final int inventorySize = 20;
 
     public Player(GamePannel gp, KeyHandler keyHandler) throws IOException {
         super(gp);
@@ -38,6 +41,7 @@ public class Player extends Entity{
         setDefault();
         getPlayerImage();
         getPlayerAttackImages();
+        setItems();
     }
 
     /**
@@ -62,6 +66,11 @@ public class Player extends Entity{
         setDefense(getDefenseVariable());
     }
 
+    public void setItems(){
+        inventory.add(getCurrentWeapon());
+        //shield
+        inventory.add(getCurrentShield());
+    }
     public int getAttackVariable(){
         return setAttack(getStrength()*getCurrentWeapon().getAttackValue());
     }

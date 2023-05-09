@@ -19,6 +19,9 @@ public class UserInterface {
 //    double playTime; //creating game timer
     public int commandNum = 0;
 
+    public int slotCol = 0;
+    public int slotRow = 0;
+
     DecimalFormat decimalFormat = new DecimalFormat("#0.00"); //format the game time (DISPLAY 2 PLACES OF DECIMALS)
 
     public UserInterface(GamePannel gp) {
@@ -50,6 +53,7 @@ public class UserInterface {
         //CHARACTER STATE
         if(gp.gameState == gp.characterState){
             drawCharacterScreen(g2);
+            drawInventory(g2);
         }
 
          drawPlayerLife(g2);
@@ -237,6 +241,73 @@ public class UserInterface {
         g2.drawImage(gp.player.getCurrentShield().back, textX-gp.playerSize, textY-15, gp.playerSize, gp.playerSize,  null);
     }
 
+    public void drawInventory(Graphics2D g2){
+        //FRAME
+        int frameX = gp.playerSize * 9;
+        int frameY = gp.playerSize;
+        int frameWidth = gp.playerSize * 6;
+        int frameHeight = gp.playerSize * 5;
+        drawWindow(frameX, frameY, frameWidth, frameHeight, g2);
+
+        //SLOT
+        final int slotXStart = frameX + 20;
+        final int slotYStart = frameY + 20;
+
+        int slotX = slotXStart;
+        int slotY = slotYStart;
+
+        //DRAW ITEMS
+        for(int i = 0; i < gp.player.inventory.size(); i++){
+            g2.drawImage(gp.player.inventory.get(i).back, slotX, slotY, gp.playerSize, gp.playerSize, null);
+            slotX += gp.playerSize;
+            if(i == 4 || i == 9 || i == 14){ // when we are on the end position of the raw, we need to move to next row
+                slotX = slotXStart;
+                slotY += gp.playerSize;
+            }
+        }
+
+        //DRAW CURSOR
+        int cursorX = slotXStart + (gp.playerSize * slotCol);
+        int cursorY = slotYStart + (gp.playerSize * slotRow);
+        int cursorWidth = gp.playerSize;
+        int cursorHeight = gp.playerSize;
+
+        //DRAW CURSOR
+        g2.setColor(Color.WHITE);
+        g2.setStroke(new BasicStroke(3)); // setting border thickness of a cursor
+        g2.drawRoundRect(cursorX, cursorY, cursorWidth, cursorHeight, 10, 10);
+
+        //DESCRIPTION FRAME
+        int dFrameX = frameX;
+        int dFrameY = frameY + frameHeight;
+        int dFrameWidth = frameWidth;
+        int dFrameHeight = gp.playerSize * 3;
+        drawWindow(dFrameX, dFrameY, dFrameWidth, dFrameHeight, g2);
+
+        //DRAW DESCRIPTION TEXT
+        int textX = dFrameX + 20;
+        int textY = dFrameY + gp.playerSize;
+        g2.setFont(g2.getFont().deriveFont(28F));
+
+        //GET ITEM INDEX
+        int itemIndex = getItemIndexOnSlot();
+        if(itemIndex < gp.player.inventory.size()){
+
+            for(String line : gp.player.inventory.get(itemIndex).getDescription().split("\n")){
+                g2.drawString(line, textX, textY); //drawing description for current item
+                textY += 32;
+            }
+
+        }
+
+
+
+    }
+
+    public int getItemIndexOnSlot(){
+        int itemIndex = slotCol + (slotRow * 5);
+        return itemIndex;
+    }
     public int getCommandNum() {
         return commandNum;
     }

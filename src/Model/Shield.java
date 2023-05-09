@@ -11,5 +11,6 @@ public class Shield extends Entity{
         setName("Shield");
         back = ImageIO.read(getClass().getResourceAsStream("/objectsImages/shield_wood.png"));
         setDefenceValue(1);
+        setDescription("[" + getName() + "]\nAn old shield,\n created for defence." );
     }
 }

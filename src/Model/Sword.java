@@ -12,5 +12,6 @@ public class Sword extends Entity{
         setName("Sword");
         back = ImageIO.read(getClass().getResourceAsStream("/objectsImages/sword_normal.png"));
         setAttackValue(1);
+        setDescription("[" + getName() + "]\nAn old sword." );
     }
 }
