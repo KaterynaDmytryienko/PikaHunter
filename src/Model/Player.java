@@ -16,7 +16,7 @@ public class Player extends Entity{
     public final int screeny;
     public int keyAmount = 0;
     public int elixirAmount = 0;
-    public ArrayList<Entity> inventory = new ArrayList<>();
+    public ArrayList<Item> inventory = new ArrayList<>();
     public final int inventorySize = 20;
 
     public Player(GamePannel gp, KeyHandler keyHandler) throws IOException {
@@ -35,8 +35,8 @@ public class Player extends Entity{
         solidArea.width = 30;
         solidArea.height = 32;
         this.keyHandler = gp.getKeyHandler();
-        attackArea.width = 36;
-        attackArea.height = 36;
+//        attackArea.width = 36;
+//        attackArea.height = 36;
 
         setDefault();
         getPlayerImage();
@@ -60,8 +60,8 @@ public class Player extends Entity{
         setStrength(1);
         setDexterity(1);
 //        setExp(0);
-        setCurrentWeapon(new Sword(gp));
-        setCurrentShield(new Shield(gp));
+        setCurrentWeapon(new Sword());
+        setCurrentShield(new Shield());
         setAttack(getAttackVariable());
         setDefense(getDefenseVariable());
     }
@@ -70,8 +70,11 @@ public class Player extends Entity{
         inventory.add(getCurrentWeapon());
         //shield
         inventory.add(getCurrentShield());
+        inventory.add(new Key());
+        inventory.add(new Key());
     }
     public int getAttackVariable(){
+        attackArea = getCurrentWeapon().attackArea; //updating attack area depending on a weapon
         return setAttack(getStrength()*getCurrentWeapon().getAttackValue());
     }
 
@@ -94,10 +97,21 @@ public class Player extends Entity{
     }
 
     public void getPlayerAttackImages() throws IOException {
-        frontWithSword = ImageIO.read(getClass().getResourceAsStream("/img/frontWithSword.png"));
-        backWithSword = ImageIO.read(getClass().getResourceAsStream("/img/backWithSword.png"));
-        leftWithSword = ImageIO.read(getClass().getResourceAsStream("/img/leftWithSword.png"));
-        rightWithSword = ImageIO.read(getClass().getResourceAsStream("/img/rightWithSword.png"));
+        if(getCurrentWeapon().getType() == 3){
+            frontWithSword = ImageIO.read(getClass().getResourceAsStream("/img/frontWithSword.png"));
+            backWithSword = ImageIO.read(getClass().getResourceAsStream("/img/backWithSword.png"));
+            leftWithSword = ImageIO.read(getClass().getResourceAsStream("/img/leftWithSword.png"));
+            rightWithSword = ImageIO.read(getClass().getResourceAsStream("/img/rightWithSword.png"));
+        }
+
+        if(getCurrentWeapon().getType() == 4){
+            frontWithAxe = ImageIO.read(getClass().getResourceAsStream("/img/pikaWithAxeFront.png"));
+            backWithAxe = ImageIO.read(getClass().getResourceAsStream("/img/pikaWithAxeBack.png"));
+            leftWithAxe = ImageIO.read(getClass().getResourceAsStream("/img/pikaWithAxeLeft.png"));
+            rightWithAxe = ImageIO.read(getClass().getResourceAsStream("/img/pikaWithAxeRight.png"));
+        }
+
+
     }
     /**
      * Updates position of a Player instance on a screen and changes variable direction.
@@ -206,44 +220,52 @@ public class Player extends Entity{
         }
 
     }
-    public void pickUpObject(int i){
-       if(i != 999){
-           String objectName = gp.item[i].name;
+    public void pickUpObject(int i) {
+        if (i != 999) {
+            if (inventory.size() != inventorySize) {
 
-           switch (objectName){
-               case "key":
-                   keyAmount ++;
-                   gp.item[i] = null;
-                   break;
+                if (gp.item[i].getName() == "key") {
+                    keyAmount++;
+                    inventory.add(gp.item[i]);
+                    gp.item[i] = null;
+                } else if (gp.item[i].getName() == "chest") {
+                    if (keyAmount > 0) {
+                        keyAmount--;
+                        elixirAmount++;
+                        inventory.add(new Elixir());
+                        gp.item[i] = null;
+                    }
+                }
+                else if(gp.item[i].getName() == "axe"){
+                    inventory.add(gp.item[i]);
+                    gp.item[i] = null;
+                }
 
-               case "chest":
-                   if(keyAmount > 0){
-                       keyAmount--;
-                       elixirAmount++;
-                       gp.item[i] = null;
-                   }
-                   break;
-           }
-       }
+            }
+
+        }
     }
+
+
 
     public void interactMonster(int index){
         if(index != 999){
             if(isInvincible() == false) {// player receives damage only if he is not invincible
                 setLife(getLife()-1);
                 setInvincible(true);
-
-
             }
-
         }
-
     }
 
     public void damageMonster(int i){
         if(i != 999){
            if(gp.monster[i].isInvincible() == false){
-               gp.monster[i].setLife(gp.monster[i].getLife()-1);
+               if(getCurrentWeapon().getType() == 3) {
+                   gp.monster[i].setLife(gp.monster[i].getLife() - 1);
+               }
+               else if (getCurrentWeapon().getType() == 4){
+                   gp.monster[i].setLife(gp.monster[i].getLife() - 2);
+               }
                gp.monster[i].setInvincible(true);
 
                if(gp.monster[i].getLife() <= 0){
@@ -253,6 +275,23 @@ public class Player extends Entity{
         }
     }
 
+    public void selectItem() throws IOException {
+        int itemIndex = gp.userInterface.getItemIndexOnSlot();
+
+        if(itemIndex < inventory.size()){
+            Item selectedItem = inventory.get(itemIndex);
+
+            if(selectedItem.getType() == 3 || selectedItem.getType()== 4){
+                setCurrentWeapon(selectedItem);
+                setAttack(getAttack());
+                getPlayerAttackImages();
+            }
+            if(selectedItem.getType() == 6) {
+                setCurrentShield(selectedItem);
+                setDefense(getDefense());
+            }
+        }
+    }
     /**
      * Draws Player instance on a screen and changes images depending on direction of a Player instance.
      *
@@ -266,7 +305,12 @@ public class Player extends Entity{
                     image = back;
                 }
                 if(isAttacking()){
-                    image = backWithSword;
+                    if(getCurrentWeapon().getType() == 3) {
+                        image = backWithSword;
+                    }
+                    else if(getCurrentWeapon().getType() == 4){
+                        image = backWithAxe;
+                    }
                 }
                 break;
 
@@ -275,7 +319,13 @@ public class Player extends Entity{
                     image = left;
                 }
                 if(isAttacking()){
-                    image = leftWithSword;
+                    if(getCurrentWeapon().getType() == 3) {
+                        image = leftWithSword;
+                    }
+                    else if(getCurrentWeapon().getType() == 4){
+                        image = leftWithAxe;
+                    }
+
                 }
                 break;
 
@@ -284,7 +334,13 @@ public class Player extends Entity{
                     image = right;
                 }
                 if(isAttacking()){
-                    image = rightWithSword;
+                    if(getCurrentWeapon().getType() == 3) {
+                        image = rightWithSword;
+                    }
+                    else if(getCurrentWeapon().getType() == 4){
+                        image = rightWithAxe;
+                    }
+
                 }
                 break;
 
@@ -293,7 +349,13 @@ public class Player extends Entity{
                     image = front;
                 }
                 if(isAttacking()){
-                    image = frontWithSword;
+                    if(getCurrentWeapon().getType() == 3) {
+                        image = frontWithSword;
+                    }
+                    else if(getCurrentWeapon().getType() == 4){
+                        image = frontWithAxe;
+                    }
+
                 }
                 break;
         }

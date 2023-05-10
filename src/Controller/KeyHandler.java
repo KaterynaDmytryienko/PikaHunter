@@ -6,6 +6,7 @@ import View.GamePannel;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.IOException;
 
 
 public class KeyHandler implements KeyListener {
@@ -45,7 +46,11 @@ public class KeyHandler implements KeyListener {
             playState(code);
         }
         else if(gp.gameState == gp.characterState){
-           characterState(code);
+            try {
+                characterState(code);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
         }
     }
 
@@ -114,7 +119,7 @@ public class KeyHandler implements KeyListener {
 
     }
 
-    public void characterState(int code){
+    public void characterState(int code) throws IOException {
         if(code == KeyEvent.VK_C){
             gp.gameState = gp.playState;
         }
@@ -138,6 +143,9 @@ public class KeyHandler implements KeyListener {
             if(gp.userInterface.slotCol!=4) {
                 gp.userInterface.slotCol++;
             }
+        }
+        if(code == KeyEvent.VK_ENTER){
+            gp.player.selectItem();
         }
     }
 

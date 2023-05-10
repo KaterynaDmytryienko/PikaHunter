@@ -12,7 +12,7 @@ public class AssetSetter {
         this.gp = gp;
     }
 
-    public void setObject(){
+    public void setObject() throws IOException {
         gp.item[0] = new Key(); //because Object_key is a subclass of ObjectSuper
         gp.item[0].worldX = 23 * gp.playerSize;
         gp.item[0].worldY = 7 * gp.playerSize;
@@ -29,6 +29,10 @@ public class AssetSetter {
         gp.item[3].worldX = 25 * gp.playerSize;
         gp.item[3].worldY = 42 * gp.playerSize;
         gp.item[3].collision = true;
+
+        gp.item[4] = new Axe();
+        gp.item[4].worldX = 21 * gp.playerSize;
+        gp.item[4].worldY = 7 * gp.playerSize;
 
     }
 

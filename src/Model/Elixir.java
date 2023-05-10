@@ -5,9 +5,9 @@ import java.io.IOException;
 
 public class Elixir extends Item {
     public Elixir(){
-        name = "elixir";
+        setName("elixir");
         try{
-            image = ImageIO.read(getClass().getResourceAsStream("/objectsImages/elixir.png"));
+            back = ImageIO.read(getClass().getResourceAsStream("/objectsImages/elixir.png"));
         }
         catch (IOException e){
             e.printStackTrace();

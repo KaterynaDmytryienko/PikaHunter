@@ -5,12 +5,12 @@ import View.GamePannel;
 import javax.imageio.ImageIO;
 import java.io.IOException;
 
-public class Shield extends Entity{
-    public Shield(GamePannel gp) throws IOException {
-        super(gp);
+public class Shield extends Item{
+    public Shield() throws IOException {
         setName("Shield");
         back = ImageIO.read(getClass().getResourceAsStream("/objectsImages/shield_wood.png"));
         setDefenceValue(1);
         setDescription("[" + getName() + "]\nAn old shield,\n created for defence." );
+        setType(5);
     }
 }

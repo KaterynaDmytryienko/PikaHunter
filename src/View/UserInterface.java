@@ -57,10 +57,10 @@ public class UserInterface {
         }
 
          drawPlayerLife(g2);
-         g2.drawImage(keyImage, gp.playerSize / 2, gp.playerSize/2, gp.playerSize, gp.playerSize, null);
-         g2.drawString("x " + gp.player.keyAmount, 74, 65);
-        g2.drawImage(elixirImage, 24, 80, gp.playerSize, gp.playerSize, null);
-        g2.drawString("x " + gp.player.elixirAmount, 74, 110);
+//         g2.drawImage(keyImage, gp.playerSize / 2, gp.playerSize/2, gp.playerSize, gp.playerSize, null);
+//         g2.drawString("x " + gp.player.keyAmount, 74, 65);
+//        g2.drawImage(elixirImage, 24, 80, gp.playerSize, gp.playerSize, null);
+//        g2.drawString("x " + gp.player.elixirAmount, 74, 110);
 
 //         //TIME
 //        playTime += (double) 1/60;
@@ -258,6 +258,17 @@ public class UserInterface {
 
         //DRAW ITEMS
         for(int i = 0; i < gp.player.inventory.size(); i++){
+
+            //EQUIP CURSOR
+            if(gp.player.inventory.get(i)==gp.player.getCurrentWeapon()||
+            gp.player.inventory.get(i) == gp.player.getCurrentShield()){
+                g2.setColor(new Color(240, 190, 90)); //highlight current equipment
+                g2.fillRoundRect(slotX, slotY, gp.playerSize, gp.playerSize, 10, 10);
+            }
+
+
+
+
             g2.drawImage(gp.player.inventory.get(i).back, slotX, slotY, gp.playerSize, gp.playerSize, null);
             slotX += gp.playerSize;
             if(i == 4 || i == 9 || i == 14){ // when we are on the end position of the raw, we need to move to next row
@@ -282,7 +293,7 @@ public class UserInterface {
         int dFrameY = frameY + frameHeight;
         int dFrameWidth = frameWidth;
         int dFrameHeight = gp.playerSize * 3;
-        drawWindow(dFrameX, dFrameY, dFrameWidth, dFrameHeight, g2);
+
 
         //DRAW DESCRIPTION TEXT
         int textX = dFrameX + 20;
@@ -292,7 +303,7 @@ public class UserInterface {
         //GET ITEM INDEX
         int itemIndex = getItemIndexOnSlot();
         if(itemIndex < gp.player.inventory.size()){
-
+            drawWindow(dFrameX, dFrameY, dFrameWidth, dFrameHeight, g2);
             for(String line : gp.player.inventory.get(itemIndex).getDescription().split("\n")){
                 g2.drawString(line, textX, textY); //drawing description for current item
                 textY += 32;

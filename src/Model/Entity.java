@@ -17,6 +17,7 @@ public class Entity {
     public BufferedImage back;
     public String direction;
     public BufferedImage backWithSword, frontWithSword, leftWithSword, rightWithSword;
+    public BufferedImage backWithAxe, frontWithAxe, leftWithAxe, rightWithAxe;
     public Rectangle solidArea = new Rectangle(); // class for abstract rectangle
     public Rectangle attackArea = new Rectangle(0, 0, 0, 0); //entity attack area
     public int worldX;
@@ -45,8 +46,8 @@ public class Entity {
     private int attack;
     private int defense;
     private int exp;
-    private Entity currentWeapon;
-    private Entity currentShield;
+    private Item currentWeapon;
+    private Item currentShield;
     private String description = "";
 
     public String getDescription() {
@@ -127,19 +128,19 @@ public class Entity {
         this.exp = exp;
     }
 
-    public Entity getCurrentWeapon() {
+    public Item getCurrentWeapon() {
         return currentWeapon;
     }
 
-    public void setCurrentWeapon(Entity currentWeapon) {
+    public void setCurrentWeapon(Item currentWeapon) {
         this.currentWeapon = currentWeapon;
     }
 
-    public Entity getCurrentShield() {
+    public Item getCurrentShield() {
         return currentShield;
     }
 
-    public void setCurrentShield(Entity currentShield) {
+    public void setCurrentShield(Item currentShield) {
         this.currentShield = currentShield;
     }
 

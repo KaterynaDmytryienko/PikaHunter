@@ -7,11 +7,9 @@ import java.io.IOException;
 
 public class TreasureChest extends Item {
     public TreasureChest(){
-        name = "chest";
+        setName("chest");
         try{
-            image = ImageIO.read(getClass().getResourceAsStream("/objectsImages/chest.png"));
-            image2 =  ImageIO.read(getClass().getResourceAsStream("/objectsImages/chest_opened.png"));
-
+            back = ImageIO.read(getClass().getResourceAsStream("/objectsImages/chest.png"));
         }
         catch (IOException e){
             e.printStackTrace();

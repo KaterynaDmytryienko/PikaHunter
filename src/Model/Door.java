@@ -6,7 +6,7 @@ import java.io.IOException;
 
 public class Door extends Item{
     public Door() {
-        name = "door";
+        setName("door");
         try {
             image = ImageIO.read(getClass().getResourceAsStream("/objectsImages/key.png"));
         } catch (IOException e) {
