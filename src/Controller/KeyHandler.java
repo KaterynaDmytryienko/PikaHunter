@@ -109,7 +109,6 @@ public class KeyHandler implements KeyListener {
 
         if (code == KeyEvent.VK_ENTER) {//press right
             pressedEnter = true;
-
         }
 
         if (code == KeyEvent.VK_SPACE) { // press space for attack

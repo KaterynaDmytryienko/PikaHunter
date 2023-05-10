@@ -1,6 +1,7 @@
 package Controller;
 
 import Model.Entity;
+import Model.Item;
 import View.GamePannel;
 
 public class CollisionController {
@@ -211,4 +212,51 @@ public class CollisionController {
 
     }
 
+
+    public int checkItem(Entity entity, Item[] target){
+        int index = 999;
+
+        for(int i = 0; i < target.length; i++){
+            if(target[i] != null){
+
+                //Get entity solid area position
+                entity.solidArea.x = entity.worldx + entity.solidArea.x;
+                entity.solidArea.y = entity.worldy + entity.solidArea.y;
+
+
+                //Get the object solid area position
+                target[i].solidArea.x = target[i].worldX + target[i].solidArea.x;
+                target[i].solidArea.y = target[i].worldY + target[i].solidArea.y;
+
+                switch (entity.direction){
+                    case "up":
+                        entity.solidArea.y -= entity.speed;
+                        break;
+
+                    case "down":
+                        entity.solidArea.y += entity.speed;
+                        break;
+
+                    case "left":
+                        entity.solidArea.x -= entity.speed;
+                        break;
+
+                    case"right":
+                        entity.solidArea.x += entity.speed;
+                        break;
+                }
+                if(entity.solidArea.intersects(target[i].solidArea)){
+                        entity.collisionOn = true;
+                        index = i;
+                }
+                entity.solidArea.x = entity.solidAreaDefaultX;
+                entity.solidArea.y = entity.solidAreaDefaultY;
+                target[i].solidArea.x = target[i].solidAreaDefaultX;
+                target[i].solidArea.y = target[i].solidAreaDefaultY;
+            }
+
+        }
+        return index;
+
+    }
 }

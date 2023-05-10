@@ -11,6 +11,7 @@ public class Entity {
     GamePannel gp;
     public int speed;
     private boolean attacking = false;
+    public BufferedImage image;
     public BufferedImage front;
     public BufferedImage right;
     public BufferedImage left;
@@ -61,6 +62,15 @@ public class Entity {
     //ITEM ATTRIBUTES
     private int attackValue;
     private int defenceValue;
+    private int type;
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
 
     public int getAttackValue() {
         return attackValue;

@@ -119,7 +119,6 @@ public class Player extends Entity{
     public void update(){
 
         if(gp.getKeyHandler().pressedSpace){
-            System.out.println("Im attacking");
             setAttacking(true);
             attacking();
         }
@@ -154,6 +153,9 @@ public class Player extends Entity{
         int monsterIndex = gp.collisionController.checkEntity(this, gp.monster);
         interactMonster(monsterIndex);
 
+        //CHECK INTERACTIVE TILE COLLISION
+        int iTileIndex = gp.collisionController.checkItem(this, gp.iTile);
+        damageInteractiveTile(iTileIndex);
 
         //IF COLLISION == FALSE, player can move
         if(!collisionOn && (keyHandler.pressedUp || keyHandler.pressedDown || keyHandler.pressedLeft
@@ -206,6 +208,10 @@ public class Player extends Entity{
             //check monster collision with updated worldX worldY and solidArea
             int monsterIndex = gp.collisionController.checkEntity(this, gp.monster);
             damageMonster(monsterIndex);
+
+            //INTERACTIVE TILE
+            int iTileIndex = gp.collisionController.checkItem(this, gp.iTile);
+            damageInteractiveTile(iTileIndex);
 
             //restoring the original data
             worldX = currentWorldX;
@@ -272,6 +278,12 @@ public class Player extends Entity{
                    gp.monster[i] = null;
                }
            }
+        }
+    }
+
+    public void damageInteractiveTile(int index){
+        if(index!=999 && gp.iTile[index].isDestructible() && gp.iTile[index].isSuitableWeapon(this) && keyHandler.pressedSpace){
+            gp.iTile[index] = null;
         }
     }
 

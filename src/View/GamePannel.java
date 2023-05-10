@@ -1,10 +1,7 @@
 package View;
 
 import Controller.*;
-import Model.Enemy;
-import Model.Entity;
-import Model.Item;
-import Model.Player;
+import Model.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -42,6 +39,7 @@ public class GamePannel extends JPanel implements Runnable {
 
     //CREATING MONSTER ARRAY
     public Entity monster[] = new Entity[20];
+    public InteractiveTile iTile[] = new InteractiveTile[30];
 
 
 
@@ -68,6 +66,7 @@ public class GamePannel extends JPanel implements Runnable {
     public void setupGame() throws IOException {
         assetSetter.setObject();
         assetSetter.setMonster();
+        assetSetter.setInteractiveTiles();
         gameState = titleState;
     }
 
@@ -125,6 +124,11 @@ public class GamePannel extends JPanel implements Runnable {
                     monster[i].update();
                 }
             }
+            for(int i = 0; i < iTile.length; i++){
+                if(iTile[i]!=null){
+                    iTile[i].update();
+                }
+            }
         }
     }
 
@@ -147,6 +151,13 @@ public class GamePannel extends JPanel implements Runnable {
         else {
             //TILE
             tileManager.draw(g2);
+
+            //INTERACTIVE TILE
+            for(int i = 0; i < iTile.length; i++){
+                if(iTile[i]!= null){
+                    iTile[i].draw(g2, this);
+                }
+            }
 
             //OBJECT
             for(int i = 0; i < item.length; i++){
