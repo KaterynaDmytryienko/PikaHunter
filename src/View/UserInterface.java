@@ -55,6 +55,9 @@ public class UserInterface {
             drawCharacterScreen(g2);
             drawInventory(g2);
         }
+        if(gp.gameState == gp.gameOverState){
+            drawGameOverScreen(g2);
+        }
 
          drawPlayerLife(g2);
 //         g2.drawImage(keyImage, gp.playerSize / 2, gp.playerSize/2, gp.playerSize, gp.playerSize, null);
@@ -308,11 +311,46 @@ public class UserInterface {
                 g2.drawString(line, textX, textY); //drawing description for current item
                 textY += 32;
             }
+        }
+    }
 
+    public void drawGameOverScreen(Graphics2D g2){
+        g2.setColor(new Color(0, 0, 0, 150));
+        g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+        int x;
+        int y;
+        String text;
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 110f));
+        text = "GAME OVER";
+
+        //SHADOW
+        g2.setColor(Color.BLACK);
+        x = getXForCenteredText(text, g2);
+        y = gp.playerSize*4;
+        g2.drawString(text, x, y);
+        //MAIN TEXT
+        g2.setColor(Color.WHITE);
+        g2.drawString(text, x -4, y-4);
+
+        //RETRY
+        g2.setFont(g2.getFont().deriveFont(50f));
+        text = "Retry";
+        x = getXForCenteredText(text, g2);
+        y += gp.playerSize * 4;
+        g2.drawString(text, x, y);
+
+        if(getCommandNum() == 0){
+           g2.drawString(">", x-40, y);
         }
 
-
-
+        //BACK TO THE TITLE SCREEN
+        text = "Quit";
+        x = getXForCenteredText(text, g2);
+        y += 55;
+        g2.drawString(text, x, y);
+        if(commandNum ==1 ){
+            g2.drawString(">", x-40, y);
+        }
     }
 
     public int getItemIndexOnSlot(){
@@ -341,7 +379,12 @@ public class UserInterface {
           int lenght = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
           int x = tailX - lenght; //starting point for drawing the text
         return x;
+    }
 
+    public int getXForCenteredText(String text, Graphics2D g2){
+        int length = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
+        int x = gp.screenWidth/2 - length/2;
+        return x;
     }
 
 }

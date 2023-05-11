@@ -42,12 +42,21 @@ public class KeyHandler implements KeyListener {
         if (gp.gameState == gp.titleState) {
              titleState(code);
         }
+        //PLAY STATE
         else if (gp.gameState == gp.playState) {
             playState(code);
         }
+        //CHARACTER STATE
         else if(gp.gameState == gp.characterState){
             try {
                 characterState(code);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        }
+        else if(gp.gameState == gp.gameOverState){
+            try {
+                gameOverState(code);
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
@@ -145,6 +154,32 @@ public class KeyHandler implements KeyListener {
         }
         if(code == KeyEvent.VK_ENTER){
             gp.player.selectItem();
+        }
+    }
+
+    public void gameOverState(int code) throws IOException {
+        if(code == KeyEvent.VK_W){
+            gp.userInterface.setCommandNum(gp.userInterface.getCommandNum()-1);
+            if(gp.userInterface.commandNum < 0){
+                gp.userInterface.setCommandNum(1);
+            }
+        }
+
+        if(code == KeyEvent.VK_S){
+            gp.userInterface.setCommandNum(gp.userInterface.getCommandNum()+1);
+            if(gp.userInterface.commandNum > 1){
+                gp.userInterface.setCommandNum(0);
+            }
+        }
+        if(code == KeyEvent.VK_ENTER){
+            if(gp.userInterface.getCommandNum() == 0){
+                gp.gameState = gp.playState;
+                gp.retry();
+            }
+            else if(gp.userInterface.getCommandNum() == 1){
+                gp.gameState = gp.titleState;
+                gp.restart();
+            }
         }
     }
 

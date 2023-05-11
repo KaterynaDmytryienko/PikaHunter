@@ -47,21 +47,30 @@ public class Enemy extends Entity{
 
             Random random = new Random();
             int i = random.nextInt(100)+1;
-            System.out.println(i);
             if(i <= 25){
-                direction = "up";
+
+                if(!collisionOn) {
+                    System.out.println(collisionOn);
+                    direction = "up";
+                }
             }
 
             if(i>25 && i <= 50){
-                direction = "down";
+                if(!collisionOn) {
+                    direction = "down";
+                }
             }
 
             if(i > 50 && i <= 75){
-                direction = "left";
+                if(!collisionOn) {
+                    direction = "left";
+                }
             }
 
             if(i > 75 && i <= 100){
-                direction = "right";
+                if(!collisionOn) {
+                    direction = "right";
+                }
             }
 
             actionLockCounter = 0;
@@ -69,7 +78,6 @@ public class Enemy extends Entity{
             gp.collisionController.checkObject(this, false);
             gp.collisionController.checkEntity(this, gp.monster);
             boolean contactPlayer = gp.collisionController.checkPlayer(this);
-
             if(contactPlayer){
                 if(gp.player.isInvincible() == false){
                     // monster can give damage

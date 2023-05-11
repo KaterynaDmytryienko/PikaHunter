@@ -30,6 +30,7 @@ public class GamePannel extends JPanel implements Runnable {
     public EventHandler eventHandler = new EventHandler(this);
     Thread gameThread;
     public final int characterState = 4;
+    public final int gameOverState = 6;
 
     public CollisionController collisionController = new CollisionController(this);
 
@@ -68,6 +69,22 @@ public class GamePannel extends JPanel implements Runnable {
         assetSetter.setMonster();
         assetSetter.setInteractiveTiles();
         gameState = titleState;
+    }
+
+    public void retry() throws IOException {
+        player.setDefaultPositions();
+        player.restoreLife();
+
+        assetSetter.setMonster();
+    }
+
+    public void restart() throws IOException {
+        player.setDefault();
+        player.setDefaultPositions();
+        player.setItems();
+        assetSetter.setObject();
+        assetSetter.setMonster();
+        assetSetter.setInteractiveTiles();
     }
 
 

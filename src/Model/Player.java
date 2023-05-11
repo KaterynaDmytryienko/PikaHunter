@@ -66,7 +66,18 @@ public class Player extends Entity{
         setDefense(getDefenseVariable());
     }
 
+    public void setDefaultPositions(){
+        this.worldx = gp.playerSize * 23;
+        this.worldy = gp.playerSize * 21;
+        direction = "left";
+    }
+
+    public void restoreLife(){
+        setLife(getMaxLife());
+        setInvincible(false);
+    }
     public void setItems(){
+        inventory.clear();
         inventory.add(getCurrentWeapon());
         //shield
         inventory.add(getCurrentShield());
@@ -175,7 +186,9 @@ public class Player extends Entity{
                 invincibleCounter = 0;
             }
         }
-
+       if(getLife() <= 0){
+           gp.gameState = gp.gameOverState;
+       }
     }
 
     public void attacking() {
