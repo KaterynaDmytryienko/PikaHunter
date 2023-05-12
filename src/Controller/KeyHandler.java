@@ -40,7 +40,13 @@ public class KeyHandler implements KeyListener {
 
         //TITLE STATE
         if (gp.gameState == gp.titleState) {
-             titleState(code);
+            try {
+                titleState(code);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            } catch (ClassNotFoundException ex) {
+                throw new RuntimeException(ex);
+            }
         }
         //PLAY STATE
         else if (gp.gameState == gp.playState) {
@@ -75,7 +81,7 @@ public class KeyHandler implements KeyListener {
         }
     }
 
-    public void titleState(int code){
+    public void titleState(int code) throws IOException, ClassNotFoundException {
         if (code == KeyEvent.VK_W) {
             gp.userInterface.setCommandNum(gp.userInterface.getCommandNum() - 1);
             if (gp.userInterface.getCommandNum() < 0) {
@@ -95,7 +101,8 @@ public class KeyHandler implements KeyListener {
                 gp.gameState = gp.playState;
             }
             if (gp.userInterface.getCommandNum() == 1) {
-                //LOAD GAME
+                gp.saveLoad.load();
+                gp.gameState = gp.playState;
             }
 
             if (gp.userInterface.getCommandNum() == 2) {

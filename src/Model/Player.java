@@ -127,7 +127,7 @@ public class Player extends Entity{
     /**
      * Updates position of a Player instance on a screen and changes variable direction.
      */
-    public void update(){
+    public void update() throws IOException {
 
         if(gp.getKeyHandler().pressedSpace){
             setAttacking(true);
@@ -189,6 +189,27 @@ public class Player extends Entity{
        if(getLife() <= 0){
            gp.gameState = gp.gameOverState;
        }
+    }
+
+
+    public int getCurrentWeaponSlot(){
+        int currentWeaponSlot = 0;
+        for( int i = 0; i < inventory.size(); i++){
+            if(inventory.get(i) == getCurrentWeapon()){
+                currentWeaponSlot = i;
+            }
+        }
+        return currentWeaponSlot;
+    }
+
+    public int getCurrentShieldSlot(){
+        int currentShieldSlot = 0;
+        for( int i = 0; i < inventory.size(); i++){
+            if(inventory.get(i) == getCurrentShield()){
+                currentShieldSlot = i;
+            }
+        }
+        return currentShieldSlot;
     }
 
     public void attacking() {

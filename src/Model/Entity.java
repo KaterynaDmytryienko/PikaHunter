@@ -4,6 +4,7 @@ import View.GamePannel;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 public class Entity {
     public int spriteCounter;
@@ -211,7 +212,7 @@ public class Entity {
         this.hpBarOn = hpBarOn;
     }
 
-    public void update(){
+    public void update() throws IOException {
         collisionOn = false;
         setAction();
         if (!collisionOn){

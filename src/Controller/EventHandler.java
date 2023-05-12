@@ -3,6 +3,7 @@ package Controller;
 import View.GamePannel;
 
 import java.awt.*;
+import java.io.IOException;
 
 public class EventHandler {
     GamePannel gp;
@@ -24,9 +25,12 @@ public class EventHandler {
     }
 
 
-    public void checkEvent(){
-        if(hit(10, 11, "right")){
-            damagePit();
+    public void checkEvent() throws IOException {
+//        if(hit(10, 11, "right")){
+//            damagePit();
+//        }
+        if(hit(11, 11, "back")){
+            savingPool();
         }
         if(gp.getKeyHandler().pressedEnter){
             healing();
@@ -42,16 +46,23 @@ public class EventHandler {
         eventRect.x = eventCol *gp.playerSize + eventRect.x;
         eventRect.y = eventRow *gp.playerSize + eventRect.y;
 
+        System.out.println( "player solid area x"+ gp.player.solidArea.x);
+        System.out.println( "player solid area y"+ gp.player.solidArea.y);
+
+        System.out.println("Rect solid area x: "+  eventRect.x);
+        System.out.println("Rect solid area y: "+  eventRect.y);
+
         if(gp.player.solidArea.intersects(eventRect)){
-            if(gp.player.direction.contentEquals(requiredDirection) || requiredDirection.contentEquals("any")){
+            System.out.println("HIT");
                 hit = true;
-            }
         }
         gp.player.solidArea.x = gp.player.solidAreaDefaultX;
         gp.player.solidArea.y = gp.player.solidAreaDefaultY;
         eventRect.x = eventRectDefaultX;
         eventRect.y = eventRectDefaultY;
+
         return hit;
+
     }
 
     public void damagePit(){
@@ -63,6 +74,11 @@ public class EventHandler {
             gp.player.setLife(gp.player.getMaxLife());
         }
         gp.getKeyHandler().pressedEnter = false;
+    }
+
+    public void savingPool() throws IOException {
+            gp.saveLoad.save();
+        System.out.println("you game is saved");
     }
 
 }

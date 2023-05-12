@@ -50,7 +50,6 @@ public class Enemy extends Entity{
             if(i <= 25){
 
                 if(!collisionOn) {
-                    System.out.println(collisionOn);
                     direction = "up";
                 }
             }

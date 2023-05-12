@@ -2,6 +2,7 @@ package View;
 
 import Controller.*;
 import Model.*;
+import data.SaveLoad;
 
 import javax.swing.*;
 import java.awt.*;
@@ -35,6 +36,7 @@ public class GamePannel extends JPanel implements Runnable {
     public CollisionController collisionController = new CollisionController(this);
 
     public AssetSetter assetSetter = new AssetSetter(this);
+    public SaveLoad saveLoad = new SaveLoad(this);
     public Player player;
     public Item item[] = new Item[10]; //preparing 10 slots for objects(displaying up to 10 objects at the same time)
 
@@ -106,7 +108,11 @@ public class GamePannel extends JPanel implements Runnable {
 
 
         while (gameThread != null) {
-            update();
+            try {
+                update();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
             repaint();
 
             try {
@@ -129,7 +135,7 @@ public class GamePannel extends JPanel implements Runnable {
     /**
      * Invokes method update() on a Player instance.
      */
-    public void update() {
+    public void update() throws IOException {
         if(gameState == playState){
 
             //PLAYER UPDATE
