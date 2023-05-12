@@ -55,8 +55,13 @@ public class UserInterface {
             drawCharacterScreen(g2);
             drawInventory(g2);
         }
+        //GAME OVER STATE
         if(gp.gameState == gp.gameOverState){
             drawGameOverScreen(g2);
+        }
+
+        if(gp.gameState == gp.pauseState){
+            drawPauseScreen(g2);
         }
 
          drawPlayerLife(g2);
@@ -351,6 +356,25 @@ public class UserInterface {
         if(commandNum ==1 ){
             g2.drawString(">", x-40, y);
         }
+    }
+
+    public void drawPauseScreen(Graphics2D g2){
+        g2.setColor(new Color(0, 0, 0, 150));
+        g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+        int x;
+        int y;
+        String text;
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 110f));
+        text = "PAUSED";
+
+        //SHADOW
+        g2.setColor(Color.BLACK);
+        x = getXForCenteredText(text, g2);
+        y =  gp.playerSize*6;
+        g2.drawString(text, x, y);
+        //MAIN TEXT
+        g2.setColor(Color.WHITE);
+        g2.drawString(text, x -4, y-4);
     }
 
     public int getItemIndexOnSlot(){

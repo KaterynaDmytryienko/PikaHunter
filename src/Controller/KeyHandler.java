@@ -54,12 +54,24 @@ public class KeyHandler implements KeyListener {
                 throw new RuntimeException(ex);
             }
         }
+
+        //GAME OVER STATE
         else if(gp.gameState == gp.gameOverState){
             try {
                 gameOverState(code);
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
+        }
+
+        else if(gp.gameState == gp.pauseState){
+            pauseState(code);
+        }
+    }
+
+    public void pauseState(int code){
+        if(code == KeyEvent.VK_P){
+            gp.gameState = gp.playState;
         }
     }
 
@@ -124,6 +136,10 @@ public class KeyHandler implements KeyListener {
             pressedSpace = true;
         }
 
+        if(code == KeyEvent.VK_P){
+            gp.gameState = gp.pauseState;
+        }
+
 
     }
 
@@ -181,7 +197,9 @@ public class KeyHandler implements KeyListener {
                 gp.restart();
             }
         }
+
     }
+
 
     /** Sets variables pressedUp, pressedDown, pressedRight and pressedLeft to "false"
      * depending on a key that has been released.
