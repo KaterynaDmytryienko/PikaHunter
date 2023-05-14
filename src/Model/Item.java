@@ -4,8 +4,9 @@ import View.GamePannel;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 
-public class Item {
+public class Item  {
     public BufferedImage image;
     public BufferedImage image2;
     public BufferedImage image3;

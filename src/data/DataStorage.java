@@ -1,5 +1,7 @@
 package data;
 
+import Model.Item;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -14,5 +16,6 @@ public class DataStorage implements Serializable {
     ArrayList<Integer> itemAmount = new ArrayList<>();
     int currentWeaponSlot;
     int getCurrentShieldSlot;
+    ArrayList<Item> objectStates = new ArrayList<Item>();
 
 }

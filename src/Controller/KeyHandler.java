@@ -4,6 +4,7 @@ import Model.Entity;
 import Model.Key;
 import View.GamePannel;
 
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
@@ -70,14 +71,27 @@ public class KeyHandler implements KeyListener {
             }
         }
 
+        //PAUSE STATE
         else if(gp.gameState == gp.pauseState){
             pauseState(code);
+        }
+
+        //DIALOG STATE
+        else if(gp.gameState == gp.dialogueState){
+            dialogueState(code);
         }
     }
 
     public void pauseState(int code){
         if(code == KeyEvent.VK_P){
             gp.gameState = gp.playState;
+        }
+    }
+
+    public void dialogueState(int code){
+        if(code == KeyEvent.VK_Y){
+            gp.gameState = gp.playState;
+            gp.player.worldy += 10;
         }
     }
 

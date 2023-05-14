@@ -46,11 +46,6 @@ public class EventHandler {
         eventRect.x = eventCol *gp.playerSize + eventRect.x;
         eventRect.y = eventRow *gp.playerSize + eventRect.y;
 
-        System.out.println( "player solid area x"+ gp.player.solidArea.x);
-        System.out.println( "player solid area y"+ gp.player.solidArea.y);
-
-        System.out.println("Rect solid area x: "+  eventRect.x);
-        System.out.println("Rect solid area y: "+  eventRect.y);
 
         if(gp.player.solidArea.intersects(eventRect)){
             System.out.println("HIT");
@@ -78,7 +73,7 @@ public class EventHandler {
 
     public void savingPool() throws IOException {
             gp.saveLoad.save();
-        System.out.println("you game is saved");
+            gp.gameState = gp.dialogueState;
     }
 
 }

@@ -60,8 +60,14 @@ public class UserInterface {
             drawGameOverScreen(g2);
         }
 
+        //PAUSE STATE
         if(gp.gameState == gp.pauseState){
             drawPauseScreen(g2);
+        }
+
+        //DIALOGUE STATE
+        if(gp.gameState == gp.dialogueState){
+            drawDialogueScreen(g2);
         }
 
          drawPlayerLife(g2);
@@ -73,6 +79,25 @@ public class UserInterface {
 //         //TIME
 //        playTime += (double) 1/60;
 //        g2.drawString("Time :" + decimalFormat.format(playTime), gp.playerSize*11,65 );
+    }
+
+    public void drawDialogueScreen(Graphics2D g2){
+        //WINDOW
+        int x = gp.playerSize*2;
+        int y = gp.playerSize/2;
+        int width = gp.screenWidth - (gp.playerSize*4);
+        int height = gp.playerSize*5;
+        drawWindow(x, y, width, height, g2);
+        String text = "";
+        text = "Your game is saved!";
+        x = getXForCenteredText(text, g2);
+        g2.setColor(Color.BLACK);
+        y = gp.playerSize*4;
+        g2.drawString(text, x, y);
+        //MAIN TEXT
+        g2.setColor(Color.WHITE);
+        g2.drawString(text, x -4, y-1);
+
     }
 
     public void drawTitleScreen(Graphics2D g2) {

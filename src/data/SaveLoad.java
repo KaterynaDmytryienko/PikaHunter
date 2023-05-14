@@ -3,7 +3,9 @@ package data;
 import Model.*;
 import View.GamePannel;
 
+import java.awt.*;
 import java.io.*;
+import java.util.ArrayList;
 
 public class SaveLoad {
     GamePannel gp;
@@ -55,10 +57,7 @@ public class SaveLoad {
         dataStorage.currentWeaponSlot = gp.player.getCurrentWeaponSlot();
         dataStorage.getCurrentShieldSlot = gp.player.getCurrentShieldSlot();
 
-        //OBJECTS ON THE MAP
-
         oos.writeObject(dataStorage);
-
 
     }
 
@@ -66,7 +65,7 @@ public class SaveLoad {
         ObjectInputStream ois = new ObjectInputStream(new FileInputStream("save.dat"));
 
         //read the DataStorage object
-        DataStorage ds = (DataStorage)ois.readObject();
+        DataStorage ds = (DataStorage) ois.readObject();
 
         //PLAYER STATUS
         gp.player.setMaxLife(ds.maxLife);
@@ -75,10 +74,9 @@ public class SaveLoad {
         gp.player.setDexterity(ds.dexterity);
 
 
-
         //PLAYER INVENTORY
         gp.player.inventory.clear();
-        for(int i = 0; i < ds.itemNames.size(); i++){
+        for (int i = 0; i < ds.itemNames.size(); i++) {
             gp.player.inventory.add(getObject(ds.itemNames.get(i)));
         }
 
@@ -88,7 +86,5 @@ public class SaveLoad {
         gp.player.getAttack();
         gp.player.getDefense();
         gp.player.getPlayerAttackImages();
-
-
     }
 }

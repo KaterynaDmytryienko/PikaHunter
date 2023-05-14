@@ -268,6 +268,7 @@ public class Player extends Entity{
                     keyAmount++;
                     inventory.add(gp.item[i]);
                     gp.item[i] = null;
+
                 } else if (gp.item[i].getName() == "chest") {
                     if (keyAmount > 0) {
                         keyAmount--;
@@ -279,6 +280,7 @@ public class Player extends Entity{
                 else if(gp.item[i].getName() == "axe"){
                     inventory.add(gp.item[i]);
                     gp.item[i] = null;
+
                 }
 
             }
