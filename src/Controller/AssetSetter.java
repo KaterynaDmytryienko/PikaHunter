@@ -38,13 +38,13 @@ public class AssetSetter {
 
     public void setMonster() throws IOException {
         gp.monster[0] = new Enemy(gp);
-        gp.monster[0].worldX = 21 * gp.playerSize;
-        gp.monster[0].worldY = 21 * gp.playerSize;
+        gp.monster[0].worldx = 21 * gp.playerSize;
+        gp.monster[0].worldy = 21 * gp.playerSize;
         gp.monster[0].collision =true;
 
         gp.monster[1] = new Enemy(gp);
-        gp.monster[1].worldX = 23 * gp.playerSize;
-        gp.monster[1].worldY = 23 * gp.playerSize;
+        gp.monster[1].worldx = 23 * gp.playerSize;
+        gp.monster[1].worldy = 23 * gp.playerSize;
         gp.monster[1].collision =true;
     }
 

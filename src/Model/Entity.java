@@ -213,20 +213,34 @@ public class Entity {
     }
 
     public void update() throws IOException {
-        collisionOn = false;
         setAction();
+        collisionOn = false;
+
+
+        gp.collisionController.checkTile(this);
+        gp.collisionController.checkObject(this, false);
+        gp.collisionController.checkEntity(this, gp.monster);
+        boolean contactPlayer = gp.collisionController.checkPlayer(this);
+        if(contactPlayer){
+            if(!gp.player.isInvincible()){
+                // monster can give damage
+                gp.player.setLife(gp.player.getLife()-1);
+                gp.player.setInvincible(true);
+            }
+        }
+
         if (!collisionOn){
 
             switch (direction){
                 case "up":
-                    worldY -= speed;
+                    worldy -= speed;
                     break;
                 case "down":
-                    worldY += speed; break;
+                    worldy += speed; break;
                 case "left":
-                    worldX -= speed; break;
+                    worldx -= speed; break;
                 case "right":
-                    worldX += speed; break;
+                    worldx += speed; break;
             }
 
 
@@ -244,11 +258,11 @@ public class Entity {
     public void draw(Graphics2D g2, GamePannel gp) {
         BufferedImage image = null;
 
-        int screenX = worldX - gp.player.worldx + gp.player.screenx;
-        int screenY = worldY - gp.player.worldy + gp.player.screeny;
+        int screenX = worldx - gp.player.worldx + gp.player.screenx;
+        int screenY = worldy - gp.player.worldy + gp.player.screeny;
 
-        if (worldX + gp.playerSize > gp.player.worldx - gp.player.screenx && worldX - gp.playerSize < gp.player.worldx + gp.player.screenx &&  // creating a boundary for drawing a tile
-                worldY + gp.playerSize > gp.player.worldy - gp.player.screeny && worldY - gp.playerSize < gp.player.worldy + gp.player.screeny) {
+        if (worldx + gp.playerSize > gp.player.worldx - gp.player.screenx && worldx - gp.playerSize < gp.player.worldx + gp.player.screenx &&  // creating a boundary for drawing a tile
+                worldy + gp.playerSize > gp.player.worldy - gp.player.screeny && worldy - gp.playerSize < gp.player.worldy + gp.player.screeny) {
             switch (direction){
                 case "up":
                     image = front;

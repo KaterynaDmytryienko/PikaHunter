@@ -4,9 +4,7 @@ import View.GamePannel;
 
 
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.io.IOException;
-import java.sql.Struct;
 import java.util.Objects;
 import java.util.Random;
 
@@ -48,44 +46,23 @@ public class Enemy extends Entity{
             Random random = new Random();
             int i = random.nextInt(100)+1;
             if(i <= 25){
-
-                if(!collisionOn) {
-                    direction = "up";
-                }
+                direction = "up";
             }
 
             if(i>25 && i <= 50){
-                if(!collisionOn) {
-                    direction = "down";
-                }
+                direction = "down";
+
             }
 
             if(i > 50 && i <= 75){
-                if(!collisionOn) {
-                    direction = "left";
-                }
+                direction = "left";
             }
 
             if(i > 75 && i <= 100){
-                if(!collisionOn) {
-                    direction = "right";
-                }
+                direction = "right";
             }
-
             actionLockCounter = 0;
-            gp.collisionController.checkTile(this);
-            gp.collisionController.checkObject(this, false);
-            gp.collisionController.checkEntity(this, gp.monster);
-            boolean contactPlayer = gp.collisionController.checkPlayer(this);
-            if(contactPlayer){
-                if(gp.player.isInvincible() == false){
-                    // monster can give damage
-                    gp.player.setLife(gp.player.getLife()-1);
-                    gp.player.setInvincible(true);
-                }
-            }
-
-
         }
+
     }
 }

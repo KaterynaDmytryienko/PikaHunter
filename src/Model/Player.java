@@ -215,24 +215,24 @@ public class Player extends Entity{
     public void attacking() {
         spriteCounter++;
         if (spriteCounter < 25) {
-            int currentWorldX = worldX;
-            int currentWorldY = worldY;
+            int currentWorldX = worldx;
+            int currentWorldY = worldy;
             int solidAreaWidth = solidArea.width;
             int solidAreaHeight = solidArea.height;
 
             //Adjust player worldX/Y for the attackArea
             switch (direction) {
                 case "up":
-                    worldY -= attackArea.height;
+                    worldy -= attackArea.height;
                     break;
                 case "down":
-                    worldY += attackArea.height;
+                    worldy += attackArea.height;
                     break;
                 case "left":
-                    worldX -= attackArea.width;
+                    worldx -= attackArea.width;
                     break;
                 case "right":
-                    worldX += attackArea.width;
+                    worldx += attackArea.width;
                     break;
             }
 
@@ -248,8 +248,8 @@ public class Player extends Entity{
             damageInteractiveTile(iTileIndex);
 
             //restoring the original data
-            worldX = currentWorldX;
-            worldY = currentWorldY;
+            worldx = currentWorldX;
+            worldy = currentWorldY;
 
             solidArea.width = solidAreaWidth;
             solidArea.height = solidAreaHeight;
