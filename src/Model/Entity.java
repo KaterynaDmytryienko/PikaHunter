@@ -215,8 +215,6 @@ public class Entity {
     public void update() throws IOException {
         setAction();
         collisionOn = false;
-
-
         gp.collisionController.checkTile(this);
         gp.collisionController.checkObject(this, false);
         gp.collisionController.checkEntity(this, gp.monster);
@@ -242,14 +240,16 @@ public class Entity {
                 case "right":
                     worldx += speed; break;
             }
+        }
 
 
-            if(isInvincible()){
-                invincibleCounter++;
-                if(invincibleCounter > 40){
-                    setInvincible(false);
-                    invincibleCounter = 0;
-                }
+        if(isInvincible()){
+            System.out.println("Im invincible");
+            invincibleCounter++;
+            if(invincibleCounter > 40){
+                setInvincible(false);
+                System.out.println("im ot nvincible");
+                invincibleCounter = 0;
             }
         }
 

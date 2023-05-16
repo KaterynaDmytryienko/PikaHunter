@@ -35,8 +35,8 @@ public class Player extends Entity{
         solidArea.width = 30;
         solidArea.height = 32;
         this.keyHandler = gp.getKeyHandler();
-//        attackArea.width = 36;
-//        attackArea.height = 36;
+        attackArea.width = 36;
+        attackArea.height = 36;
 
         setDefault();
         getPlayerImage();
@@ -50,7 +50,6 @@ public class Player extends Entity{
     public void setDefault() throws IOException {
        this.worldx = gp.playerSize * 23;
        this.worldy = gp.playerSize * 21;
-
         speed = 3;
         direction = "left";
        //PLAYER STATUS where halfHeart is 1 life, 6 half hearts are 3 lives  (two lives - one heart)
@@ -59,7 +58,6 @@ public class Player extends Entity{
         setLife(getMaxLife());
         setStrength(1);
         setDexterity(1);
-//        setExp(0);
         setCurrentWeapon(new Sword());
         setCurrentShield(new Shield());
         setAttack(getAttackVariable());
@@ -239,7 +237,7 @@ public class Player extends Entity{
             solidArea.width = attackArea.width; //change size of player solid area to attack area
             solidArea.height = attackArea.height;
 
-            //check monster collision with updated worldX worldY and solidArea
+            //check monster collision with updated worldx worldy and solidArea
             int monsterIndex = gp.collisionController.checkEntity(this, gp.monster);
             damageMonster(monsterIndex);
 
@@ -280,15 +278,10 @@ public class Player extends Entity{
                 else if(gp.item[i].getName() == "axe"){
                     inventory.add(gp.item[i]);
                     gp.item[i] = null;
-
                 }
-
             }
-
         }
     }
-
-
 
     public void interactMonster(int index){
         if(index != 999){
@@ -304,6 +297,7 @@ public class Player extends Entity{
            if(gp.monster[i].isInvincible() == false){
                if(getCurrentWeapon().getType() == 3) {
                    gp.monster[i].setLife(gp.monster[i].getLife() - 1);
+                   System.out.println("dmaging monster!");
                }
                else if (getCurrentWeapon().getType() == 4){
                    gp.monster[i].setLife(gp.monster[i].getLife() - 2);
