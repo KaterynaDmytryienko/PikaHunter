@@ -46,9 +46,50 @@ public class AssetSetter {
         gp.monster[1].worldx = 23 * gp.playerSize;
         gp.monster[1].worldy = 23 * gp.playerSize;
         gp.monster[1].collision =true;
+
+        gp.monster[2] = new Enemy(gp);
+        gp.monster[2].worldx = 23 * gp.playerSize;
+        gp.monster[2].worldy = 10 * gp.playerSize;
+        gp.monster[2].collision =true;
+
+        gp.monster[3] = new Enemy(gp);
+        gp.monster[3].worldx = 23 * gp.playerSize;
+        gp.monster[3].worldy = 40 * gp.playerSize;
+        gp.monster[3].collision =true;
     }
 
     public void setInteractiveTiles() throws IOException {
+
+        gp.iTile[18] = new DryTree();
+        gp.iTile[18].worldX = 9 * gp.playerSize; //42
+        gp.iTile[18].worldY = 37 * gp.playerSize ;
+        gp.iTile[18].collision = true;
+
+        gp.iTile[17] = new DryTree();
+        gp.iTile[17].worldX = 9 * gp.playerSize; //42
+        gp.iTile[17].worldY = 36 * gp.playerSize ;
+        gp.iTile[17].collision = true;
+
+        gp.iTile[16] = new DryTree();
+        gp.iTile[16].worldX = 10 * gp.playerSize; //42
+        gp.iTile[16].worldY = 36 * gp.playerSize ;
+        gp.iTile[16].collision = true;
+
+        gp.iTile[15] = new DryTree();
+        gp.iTile[15].worldX = 10 * gp.playerSize; //42
+        gp.iTile[15].worldY = 37 * gp.playerSize ;
+        gp.iTile[15].collision = true;
+
+
+        gp.iTile[13] = new DryTree();
+        gp.iTile[13].worldX = 11 * gp.playerSize; //42
+        gp.iTile[13].worldY = 37 * gp.playerSize ;
+        gp.iTile[13].collision = true;
+
+        gp.iTile[14] = new DryTree();
+        gp.iTile[14].worldX = 11 * gp.playerSize; //42
+        gp.iTile[14].worldY = 36 * gp.playerSize ;
+        gp.iTile[14].collision = true;
 
         gp.iTile[12] = new DryTree();
         gp.iTile[12].worldX = 34 * gp.playerSize; //42

@@ -4,8 +4,9 @@ import View.GamePannel;
 
 import javax.imageio.ImageIO;
 import java.io.IOException;
+import java.io.Serializable;
 
-public class Shield extends Item{
+public class Shield extends Item implements Serializable {
     public Shield() throws IOException {
         setName("Shield");
         back = ImageIO.read(getClass().getResourceAsStream("/objectsImages/shield_wood.png"));

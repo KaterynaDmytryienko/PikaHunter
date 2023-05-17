@@ -244,11 +244,9 @@ public class Entity {
 
 
         if(isInvincible()){
-            System.out.println("Im invincible");
             invincibleCounter++;
             if(invincibleCounter > 40){
                 setInvincible(false);
-                System.out.println("im ot nvincible");
                 invincibleCounter = 0;
             }
         }

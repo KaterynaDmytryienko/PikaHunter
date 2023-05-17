@@ -48,7 +48,7 @@ public class EventHandler {
 
 
         if(gp.player.solidArea.intersects(eventRect)){
-            System.out.println("HIT");
+
                 hit = true;
         }
         gp.player.solidArea.x = gp.player.solidAreaDefaultX;

@@ -1,9 +1,11 @@
 package Model;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.io.IOException;
+import java.io.Serializable;
 
-public class Elixir extends Item {
+public class Elixir extends Item implements Serializable {
     public Elixir(){
         setName("elixir");
         try{

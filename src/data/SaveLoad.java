@@ -3,11 +3,13 @@ package data;
 import Model.*;
 import View.GamePannel;
 
-import java.awt.*;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.ArrayList;
 
 public class SaveLoad {
+    ArrayList<Item> remainingItems = new ArrayList<>();
     GamePannel gp;
 
     public SaveLoad(GamePannel gp) {
@@ -37,6 +39,7 @@ public class SaveLoad {
     }
 
 
+
     public void save() throws IOException {
         ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("save.dat"));
         DataStorage dataStorage = new DataStorage();
@@ -50,16 +53,11 @@ public class SaveLoad {
         //PLAYER INVENTORY
         for(int i = 0; i < gp.player.inventory.size(); i++){
             dataStorage.itemNames.add(gp.player.inventory.get(i).getName());
-            System.out.println(dataStorage.itemNames);
         }
 
-        //PLAYER EQUIPMENT
-        dataStorage.currentWeaponSlot = gp.player.getCurrentWeaponSlot();
-        dataStorage.getCurrentShieldSlot = gp.player.getCurrentShieldSlot();
-
         oos.writeObject(dataStorage);
-
     }
+
 
     public void load() throws IOException, ClassNotFoundException {
         ObjectInputStream ois = new ObjectInputStream(new FileInputStream("save.dat"));
@@ -87,4 +85,7 @@ public class SaveLoad {
         gp.player.getDefense();
         gp.player.getPlayerAttackImages();
     }
-}
+
+    }
+
+

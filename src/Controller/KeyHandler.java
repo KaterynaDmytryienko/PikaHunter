@@ -91,7 +91,7 @@ public class KeyHandler implements KeyListener {
     public void dialogueState(int code){
         if(code == KeyEvent.VK_Y){
             gp.gameState = gp.playState;
-            gp.player.worldy += 10;
+            gp.player.worldy += 20;
         }
     }
 

@@ -14,8 +14,9 @@ public class DataStorage implements Serializable {
 
     ArrayList<String> itemNames = new ArrayList<>();
     ArrayList<Integer> itemAmount = new ArrayList<>();
+
+    ArrayList<String> objectNames = new ArrayList<>();
     int currentWeaponSlot;
     int getCurrentShieldSlot;
-    ArrayList<Item> objectStates = new ArrayList<Item>();
 
 }

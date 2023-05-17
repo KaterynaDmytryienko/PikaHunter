@@ -3,6 +3,7 @@ package View;
 import Controller.*;
 import Model.*;
 import data.SaveLoad;
+import org.w3c.dom.ls.LSOutput;
 
 import javax.swing.*;
 import java.awt.*;
@@ -39,7 +40,7 @@ public class GamePannel extends JPanel implements Runnable {
     public AssetSetter assetSetter = new AssetSetter(this);
     public SaveLoad saveLoad = new SaveLoad(this);
     public Player player;
-    public Item item[] = new Item[10]; //preparing 10 slots for objects(displaying up to 10 objects at the same time)
+    public Item item[] = new Item[10];//preparing 10 slots for objects(displaying up to 10 objects at the same time)
 
     //CREATING MONSTER ARRAY
     public Entity monster[] = new Entity[20];

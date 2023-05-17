@@ -270,8 +270,15 @@ public class Player extends Entity{
                 } else if (gp.item[i].getName() == "chest") {
                     if (keyAmount > 0) {
                         keyAmount--;
+                        for(int j = 0; j < inventory.size(); j++)
+                        {
+                            if(inventory.get(j)!= null && inventory.get(j).getName() == "key"){
+                                inventory.remove(inventory.get(j));
+                                break;
+                            }
+
+                        }
                         elixirAmount++;
-                        inventory.add(new Elixir());
                         gp.item[i] = null;
                     }
                 }

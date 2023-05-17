@@ -6,11 +6,11 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
 
-public class Item  {
+public class Item implements Serializable {
     public BufferedImage image;
     public BufferedImage image2;
     public BufferedImage image3;
-    public BufferedImage back;
+    public transient BufferedImage back;
     private String name;
     private int type;
     public boolean collision = false;
@@ -23,6 +23,15 @@ public class Item  {
     private Entity currentShield;
     private String description = "";
     public Rectangle attackArea = new Rectangle(0, 0, 0, 0); //entity attack area
+
+
+    public BufferedImage getImage() {
+        return image;
+    }
+
+    public void setImage(BufferedImage image) {
+        this.back = image;
+    }
 
     public int getType() {
         return type;
