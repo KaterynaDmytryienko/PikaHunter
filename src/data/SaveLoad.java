@@ -45,10 +45,10 @@ public class SaveLoad {
         DataStorage dataStorage = new DataStorage();
 
         //PLAYER STATUS
-        dataStorage.maxLife = gp.player.getMaxLife();
-        dataStorage.life = gp.player.getLife();
-        dataStorage.dexterity = gp.player.getDexterity();
-        dataStorage.strength = gp.player.getStrength();
+        dataStorage.setMaxLife( gp.player.getMaxLife());
+        dataStorage.setLife(gp.player.getLife());
+        dataStorage.setDexterity(gp.player.getDexterity());
+        dataStorage.setStrength(gp.player.getStrength());
 
         //PLAYER INVENTORY
         for(int i = 0; i < gp.player.inventory.size(); i++){
@@ -66,10 +66,10 @@ public class SaveLoad {
         DataStorage ds = (DataStorage) ois.readObject();
 
         //PLAYER STATUS
-        gp.player.setMaxLife(ds.maxLife);
-        gp.player.setLife(ds.life);
-        gp.player.setStrength(ds.strength);
-        gp.player.setDexterity(ds.dexterity);
+        gp.player.setMaxLife(ds.getMaxLife());
+        gp.player.setLife(ds.getLife());
+        gp.player.setStrength(ds.getStrength());
+        gp.player.setDexterity(ds.getDexterity());
 
 
         //PLAYER INVENTORY
@@ -79,8 +79,8 @@ public class SaveLoad {
         }
 
         //PLAYER EQUIPMENT
-        gp.player.setCurrentWeapon(gp.player.inventory.get(ds.currentWeaponSlot));
-        gp.player.setCurrentShield(gp.player.inventory.get(ds.getCurrentShieldSlot));
+        gp.player.setCurrentWeapon(gp.player.inventory.get(ds.getCurrentWeaponSlot()));
+        gp.player.setCurrentShield(gp.player.inventory.get(ds.getGetCurrentShieldSlot()));
         gp.player.getAttack();
         gp.player.getDefense();
         gp.player.getPlayerAttackImages();

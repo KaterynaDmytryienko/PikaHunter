@@ -12,7 +12,55 @@ import java.io.IOException;
 
 public class KeyHandler implements KeyListener {
 
-    public boolean pressedUp, pressedDown, pressedLeft, pressedRight, pressedEnter, pressedSpace;
+    private boolean pressedUp, pressedDown, pressedLeft, pressedRight, pressedEnter, pressedSpace;
+
+    public boolean isPressedUp() {
+        return pressedUp;
+    }
+
+    public void setPressedUp(boolean pressedUp) {
+        this.pressedUp = pressedUp;
+    }
+
+    public boolean isPressedDown() {
+        return pressedDown;
+    }
+
+    public void setPressedDown(boolean pressedDown) {
+        this.pressedDown = pressedDown;
+    }
+
+    public boolean isPressedLeft() {
+        return pressedLeft;
+    }
+
+    public void setPressedLeft(boolean pressedLeft) {
+        this.pressedLeft = pressedLeft;
+    }
+
+    public boolean isPressedRight() {
+        return pressedRight;
+    }
+
+    public void setPressedRight(boolean pressedRight) {
+        this.pressedRight = pressedRight;
+    }
+
+    public boolean isPressedEnter() {
+        return pressedEnter;
+    }
+
+    public void setPressedEnter(boolean pressedEnter) {
+        this.pressedEnter = pressedEnter;
+    }
+
+    public boolean isPressedSpace() {
+        return pressedSpace;
+    }
+
+    public void setPressedSpace(boolean pressedSpace) {
+        this.pressedSpace = pressedSpace;
+    }
 
     private GamePannel gp;
 
@@ -127,21 +175,21 @@ public class KeyHandler implements KeyListener {
 
     public void playState(int code){
         if (code == KeyEvent.VK_UP) {//press up
-            pressedUp = true;
+            setPressedUp(true);
         }
 
         if (code == KeyEvent.VK_DOWN) {//press down
-            pressedDown = true;
+            setPressedDown(true);
 
         }
 
         if (code == KeyEvent.VK_LEFT) {//press left
-            pressedLeft = true;
+            setPressedLeft(true);
 
         }
 
         if (code == KeyEvent.VK_RIGHT) {//press right
-            pressedRight = true;
+            setPressedRight(true);
 
         }
         //setting key for a character state
@@ -150,11 +198,11 @@ public class KeyHandler implements KeyListener {
         }
 
         if (code == KeyEvent.VK_ENTER) {//press right
-            pressedEnter = true;
+            setPressedEnter(true);
         }
 
         if (code == KeyEvent.VK_SPACE) { // press space for attack
-            pressedSpace = true;
+            setPressedSpace(true);
         }
 
         if(code == KeyEvent.VK_P){
@@ -232,23 +280,23 @@ public class KeyHandler implements KeyListener {
         int code = e.getKeyCode();
 
         if (code == KeyEvent.VK_UP) {//press up
-            pressedUp = false;
+            setPressedUp(false);
         }
 
         if (code == KeyEvent.VK_DOWN) {//press down
-            pressedDown = false;
+            setPressedDown(false);
         }
 
         if (code == KeyEvent.VK_LEFT) {//press left
-            pressedLeft = false;
+            setPressedLeft(false);
         }
 
         if (code == KeyEvent.VK_RIGHT) {//press right
-            pressedRight = false;
+            setPressedRight(false);
         }
 
         if (code == KeyEvent.VK_SPACE) {//press right
-            pressedSpace = false;
+           setPressedSpace(false);
         }
     }
 }

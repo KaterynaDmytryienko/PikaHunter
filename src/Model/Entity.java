@@ -28,7 +28,15 @@ public class Entity {
     public int worldx, worldy;
 
     public int solidAreaDefaultX = 0, solidAreaDefaultY = 0;
-    public boolean collisionOn = false;
+    private boolean collisionOn = false;
+
+    public boolean isCollisionOn() {
+        return collisionOn;
+    }
+
+    public void setCollisionOn(boolean collisionOn) {
+        this.collisionOn = collisionOn;
+    }
 
     private boolean invincible = false;
 

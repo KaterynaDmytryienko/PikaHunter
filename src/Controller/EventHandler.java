@@ -32,7 +32,7 @@ public class EventHandler {
         if(hit(11, 11, "back")){
             savingPool();
         }
-        if(gp.getKeyHandler().pressedEnter){
+        if(gp.getKeyHandler().isPressedEnter()){
             healing();
         }
 
@@ -65,10 +65,10 @@ public class EventHandler {
     }
 
     public void healing(){
-        if(gp.getKeyHandler().pressedEnter && gp.player.elixirAmount > 0){
+        if(gp.getKeyHandler().isPressedEnter() && gp.player.getElixirAmount() > 0){
             gp.player.setLife(gp.player.getMaxLife());
         }
-        gp.getKeyHandler().pressedEnter = false;
+        gp.getKeyHandler().setPressedEnter(false);
     }
 
     public void savingPool() throws IOException {

@@ -14,10 +14,27 @@ public class Player extends Entity{
     KeyHandler keyHandler;
     public final int screenx;
     public final int screeny;
-    public int keyAmount = 0;
-    public int elixirAmount = 0;
+    private int keyAmount = 0;
+    private int elixirAmount = 0;
+
+    public int getKeyAmount() {
+        return keyAmount;
+    }
+
+    public void setKeyAmount(int keyAmount) {
+        this.keyAmount = keyAmount;
+    }
+
+    public int getElixirAmount() {
+        return elixirAmount;
+    }
+
+    public void setElixirAmount(int elixirAmount) {
+        this.elixirAmount = elixirAmount;
+    }
+
     public ArrayList<Item> inventory = new ArrayList<>();
-    public final int inventorySize = 20;
+    public int inventorySize = 20;
 
     public Player(GamePannel gp, KeyHandler keyHandler) throws IOException {
         super(gp);
@@ -77,7 +94,6 @@ public class Player extends Entity{
     public void setItems(){
         inventory.clear();
         inventory.add(getCurrentWeapon());
-        //shield
         inventory.add(getCurrentShield());
         inventory.add(new Key());
         inventory.add(new Key());
@@ -127,28 +143,28 @@ public class Player extends Entity{
      */
     public void update() throws IOException {
 
-        if(gp.getKeyHandler().pressedSpace){
+        if(gp.getKeyHandler().isPressedSpace()){
             setAttacking(true);
             attacking();
         }
 
-        else if (keyHandler.pressedUp){
+        else if (keyHandler.isPressedUp()){
             direction = "up";
         }
 
-        else if(keyHandler.pressedDown){ // player coordinate Y increases by 4 px (player speed)
+        else if(keyHandler.isPressedDown()){ // player coordinate Y increases by 4 px (player speed)
             direction = "down";
         }
 
-        else if(keyHandler.pressedRight){
+        else if(keyHandler.isPressedRight()){
             direction = "right";
         }
 
-        else if(keyHandler.pressedLeft){
+        else if(keyHandler.isPressedLeft()){
             direction = "left";
         }
 
-        collisionOn = false;
+        setCollisionOn(false);
         gp.collisionController.checkTile(this);
 
         //CHECK EVENT
@@ -167,8 +183,8 @@ public class Player extends Entity{
         damageInteractiveTile(iTileIndex);
 
         //IF COLLISION == FALSE, player can move
-        if(!collisionOn && (keyHandler.pressedUp || keyHandler.pressedDown || keyHandler.pressedLeft
-                || keyHandler.pressedRight)){
+        if(!isCollisionOn() && (keyHandler.isPressedUp() || keyHandler.isPressedDown() || keyHandler.isPressedLeft()
+                || keyHandler.isPressedRight())){
             switch (direction) {
                 case "up" -> this.worldy -= speed;
                 case "down" -> this.worldy += speed;
@@ -319,7 +335,7 @@ public class Player extends Entity{
     }
 
     public void damageInteractiveTile(int index){
-        if(index!=999 && gp.iTile[index].isDestructible() && gp.iTile[index].isSuitableWeapon(this) && keyHandler.pressedSpace){
+        if(index!=999 && gp.iTile[index].isDestructible() && gp.iTile[index].isSuitableWeapon(this) && keyHandler.isPressedSpace()){
             gp.iTile[index] = null;
         }
     }

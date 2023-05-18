@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 public class Key extends Item implements Serializable {
     public Key(){
-        collision = true;
+        setCollision(true);
         setName("key");
         try{
             back = ImageIO.read(getClass().getResourceAsStream("/objectsImages/key.png"));

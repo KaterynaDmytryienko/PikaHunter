@@ -7,18 +7,62 @@ import java.awt.image.BufferedImage;
 import java.io.Serializable;
 
 public class Item implements Serializable {
+
     public BufferedImage image;
     public BufferedImage image2;
     public BufferedImage image3;
-    public transient BufferedImage back;
+    public BufferedImage back;
     private String name;
     private int type;
-    public boolean collision = false;
-    public int worldX;
-    public int worldY;
+    private boolean collision = false;
+
+    public boolean isCollision() {
+        return collision;
+    }
+
+    public void setCollision(boolean collision) {
+        this.collision = collision;
+    }
+
+    private int worldX;
+    private int worldY;
+
+    public int getWorldX() {
+        return worldX;
+    }
+
+    public void setWorldX(int worldX) {
+        this.worldX = worldX;
+    }
+
+    public int getWorldY() {
+        return worldY;
+    }
+
+    public void setWorldY(int worldY) {
+        this.worldY = worldY;
+    }
+
     public Rectangle solidArea = new Rectangle(0, 0, 48, 48); // solid area for an object
-    public int solidAreaDefaultX = 0;
-    public int solidAreaDefaultY = 0;
+    private int solidAreaDefaultX = 0;
+    private int solidAreaDefaultY = 0;
+
+    public int getSolidAreaDefaultX() {
+        return solidAreaDefaultX;
+    }
+
+    public void setSolidAreaDefaultX(int solidAreaDefaultX) {
+        this.solidAreaDefaultX = solidAreaDefaultX;
+    }
+
+    public int getSolidAreaDefaultY() {
+        return solidAreaDefaultY;
+    }
+
+    public void setSolidAreaDefaultY(int solidAreaDefaultY) {
+        this.solidAreaDefaultY = solidAreaDefaultY;
+    }
+
     private Entity currentWeapon;
     private Entity currentShield;
     private String description = "";
