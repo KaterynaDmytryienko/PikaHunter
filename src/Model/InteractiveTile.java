@@ -15,6 +15,11 @@ public class InteractiveTile extends Item{
         this.destructible = destructible;
     }
 
+    /**
+     * Method checks if weapon is suitable to interact with interactive tile.
+     * @param entity
+     * @return boolean
+     */
     public boolean isSuitableWeapon(Entity entity){
         boolean isCorrectWeapon = false;
         return isCorrectWeapon;
@@ -25,6 +30,5 @@ public class InteractiveTile extends Item{
         return tile;
     }
     public void update(){}
-
 
 }

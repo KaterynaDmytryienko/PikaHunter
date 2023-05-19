@@ -78,8 +78,7 @@ public class KeyHandler implements KeyListener {
     }
 
     /**
-     * Sets variables pressedUp, pressedDown, pressedRight and pressedLeft to "true"
-     * depending on a key that has been pressed.
+     * Checks current state of a game and calls the appropriate method depending on the state.
      *
      * @param e the event to be processed
      */
@@ -130,12 +129,20 @@ public class KeyHandler implements KeyListener {
         }
     }
 
+    /**
+     * Defines pause state actions.
+     * @param code
+     */
     public void pauseState(int code){
         if(code == KeyEvent.VK_P){
             gp.gameState = gp.playState;
         }
     }
 
+    /**
+     * Defines dialogue state actions.
+     * @param code
+     */
     public void dialogueState(int code){
         if(code == KeyEvent.VK_Y){
             gp.gameState = gp.playState;
@@ -143,6 +150,12 @@ public class KeyHandler implements KeyListener {
         }
     }
 
+    /**
+     * Defines title state actions.
+     * @param code
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     public void titleState(int code) throws IOException, ClassNotFoundException {
         if (code == KeyEvent.VK_W) {
             gp.userInterface.setCommandNum(gp.userInterface.getCommandNum() - 1);
@@ -173,6 +186,10 @@ public class KeyHandler implements KeyListener {
         }
     }
 
+    /**
+     * Defines play state actions.
+     * @param code
+     */
     public void playState(int code){
         if (code == KeyEvent.VK_UP) {//press up
             setPressedUp(true);
@@ -212,6 +229,11 @@ public class KeyHandler implements KeyListener {
 
     }
 
+    /**
+     * Defines actions for the inventory.
+     * @param code
+     * @throws IOException
+     */
     public void characterState(int code) throws IOException {
         if(code == KeyEvent.VK_C){
             gp.gameState = gp.playState;
@@ -242,6 +264,11 @@ public class KeyHandler implements KeyListener {
         }
     }
 
+    /**
+     * Defines action for game over state.
+     * @param code
+     * @throws IOException
+     */
     public void gameOverState(int code) throws IOException {
         if(code == KeyEvent.VK_W){
             gp.userInterface.setCommandNum(gp.userInterface.getCommandNum()-1);

@@ -137,6 +137,11 @@ public class Item implements Serializable {
         this.currentShield = currentShield;
     }
 
+    /**
+     * Method draws item on a screen.
+     * @param g2
+     * @param gp
+     */
     public void draw(Graphics2D g2, GamePannel gp){
         int screenX = worldX - gp.player.worldx + gp.player.screenx;
         int screenY = worldY - gp.player.worldy + gp.player.screeny;

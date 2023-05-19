@@ -11,6 +11,10 @@ public class CollisionController {
         this.gp = gp;
     }
 
+    /**
+     * Method checks collision with a tile on a map.
+     * @param entity
+     */
     public void checkTile (Entity entity){
         int entityLeftWorldX = entity.worldx + entity.solidArea.x;
         int entityRightWorldX = entity.worldx + entity.solidArea.x + entity.solidArea.width;
@@ -64,6 +68,12 @@ public class CollisionController {
 
     }
 
+    /**
+     * Method checks collision with objects on a map.
+     * @param entity
+     * @param isPlayer
+     * @return int
+     */
     public int checkObject(Entity entity, boolean isPlayer){
         int index = 999;
 
@@ -119,6 +129,12 @@ public class CollisionController {
 
     //Check entity collision
 
+    /**
+     * Method checks collision with entity (player collision to a monster).
+     * @param entity
+     * @param target
+     * @return int
+     */
     public int checkEntity(Entity entity, Entity[] target){
         int index = 999;
 
@@ -168,6 +184,11 @@ public class CollisionController {
 
     }
 
+    /**
+     * Method checks collision with a player (monster collision to a payer)
+     * @param entity
+     * @return boolean
+     */
     public boolean checkPlayer(Entity entity){
         boolean contactPlayer = false;
         //Get entity solid area position
@@ -213,6 +234,12 @@ public class CollisionController {
     }
 
 
+    /**
+     * Method checks collision with items on a map.
+     * @param entity
+     * @param target
+     * @return int
+     */
     public int checkItem(Entity entity, Item[] target){
         int index = 999;
 

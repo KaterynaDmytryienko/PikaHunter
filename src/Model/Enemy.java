@@ -28,6 +28,9 @@ public class Enemy extends Entity{
         getImage();
     }
 
+    /**
+     * Method getts image of an enemy.
+     */
     public void getImage() {
         try {
             front = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/monsters/greenslime_down_1.png")));
@@ -37,6 +40,9 @@ public class Enemy extends Entity{
         }
     }
 
+    /**
+     * Method setts the way enemy moves on a map.
+     */
     //SETTING SLIME BEHAVIOUR
     public void setAction(){
         actionLockCounter ++;

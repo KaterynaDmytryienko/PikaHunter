@@ -81,31 +81,49 @@ public class Player extends Entity{
         setDefense(getDefenseVariable());
     }
 
+    /**
+     * Method sets default position for a player.
+     */
     public void setDefaultPositions(){
         this.worldx = gp.playerSize * 23;
         this.worldy = gp.playerSize * 21;
-        direction = "left";
     }
 
+    /**
+     * Method restores player`s life.
+     */
     public void restoreLife(){
         setLife(getMaxLife());
         setInvincible(false);
     }
+
+    /**
+     * Method sets items to the inventory.
+     */
     public void setItems(){
         inventory.clear();
         inventory.add(getCurrentWeapon());
         inventory.add(getCurrentShield());
-        inventory.add(new Key());
-        inventory.add(new Key());
     }
+
+    /**
+     * Method gets attack variable for the current weapon.
+     * @return int
+     */
     public int getAttackVariable(){
         attackArea = getCurrentWeapon().attackArea; //updating attack area depending on a weapon
         return setAttack(getStrength()*getCurrentWeapon().getAttackValue());
     }
 
+    /**
+     * Method gets defence variable for the current shield.
+     * @return int
+     */
     public int getDefenseVariable(){
         return setDefense(getDexterity()* getCurrentShield().getDefenceValue());
     }
+
+
     /**
      * Gets images of an instance.
      */
@@ -121,6 +139,9 @@ public class Player extends Entity{
         }
     }
 
+    /** Methods gets player`s attack images for the attacking state.
+     * @throws IOException
+     */
     public void getPlayerAttackImages() throws IOException {
         if(getCurrentWeapon().getType() == 3){
             frontWithSword = ImageIO.read(getClass().getResourceAsStream("/img/frontWithSword.png"));
@@ -139,7 +160,8 @@ public class Player extends Entity{
 
     }
     /**
-     * Updates position of a Player instance on a screen and changes variable direction.
+     * Updates position of a Player instance on a screen and changes variable direction; checks current events
+     * and collision.
      */
     public void update() throws IOException {
 
@@ -193,6 +215,7 @@ public class Player extends Entity{
             }
         }
 
+        //When player is invincible, monsters can not give him a damage for a certain period of time.
         if(isInvincible()){
             invincibleCounter++;
             if(invincibleCounter > 60){
@@ -200,6 +223,8 @@ public class Player extends Entity{
                 invincibleCounter = 0;
             }
         }
+
+        //When player do not have lives, state of a game becomes GAME OVER
        if(getLife() <= 0){
            gp.gameState = gp.gameOverState;
        }
@@ -226,6 +251,9 @@ public class Player extends Entity{
         return currentShieldSlot;
     }
 
+    /**
+     * Method allows player to attack monsters and interact with interactive tiles.
+     */
     public void attacking() {
         spriteCounter++;
         if (spriteCounter < 25) {
@@ -274,6 +302,11 @@ public class Player extends Entity{
         }
 
     }
+
+    /**
+     * Method allows to pick up objects on the map and adds them to inventory.
+     * @param i
+     */
     public void pickUpObject(int i) {
         if (i != 999) {
             if (inventory.size() != inventorySize) {
@@ -306,6 +339,10 @@ public class Player extends Entity{
         }
     }
 
+    /**
+     * Method sets action when monster touching a player.
+     * @param index
+     */
     public void interactMonster(int index){
         if(index != 999){
             if(isInvincible() == false) {// player receives damage only if he is not invincible
@@ -315,12 +352,15 @@ public class Player extends Entity{
         }
     }
 
+    /**
+     * Method sets action for a player to give monsters damage.
+     * @param i
+     */
     public void damageMonster(int i){
         if(i != 999){
            if(gp.monster[i].isInvincible() == false){
                if(getCurrentWeapon().getType() == 3) {
                    gp.monster[i].setLife(gp.monster[i].getLife() - 1);
-                   System.out.println("dmaging monster!");
                }
                else if (getCurrentWeapon().getType() == 4){
                    gp.monster[i].setLife(gp.monster[i].getLife() - 2);
@@ -334,12 +374,20 @@ public class Player extends Entity{
         }
     }
 
+    /**
+     * Method sets action to interact with interactive tiles.
+     * @param index
+     */
     public void damageInteractiveTile(int index){
         if(index!=999 && gp.iTile[index].isDestructible() && gp.iTile[index].isSuitableWeapon(this) && keyHandler.isPressedSpace()){
             gp.iTile[index] = null;
         }
     }
 
+    /**
+     * Method allows player select item from the inventory.
+     * @throws IOException
+     */
     public void selectItem() throws IOException {
         int itemIndex = gp.userInterface.getItemIndexOnSlot();
 
@@ -358,7 +406,7 @@ public class Player extends Entity{
         }
     }
     /**
-     * Draws Player instance on a screen and changes images depending on direction of a Player instance.
+     * Draws Player instance on a screen and changes images depending on direction of a Player instance and his current state.
      *
      * @param g2
      */
@@ -425,6 +473,7 @@ public class Player extends Entity{
                 break;
         }
 
+        //Draws player invincible state
         if(isInvincible()){
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f)); //setting opacity level for player image
         }

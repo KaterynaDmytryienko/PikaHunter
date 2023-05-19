@@ -16,13 +16,10 @@ public class UserInterface {
     BufferedImage elixirImage;
 
     BufferedImage heart_full, heart_half, heart_blank;
-//    double playTime; //creating game timer
     public int commandNum = 0;
 
     public int slotCol = 0;
     public int slotRow = 0;
-
-    DecimalFormat decimalFormat = new DecimalFormat("#0.00"); //format the game time (DISPLAY 2 PLACES OF DECIMALS)
 
     public UserInterface(GamePannel gp) {
         this.gp = gp;
@@ -41,6 +38,10 @@ public class UserInterface {
 
     }
 
+    /**
+     * Method draws screen depending on a game state.
+     * @param g2
+     */
     public void draw(Graphics2D g2) {
         g2.setFont(arial);
         g2.setColor(Color.white);
@@ -70,17 +71,12 @@ public class UserInterface {
             drawDialogueScreen(g2);
         }
 
-         drawPlayerLife(g2);
-//         g2.drawImage(keyImage, gp.playerSize / 2, gp.playerSize/2, gp.playerSize, gp.playerSize, null);
-//         g2.drawString("x " + gp.player.keyAmount, 74, 65);
-//        g2.drawImage(elixirImage, 24, 80, gp.playerSize, gp.playerSize, null);
-//        g2.drawString("x " + gp.player.elixirAmount, 74, 110);
-
-//         //TIME
-//        playTime += (double) 1/60;
-//        g2.drawString("Time :" + decimalFormat.format(playTime), gp.playerSize*11,65 );
     }
 
+    /**
+     * Method draws screen with messages to a player during the game
+     * @param g2
+     */
     public void drawDialogueScreen(Graphics2D g2){
         //WINDOW
         int x = gp.playerSize*2;
@@ -100,6 +96,10 @@ public class UserInterface {
 
     }
 
+    /**
+     * Method draws title screen in the beginning of a game with different options for player to choose.
+     * @param g2
+     */
     public void drawTitleScreen(Graphics2D g2) {
         g2.setColor(new Color(70, 120, 80));
 
@@ -155,6 +155,10 @@ public class UserInterface {
         }
     }
 
+    /**
+     * Method draws player`s life depending on his current state.
+     * @param g2
+     */
     public void drawPlayerLife(Graphics2D g2){
         int x = gp.playerSize* 12;
         int y = gp.playerSize;
@@ -185,6 +189,10 @@ public class UserInterface {
 
     }
 
+    /**
+     * Method draws screen with current information of player`s states.
+     * @param g2
+     */
     public void drawCharacterScreen(Graphics2D g2){
         // CREATE A FRAME
         final int frameX = gp.playerSize*2;
@@ -274,6 +282,10 @@ public class UserInterface {
         g2.drawImage(gp.player.getCurrentShield().back, textX-gp.playerSize, textY-15, gp.playerSize, gp.playerSize,  null);
     }
 
+    /**
+     * Method draws inventory screen.
+     * @param g2
+     */
     public void drawInventory(Graphics2D g2){
         //FRAME
         int frameX = gp.playerSize * 9;
@@ -344,6 +356,10 @@ public class UserInterface {
         }
     }
 
+    /**
+     * Method draws game over screen.
+     * @param g2
+     */
     public void drawGameOverScreen(Graphics2D g2){
         g2.setColor(new Color(0, 0, 0, 150));
         g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
@@ -383,6 +399,10 @@ public class UserInterface {
         }
     }
 
+    /**
+     * Method draws pause screen.
+     * @param g2
+     */
     public void drawPauseScreen(Graphics2D g2){
         g2.setColor(new Color(0, 0, 0, 150));
         g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
@@ -402,17 +422,39 @@ public class UserInterface {
         g2.drawString(text, x -4, y-4);
     }
 
+    /**
+     * Method gets current item index in the inventory.
+     * @return int
+     */
     public int getItemIndexOnSlot(){
         int itemIndex = slotCol + (slotRow * 5);
         return itemIndex;
     }
+
+    /**
+     * Gets current number of a command.
+     * @return
+     */
     public int getCommandNum() {
         return commandNum;
     }
 
+    /**
+     * Sets current number of command.
+     * @param commandNum
+     */
     public void setCommandNum(int commandNum) {
         this.commandNum = commandNum;
     }
+
+    /**
+     * Method draws window during the game.
+     * @param x
+     * @param y
+     * @param width
+     * @param height
+     * @param g2
+     */
     public void drawWindow(int x, int y, int width, int height, Graphics2D g2){
         Color c = new Color(0, 0, 0, 170);
         g2.setColor(c);
@@ -424,12 +466,25 @@ public class UserInterface {
         g2.drawRoundRect(x+5, y+5, width-10, height-10, 25, 25);
     }
 
+    /**
+     * Method gets X position to align text to the right on a window.
+     * @param text
+     * @param tailX
+     * @param g2
+     * @return int
+     */
     public int getXForAlignToRightText(String text, int tailX, Graphics2D g2){
           int lenght = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
           int x = tailX - lenght; //starting point for drawing the text
         return x;
     }
 
+    /**
+     * Method gets X position to center text on the window.
+     * @param text
+     * @param g2
+     * @return
+     */
     public int getXForCenteredText(String text, Graphics2D g2){
         int length = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
         int x = gp.screenWidth/2 - length/2;

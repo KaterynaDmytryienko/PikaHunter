@@ -55,39 +55,38 @@ public class Entity {
     private int dexterity;
     private int attack;
     private int defense;
-    private int exp;
     private Item currentWeapon;
     private Item currentShield;
     private String description = "";
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
+//
+//    public String getDescription() {
+//        return description;
+//    }
+//
+//    public void setDescription(String description) {
+//        this.description = description;
+//    }
 
     //ITEM ATTRIBUTES
-    private int attackValue;
+//    private int attackValue;
     private int defenceValue;
     private int type;
 
-    public int getType() {
-        return type;
-    }
+//    public int getType() {
+//        return type;
+//    }
+//
+//    public void setType(int type) {
+//        this.type = type;
+//    }
+//
+//    public int getAttackValue() {
+//        return attackValue;
+//    }
 
-    public void setType(int type) {
-        this.type = type;
-    }
-
-    public int getAttackValue() {
-        return attackValue;
-    }
-
-    public void setAttackValue(int attackValue) {
-        this.attackValue = attackValue;
-    }
+//    public void setAttackValue(int attackValue) {
+//        this.attackValue = attackValue;
+//    }
 
     public int getDefenceValue() {
         return defenceValue;
@@ -137,14 +136,6 @@ public class Entity {
     public int setDefense(int defense) {
         this.defense = defense;
         return defense;
-    }
-
-    public int getExp() {
-        return exp;
-    }
-
-    public void setExp(int exp) {
-        this.exp = exp;
     }
 
     public Item getCurrentWeapon() {
@@ -220,6 +211,10 @@ public class Entity {
         this.hpBarOn = hpBarOn;
     }
 
+    /**
+     * Method updates enemy`s state during the game.
+     * @throws IOException
+     */
     public void update() throws IOException {
         setAction();
         collisionOn = false;
@@ -261,6 +256,11 @@ public class Entity {
 
     }
 
+    /**
+     * Method draws an enemy depending on his current state.
+     * @param g2
+     * @param gp
+     */
     public void draw(Graphics2D g2, GamePannel gp) {
         BufferedImage image = null;
 
@@ -302,6 +302,8 @@ public class Entity {
                     setHpBarOn(false);
                 }
             }
+
+            //Monster invincible state
 
             if(isInvincible()){
                 setHpBarOn(true);

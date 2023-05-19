@@ -25,10 +25,11 @@ public class EventHandler {
     }
 
 
+    /**
+     * Method checks events occurring during the game.
+     * @throws IOException
+     */
     public void checkEvent() throws IOException {
-//        if(hit(10, 11, "right")){
-//            damagePit();
-//        }
         if(hit(11, 11, "back")){
             savingPool();
         }
@@ -38,6 +39,13 @@ public class EventHandler {
 
     }
 
+    /**
+     * Method checks if player hit a certain place on a map.
+     * @param eventCol
+     * @param eventRow
+     * @param requiredDirection
+     * @return boolean
+     */
     public boolean hit(int eventCol, int eventRow, String requiredDirection){
 
         boolean hit = false;
@@ -60,10 +68,9 @@ public class EventHandler {
 
     }
 
-    public void damagePit(){
-        gp.player.setLife(gp.player.getLife()-1);
-    }
-
+    /**
+     * Method set player`s life back to full.
+     */
     public void healing(){
         if(gp.getKeyHandler().isPressedEnter() && gp.player.getElixirAmount() > 0){
             gp.player.setLife(gp.player.getMaxLife());
@@ -71,6 +78,10 @@ public class EventHandler {
         gp.getKeyHandler().setPressedEnter(false);
     }
 
+    /**
+     * Method allows player to save the game near the water pool.
+     * @throws IOException
+     */
     public void savingPool() throws IOException {
             gp.saveLoad.save();
             gp.gameState = gp.dialogueState;

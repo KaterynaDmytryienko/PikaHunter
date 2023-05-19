@@ -68,6 +68,10 @@ public class GamePannel extends JPanel implements Runnable {
         player = new Player(this, this.keyHandler);
     }
 
+    /**
+     * Method sets up game layout and sets game state to title state in the beginning of a game.
+     * @throws IOException
+     */
     public void setupGame() throws IOException {
         assetSetter.setObject();
         assetSetter.setMonster();
@@ -75,6 +79,10 @@ public class GamePannel extends JPanel implements Runnable {
         gameState = titleState;
     }
 
+    /**
+     * Method sets action when player wants to retry the game when he died.
+     * @throws IOException
+     */
     public void retry() throws IOException {
         player.setDefaultPositions();
         player.restoreLife();
@@ -82,6 +90,10 @@ public class GamePannel extends JPanel implements Runnable {
         assetSetter.setMonster();
     }
 
+    /**
+     * Method sets all default values and layout of a game.
+     * @throws IOException
+     */
     public void restart() throws IOException {
         player.setDefault();
         player.setDefaultPositions();
@@ -163,7 +175,7 @@ public class GamePannel extends JPanel implements Runnable {
 
 
     /**
-     * Draws Player instance on a screen.
+     * Draws entities and objects on a screen depending on a current game state.
      *
      * @param g the <code>Graphics</code> object to protect
      */

@@ -16,6 +16,12 @@ public class SaveLoad {
         this.gp = gp;
     }
 
+    /**
+     * Method gets an object depending on object name.
+     * @param itemName
+     * @return Item
+     * @throws IOException
+     */
     public Item getObject(String itemName) throws IOException {
         Item obj = null;
 
@@ -39,7 +45,10 @@ public class SaveLoad {
     }
 
 
-
+    /**
+     * Method saves player`s states and his current inventory.
+     * @throws IOException
+     */
     public void save() throws IOException {
         ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("save.dat"));
         DataStorage dataStorage = new DataStorage();
@@ -59,6 +68,11 @@ public class SaveLoad {
     }
 
 
+    /**
+     * Method loads saved player`s states and inventory.
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     public void load() throws IOException, ClassNotFoundException {
         ObjectInputStream ois = new ObjectInputStream(new FileInputStream("save.dat"));
 

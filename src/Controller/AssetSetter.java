@@ -12,6 +12,10 @@ public class AssetSetter {
         this.gp = gp;
     }
 
+    /**
+     * Method setts objects on a map with defined position.
+     * @throws IOException
+     */
     public void setObject() throws IOException {
         gp.item[0] = new Key(); //because Object_key is a subclass of ObjectSuper
         gp.item[0].setWorldX(23 * gp.playerSize);
@@ -36,6 +40,10 @@ public class AssetSetter {
 
     }
 
+    /**
+     * Method sets monsters on the map with defined position.
+     * @throws IOException
+     */
     public void setMonster() throws IOException {
         gp.monster[0] = new Enemy(gp);
         gp.monster[0].worldx = 21 * gp.playerSize;
@@ -58,6 +66,10 @@ public class AssetSetter {
         gp.monster[3].collision =true;
     }
 
+    /**
+     * Method sets interactive tiles on the map with defined position.
+     * @throws IOException
+     */
     public void setInteractiveTiles() throws IOException {
 
         gp.iTile[18] = new DryTree();

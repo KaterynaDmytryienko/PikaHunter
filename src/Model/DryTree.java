@@ -11,6 +11,10 @@ public class DryTree extends InteractiveTile{
         setDestructible(true);
     }
 
+    /**Method checks if the player`s weapon is suitable for action or not.
+     * @param entity
+     * @return boolean
+     */
     public boolean isSuitableWeapon(Entity entity){
         boolean isCorrectWeapon = false;
 
