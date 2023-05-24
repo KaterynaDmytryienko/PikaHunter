@@ -7,6 +7,7 @@ import java.io.Serializable;
 
 public class Elixir extends Item implements Serializable {
     public Elixir(){
+        setType(7);
         setName("elixir");
         try{
             back = ImageIO.read(getClass().getResourceAsStream("/objectsImages/elixir.png"));

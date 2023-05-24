@@ -7,9 +7,10 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 public class SaveLoad {
-    ArrayList<Item> remainingItems = new ArrayList<>();
+    private static final Logger logger = Logger.getLogger(SaveLoad.class.getName());
     GamePannel gp;
 
     public SaveLoad(GamePannel gp) {
@@ -65,6 +66,8 @@ public class SaveLoad {
         }
 
         oos.writeObject(dataStorage);
+        logger.info("Game is saved.");
+
     }
 
 
@@ -98,6 +101,7 @@ public class SaveLoad {
         gp.player.getAttack();
         gp.player.getDefense();
         gp.player.getPlayerAttackImages();
+        logger.info("Game is loaded.");
     }
 
     }

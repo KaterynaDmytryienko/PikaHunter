@@ -9,8 +9,10 @@ import java.awt.image.BufferedImage;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 public class Player extends Entity{
+    private static final Logger logger = Logger.getLogger(Player.class.getName());
     KeyHandler keyHandler;
     public final int screenx;
     public final int screeny;
@@ -87,6 +89,7 @@ public class Player extends Entity{
     public void setDefaultPositions(){
         this.worldx = gp.playerSize * 23;
         this.worldy = gp.playerSize * 21;
+        logger.info("Default position of the player is set.");
     }
 
     /**
@@ -104,6 +107,7 @@ public class Player extends Entity{
         inventory.clear();
         inventory.add(getCurrentWeapon());
         inventory.add(getCurrentShield());
+        logger.info("Items in the inventory are set.");
     }
 
     /**
@@ -215,8 +219,9 @@ public class Player extends Entity{
             }
         }
 
-        //When player is invincible, monsters can not give him a damage for a certain period of time.
+        //When player is invincible, monsters can not give him damage for a certain period of time.
         if(isInvincible()){
+            logger.warning("Player is invincible!");
             invincibleCounter++;
             if(invincibleCounter > 60){
                 setInvincible(false);
@@ -314,6 +319,7 @@ public class Player extends Entity{
                 if (gp.item[i].getName() == "key") {
                     keyAmount++;
                     inventory.add(gp.item[i]);
+                    logger.info("Picked up key.");
                     gp.item[i] = null;
 
                 } else if (gp.item[i].getName() == "chest") {
@@ -328,11 +334,17 @@ public class Player extends Entity{
 
                         }
                         elixirAmount++;
+                        Elixir elixir = new Elixir();
+                        inventory.add(elixir);
                         gp.item[i] = null;
+                    }
+                    else if(keyAmount == 0){
+                        logger.warning("You dont have a key!");
                     }
                 }
                 else if(gp.item[i].getName() == "axe"){
                     inventory.add(gp.item[i]);
+                    logger.info("Picked up axe.");
                     gp.item[i] = null;
                 }
             }
@@ -361,9 +373,11 @@ public class Player extends Entity{
            if(gp.monster[i].isInvincible() == false){
                if(getCurrentWeapon().getType() == 3) {
                    gp.monster[i].setLife(gp.monster[i].getLife() - 1);
+                   logger.info("Damaging monster!");
                }
                else if (getCurrentWeapon().getType() == 4){
                    gp.monster[i].setLife(gp.monster[i].getLife() - 2);
+                   logger.info("Damaging monster!");
                }
                gp.monster[i].setInvincible(true);
 
@@ -402,6 +416,11 @@ public class Player extends Entity{
             if(selectedItem.getType() == 6) {
                 setCurrentShield(selectedItem);
                 setDefense(getDefense());
+            }
+            if(selectedItem.getType()==7){
+                setLife(getMaxLife());
+                logger.info("Player refilled his life!");
+                inventory.remove(selectedItem);
             }
         }
     }

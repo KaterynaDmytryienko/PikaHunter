@@ -4,12 +4,14 @@ import View.GamePannel;
 
 import java.awt.*;
 import java.io.IOException;
+import java.util.logging.Logger;
 
 public class EventHandler {
     GamePannel gp;
     Rectangle eventRect;
     int eventRectDefaultX;
     int eventRectDefaultY;
+    private static final Logger logger = Logger.getLogger(EventHandler.class.getName());
 
 
     public EventHandler(GamePannel gp){
@@ -32,9 +34,8 @@ public class EventHandler {
     public void checkEvent() throws IOException {
         if(hit(11, 11, "back")){
             savingPool();
-        }
-        if(gp.getKeyHandler().isPressedEnter()){
-            healing();
+            logger.info("Game is saved.");
+
         }
 
     }
@@ -68,15 +69,6 @@ public class EventHandler {
 
     }
 
-    /**
-     * Method set player`s life back to full.
-     */
-    public void healing(){
-        if(gp.getKeyHandler().isPressedEnter() && gp.player.getElixirAmount() > 0){
-            gp.player.setLife(gp.player.getMaxLife());
-        }
-        gp.getKeyHandler().setPressedEnter(false);
-    }
 
     /**
      * Method allows player to save the game near the water pool.

@@ -8,9 +8,11 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
+import java.util.logging.Logger;
 
 
 public class KeyHandler implements KeyListener {
+    private static final Logger logger = Logger.getLogger(KeyHandler.class.getName());
 
     private boolean pressedUp, pressedDown, pressedLeft, pressedRight, pressedEnter, pressedSpace;
 
@@ -86,6 +88,7 @@ public class KeyHandler implements KeyListener {
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
 
+
         //TITLE STATE
         if (gp.gameState == gp.titleState) {
             try {
@@ -113,6 +116,7 @@ public class KeyHandler implements KeyListener {
         else if(gp.gameState == gp.gameOverState){
             try {
                 gameOverState(code);
+                logger.info("Game state is Game over state.");
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
@@ -121,6 +125,8 @@ public class KeyHandler implements KeyListener {
         //PAUSE STATE
         else if(gp.gameState == gp.pauseState){
             pauseState(code);
+            logger.info("Game state is Pause state.");
+
         }
 
         //DIALOG STATE
@@ -136,6 +142,7 @@ public class KeyHandler implements KeyListener {
     public void pauseState(int code){
         if(code == KeyEvent.VK_P){
             gp.gameState = gp.playState;
+            logger.info("Back to Play state.");
         }
     }
 
@@ -261,6 +268,7 @@ public class KeyHandler implements KeyListener {
         }
         if(code == KeyEvent.VK_ENTER){
             gp.player.selectItem();
+            logger.info("Item is selected.");
         }
     }
 
@@ -287,10 +295,13 @@ public class KeyHandler implements KeyListener {
             if(gp.userInterface.getCommandNum() == 0){
                 gp.gameState = gp.playState;
                 gp.retry();
+                logger.info("Retrying game.");
             }
             else if(gp.userInterface.getCommandNum() == 1){
                 gp.gameState = gp.titleState;
                 gp.restart();
+                logger.info("Restarted game.");
+
             }
         }
 

@@ -8,6 +8,7 @@ import Model.Key;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.text.DecimalFormat;
+import java.util.logging.Logger;
 
 public class UserInterface {
     GamePannel gp;
@@ -20,6 +21,7 @@ public class UserInterface {
 
     public int slotCol = 0;
     public int slotRow = 0;
+    private static final Logger logger = Logger.getLogger(UserInterface.class.getName());
 
     public UserInterface(GamePannel gp) {
         this.gp = gp;
@@ -34,7 +36,7 @@ public class UserInterface {
         Item heart = new Heart(gp);
         heart_full = heart.image;
         heart_half = heart.image2;
-        heart_blank = heart.image3;
+        heart_blank = heart.image3;;
 
     }
 
@@ -45,10 +47,15 @@ public class UserInterface {
     public void draw(Graphics2D g2) {
         g2.setFont(arial);
         g2.setColor(Color.white);
+        drawPlayerLife(g2);
 
+        if(gp.gameState == gp.playerSize){
+            drawPlayerLife(g2);
+        }
         //TITLE STATE
         if(gp.gameState == gp.titleState){
             drawTitleScreen(g2);
+            logger.info("Drawing title screen.");
         }
 
         //CHARACTER STATE
@@ -59,16 +66,19 @@ public class UserInterface {
         //GAME OVER STATE
         if(gp.gameState == gp.gameOverState){
             drawGameOverScreen(g2);
+            logger.info("Drawing game over screen.");
         }
 
         //PAUSE STATE
         if(gp.gameState == gp.pauseState){
             drawPauseScreen(g2);
+            logger.info("Drawing pause screen.");
         }
 
         //DIALOGUE STATE
         if(gp.gameState == gp.dialogueState){
             drawDialogueScreen(g2);
+            logger.info("Drawing dialogue screen.");
         }
 
     }
@@ -130,7 +140,7 @@ public class UserInterface {
         text = "NEW GAME";
         x = 250;
         y += gp.playerSize * 3;
-//        System.out.println("new game. x: " + x + ", y: " + y + ". num: " + this.commandNum);
+
         g2.drawString(text, x, y);
         if(this.commandNum == 0) {
             g2.drawString(">", x - gp.playerSize, y);
@@ -139,7 +149,7 @@ public class UserInterface {
         text = "LOAD GAME";
         x = 250;
         y += gp.playerSize;
-//        System.out.println("load game. x: " + x + ", y: " + y + ". num: " + this.commandNum);
+
         g2.drawString(text, x, y);
         if(this.commandNum == 1){
             g2.drawString(">", x - gp.playerSize, y);
@@ -148,7 +158,7 @@ public class UserInterface {
         text = "QUIT GAME";
         x = 250;
         y += gp.playerSize;
-//        System.out.println("quit game. x: " + x + ", y: " + y + ". num: " + this.commandNum);
+
         g2.drawString(text, x, y);
         if(this.commandNum == 2){
             g2.drawString(">", x - gp.playerSize, y);

@@ -8,6 +8,7 @@ import org.w3c.dom.ls.LSOutput;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.util.logging.Logger;
 
 public class GamePannel extends JPanel implements Runnable {
     final int originalSize = 16; // size for characters and items
@@ -55,6 +56,7 @@ public class GamePannel extends JPanel implements Runnable {
     public final int pauseState = 2;
 
     public final int titleState = 0;
+    private static final Logger logger = Logger.getLogger(GamePannel.class.getName());
 
 
 
@@ -77,6 +79,8 @@ public class GamePannel extends JPanel implements Runnable {
         assetSetter.setMonster();
         assetSetter.setInteractiveTiles();
         gameState = titleState;
+        logger.info("Game is set up.");
+
     }
 
     /**
@@ -167,9 +171,6 @@ public class GamePannel extends JPanel implements Runnable {
                 }
             }
         }
-//        if(gameState == pauseState){
-//
-//        }
     }
 
 
@@ -185,6 +186,7 @@ public class GamePannel extends JPanel implements Runnable {
 
         //TITLE SCREEN
         if(gameState == titleState){
+            logger.info("Game state is Title state now.");
             userInterface.drawTitleScreen(g2);
         }
 
