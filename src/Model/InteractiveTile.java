@@ -25,10 +25,6 @@ public class InteractiveTile extends Item{
         return isCorrectWeapon;
     }
 
-    public InteractiveTile getDestroyedForm() throws IOException {
-        InteractiveTile tile = null;
-        return tile;
-    }
     public void update(){}
 
 }

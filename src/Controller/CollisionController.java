@@ -127,7 +127,6 @@ public class CollisionController {
         return index;
     }
 
-    //Check entity collision
 
     /**
      * Method checks collision with entity (player collision to a monster).

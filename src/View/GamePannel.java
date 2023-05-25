@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 public class GamePannel extends JPanel implements Runnable {
     final int originalSize = 16; // size for characters and items
     final int scale = 3;
-    public final int playerSize = originalSize * scale; // 48*48 size of a character
+    public int playerSize = originalSize * scale; // 48*48 size of a character
     public final int maxScreenCol = 16;
     public final int maxScreenRow = 12;
     public final int screenWidth = playerSize * maxScreenCol; //768px

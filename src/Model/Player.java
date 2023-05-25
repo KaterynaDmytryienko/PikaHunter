@@ -72,7 +72,6 @@ public class Player extends Entity{
         speed = 3;
         direction = "left";
        //PLAYER STATUS where halfHeart is 1 life, 6 half hearts are 3 lives  (two lives - one heart)
-        setLevel(1);
         setMaxLife(6);
         setLife(getMaxLife());
         setStrength(1);

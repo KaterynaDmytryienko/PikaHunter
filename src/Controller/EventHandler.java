@@ -8,9 +8,9 @@ import java.util.logging.Logger;
 
 public class EventHandler {
     GamePannel gp;
-    Rectangle eventRect;
-    int eventRectDefaultX;
-    int eventRectDefaultY;
+    public  Rectangle eventRect;
+    public int eventRectDefaultX;
+   public int eventRectDefaultY;
     private static final Logger logger = Logger.getLogger(EventHandler.class.getName());
 
 

@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class Entity {
     public int spriteCounter;
-    public boolean collision;  //ABSTRACT CLASS
+    public boolean collision;
     GamePannel gp;
     public int speed;
     private boolean attacking = false;

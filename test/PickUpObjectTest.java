@@ -22,10 +22,9 @@ class PlayerTest {
         player.inventory = new ArrayList<>();
         player.setKeyAmount(0);
 
-        // Act
+
         player.pickUpObject(0);
 
-        // Assert
         assertEquals(1, player.getKeyAmount());
         assertEquals(1, player.inventory.size());
         assertEquals(keyItem, player.inventory.get(0));
@@ -40,10 +39,10 @@ class PlayerTest {
         Player player = new Player(gp, null);
         player.inventory = new ArrayList<>();
 
-        // Act
+
         player.pickUpObject(0);
 
-        // Assert
+
         assertEquals(1, player.inventory.size());
         assertEquals(axe, player.inventory.get(0));
         assertNull(gp.item[0]);
@@ -60,10 +59,10 @@ class PlayerTest {
         player.inventorySize = 1;
         player.inventory.add(new Axe());
 
-        // Act
+
         player.pickUpObject(0);
 
-        // Assert
+
         assertEquals(0, player.getKeyAmount());
         assertEquals(1, player.inventory.size());
     }
@@ -89,7 +88,7 @@ class PlayerTest {
 
     @Test
     public void damageMonsterTest() throws IOException {
-        // Arrange
+
         GamePannel gp = new GamePannel();
         Entity monster = new Enemy(gp);
         gp.monster = new Entity[]{monster};
@@ -98,10 +97,10 @@ class PlayerTest {
         player.getCurrentWeapon().setType(3);
         monster.setLife(3);
 
-        // Act
+
         player.damageMonster(0);
 
-        // Assert
+
         assertEquals(2, monster.getLife());
         assertTrue(monster.isInvincible());
     }
