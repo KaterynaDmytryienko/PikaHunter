@@ -17,28 +17,33 @@ public class AssetSetter {
      * @throws IOException
      */
     public void setObject() throws IOException {
-        gp.item[0] = new Key(); //because Object_key is a subclass of ObjectSuper
-        gp.item[0].setWorldX(23 * gp.playerSize);
-        gp.item[0].setWorldY(7 * gp.playerSize);
+        Key keyNumber1 = new Key();
+        keyNumber1.setWorldX(23 * gp.playerSize);
+        keyNumber1.setWorldY(7 * gp.playerSize);
+        gp.items.add(keyNumber1);
 
-        gp.item[1] = new Key();
-        gp.item[1].setWorldX(23 * gp.playerSize);
-        gp.item[1].setWorldY(40 * gp.playerSize);
+        Key keyNumber2 = new Key();
+        keyNumber2.setWorldX(23 * gp.playerSize);
+        keyNumber2.setWorldY(40 * gp.playerSize);
+        gp.items.add(keyNumber2);
 
-        gp.item[2] = new Key();
-        gp.item[2].setWorldX(24 * gp.playerSize);
-        gp.item[2].setWorldY(7 * gp.playerSize);
+        Key keyNumber3 = new Key();
+        keyNumber3.setWorldX(24 * gp.playerSize);
+        keyNumber3.setWorldY(7 * gp.playerSize);
+        gp.items.add(keyNumber3);
 
-        gp.item[3] = new TreasureChest();
-        gp.item[3].setWorldX(25 * gp.playerSize);
-        gp.item[3].setWorldY(42 * gp.playerSize);
-        gp.item[3].setCollision(true);
+        TreasureChest chest = new TreasureChest();
+        chest.setWorldX(25 * gp.playerSize);
+        chest.setWorldY(42 * gp.playerSize);
+        chest.setCollision(true);
+        gp.items.add(chest);
 
-        gp.item[4] = new Axe();
-        gp.item[4].setWorldX( 21 * gp.playerSize);
-        gp.item[4].setWorldY(7 * gp.playerSize);
-
+        Axe axe = new Axe();
+        axe.setWorldX(21 * gp.playerSize);
+        axe.setWorldY(7 * gp.playerSize);
+        gp.items.add(axe);
     }
+
 
     /**
      * Method sets monsters on the map with defined position.

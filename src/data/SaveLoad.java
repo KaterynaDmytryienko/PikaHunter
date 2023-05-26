@@ -17,9 +17,10 @@ public class SaveLoad {
         this.gp = gp;
     }
 
+
     /**
-     * Method gets an object depending on object name.
-//     * @param itemName
+     * Method gets object using enum Objects.
+     * @param objectEnum
      * @return Item
      * @throws IOException
      */

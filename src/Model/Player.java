@@ -314,41 +314,37 @@ public class Player extends Entity{
     public void pickUpObject(int i) {
         if (i != 999) {
             if (inventory.size() != inventorySize) {
-
-                if (gp.item[i].getName() == "key") {
+                Item item = gp.items.get(i);
+                if (item.getName().equals("key")) {
                     keyAmount++;
-                    inventory.add(gp.item[i]);
+                    inventory.add(item);
                     logger.info("Picked up key.");
-                    gp.item[i] = null;
-
-                } else if (gp.item[i].getName() == "chest") {
+                    gp.items.remove(i);
+                } else if (item.getName().equals("chest")) {
                     if (keyAmount > 0) {
                         keyAmount--;
-                        for(int j = 0; j < inventory.size(); j++)
-                        {
-                            if(inventory.get(j)!= null && inventory.get(j).getName() == "key"){
+                        for (int j = 0; j < inventory.size(); j++) {
+                            if (inventory.get(j) != null && inventory.get(j).getName().equals("key")) {
                                 inventory.remove(inventory.get(j));
                                 break;
                             }
-
                         }
                         elixirAmount++;
                         Elixir elixir = new Elixir();
                         inventory.add(elixir);
-                        gp.item[i] = null;
+                        gp.items.remove(i);
+                    } else if (keyAmount == 0) {
+                        logger.warning("You don't have a key!");
                     }
-                    else if(keyAmount == 0){
-                        logger.warning("You dont have a key!");
-                    }
-                }
-                else if(gp.item[i].getName() == "axe"){
-                    inventory.add(gp.item[i]);
+                } else if (item.getName().equals("axe")) {
+                    inventory.add(item);
                     logger.info("Picked up axe.");
-                    gp.item[i] = null;
+                    gp.items.remove(i);
                 }
             }
         }
     }
+
 
     /**
      * Method sets action when monster touching a player.

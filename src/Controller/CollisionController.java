@@ -74,22 +74,20 @@ public class CollisionController {
      * @param isPlayer
      * @return int
      */
-    public int checkObject(Entity entity, boolean isPlayer){
+    public int checkObject(Entity entity, boolean isPlayer) {
         int index = 999;
 
-        for(int i = 0; i < gp.item.length; i++){
-            if(gp.item[i] != null){
+        for (int i = 0; i < gp.items.size(); i++) {
+            Item item = gp.items.get(i);
+            if (item != null) {
 
-                //Get entity solid area position
-                  entity.solidArea.x = entity.worldx + entity.solidArea.x;
-                  entity.solidArea.y = entity.worldy + entity.solidArea.y;
+                entity.solidArea.x = entity.worldx + entity.solidArea.x;
+                entity.solidArea.y = entity.worldy + entity.solidArea.y;
 
+                item.solidArea.x = item.getWorldX() + item.solidArea.x;
+                item.solidArea.y = item.getWorldY() + item.solidArea.y;
 
-                //Get the object solid area position
-                gp.item[i].solidArea.x = gp.item[i].getWorldX() + gp.item[i].solidArea.x;
-                gp.item[i].solidArea.y = gp.item[i].getWorldY() + gp.item[i].solidArea.y;
-
-                switch (entity.direction){
+                switch (entity.direction) {
                     case "up":
                         entity.solidArea.y -= entity.speed;
                         break;
@@ -102,30 +100,31 @@ public class CollisionController {
                         entity.solidArea.x -= entity.speed;
                         break;
 
-                    case"right":
+                    case "right":
                         entity.solidArea.x += entity.speed;
                         break;
                 }
 
-                if(entity.solidArea.intersects(gp.item[i].solidArea)){ //checks if two tiles are touching or not
-                    if(gp.item[i].isCollision()){
+                if (entity.solidArea.intersects(item.solidArea)) {
+                    if (item.isCollision()) {
                         entity.setCollisionOn(true);
                     }
 
-                    if(isPlayer){
+                    if (isPlayer) {
                         index = i;
                     }
-
                 }
+
                 entity.solidArea.x = entity.solidAreaDefaultX;
                 entity.solidArea.y = entity.solidAreaDefaultY;
-                gp.item[i].solidArea.x = gp.item[i].getSolidAreaDefaultX();
-                gp.item[i].solidArea.y = gp.item[i].getSolidAreaDefaultY();
+                item.solidArea.x = item.getSolidAreaDefaultX();
+                item.solidArea.y = item.getSolidAreaDefaultY();
             }
 
         }
         return index;
     }
+
 
 
     /**
@@ -140,12 +139,9 @@ public class CollisionController {
         for(int i = 0; i < target.length; i++){
             if(target[i] != null){
 
-                //Get entity solid area position
                 entity.solidArea.x = entity.worldx + entity.solidArea.x;
                 entity.solidArea.y = entity.worldy + entity.solidArea.y;
 
-
-                //Get the object solid area position
                 target[i].solidArea.x = target[i].worldx + target[i].solidArea.x;
                 target[i].solidArea.y = target[i].worldy + target[i].solidArea.y;
 
@@ -190,13 +186,10 @@ public class CollisionController {
      */
     public boolean checkPlayer(Entity entity){
         boolean contactPlayer = false;
-        //Get entity solid area position
+
         entity.solidArea.x = entity.worldx + entity.solidArea.x;
         entity.solidArea.y = entity.worldy + entity.solidArea.y;
 
-
-
-        //Get the object solid area position
         gp.player.solidArea.x =gp.player.worldx + gp.player.solidArea.x;
         gp.player.solidArea.y = gp.player.worldy +gp.player.solidArea.y;
 
@@ -245,12 +238,9 @@ public class CollisionController {
         for(int i = 0; i < target.length; i++){
             if(target[i] != null){
 
-                //Get entity solid area position
                 entity.solidArea.x = entity.worldx + entity.solidArea.x;
                 entity.solidArea.y = entity.worldy + entity.solidArea.y;
 
-
-                //Get the object solid area position
                 target[i].solidArea.x = target[i].getWorldX() + target[i].solidArea.x;
                 target[i].solidArea.y = target[i].getWorldY() + target[i].solidArea.y;
 

@@ -8,6 +8,7 @@ import org.w3c.dom.ls.LSOutput;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.util.LinkedList;
 import java.util.logging.Logger;
 
 public class GamePannel extends JPanel implements Runnable {
@@ -39,7 +40,7 @@ public class GamePannel extends JPanel implements Runnable {
     private AssetSetter assetSetter = new AssetSetter(this);
     private SaveLoad saveLoad = new SaveLoad(this);
     public Player player;
-    public Item item[] = new Item[10];//preparing 10 slots for objects(displaying up to 10 objects at the same time)
+    public LinkedList<Item> items = new LinkedList<>();//preparing 10 slots for objects(displaying up to 10 objects at the same time)
 
     //CREATING MONSTER ARRAY
     private Entity monster[] = new Entity[20];
@@ -255,10 +256,8 @@ public class GamePannel extends JPanel implements Runnable {
             }
 
             //OBJECT
-            for(int i = 0; i < item.length; i++){
-                if(item[i] != null){
-                    item[i].draw(g2, this);
-                }
+            for (Item item : items) {
+                item.draw(g2, this);
             }
 
             //MONSTER
