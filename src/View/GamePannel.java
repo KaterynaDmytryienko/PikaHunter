@@ -11,55 +11,104 @@ import java.io.IOException;
 import java.util.logging.Logger;
 
 public class GamePannel extends JPanel implements Runnable {
-    final int originalSize = 16; // size for characters and items
-    final int scale = 3;
-    public int playerSize = originalSize * scale; // 48*48 size of a character
-    public final int maxScreenCol = 16;
-    public final int maxScreenRow = 12;
-    public final int screenWidth = playerSize * maxScreenCol; //768px
-    public final int screenHeight = playerSize * maxScreenRow;//576px
+    static final int  ORIGINALSIZE = 16; // size for characters and items
+    static final int SCALE = 3;
+    public int playerSize = ORIGINALSIZE * SCALE; // 48*48 size of a character
+    static final int MAXSCREENCOL = 16;
+    static final int MAXSCREENROW = 12;
+    public final int screenWidth = playerSize * MAXSCREENCOL; //768px
+    public final int screenHeight = playerSize * MAXSCREENROW;//576px
 
     //WORLD MAP SETTINGS
-     public final int maxworldcol = 50;
-    public final int maxworldrow = 50;
-    public final int worldwidth = playerSize * maxworldcol;
-    public final int worldheight = playerSize * maxworldrow;
+    public static final int MAXWORLDCOL = 50;
+    public static final int MAXWORLDROW = 50;
 
     //setting FPS for the game
-    public int FPS = 60;
+    static final int FPS = 60;
     private final KeyHandler keyHandler = new KeyHandler(this);
-    public TileManager tileManager = new TileManager(this);
-    public UserInterface userInterface = new UserInterface(this);
-    public EventHandler eventHandler = new EventHandler(this);
+    private final TileManager tileManager = new TileManager(this);
+    private final UserInterface userInterface = new UserInterface(this);
+    private final EventHandler eventHandler = new EventHandler(this);
     Thread gameThread;
-    public final int characterState = 4;
-    public final int gameOverState = 6;
-    public final int dialogueState = 3;
+    private int characterState = 4;
+    private int gameOverState = 6;
+    private int dialogueState = 3;
 
-    public CollisionController collisionController = new CollisionController(this);
+    private CollisionController collisionController = new CollisionController(this);
 
-    public AssetSetter assetSetter = new AssetSetter(this);
-    public SaveLoad saveLoad = new SaveLoad(this);
+    private AssetSetter assetSetter = new AssetSetter(this);
+    private SaveLoad saveLoad = new SaveLoad(this);
     public Player player;
     public Item item[] = new Item[10];//preparing 10 slots for objects(displaying up to 10 objects at the same time)
 
     //CREATING MONSTER ARRAY
-    public Entity monster[] = new Entity[20];
-    public InteractiveTile iTile[] = new InteractiveTile[30];
+    private Entity monster[] = new Entity[20];
+    private InteractiveTile iTile[] = new InteractiveTile[30];
 
+    public Entity[] getMonster() {
+        return monster;
+    }
 
-
+    public InteractiveTile[] getiTile() {
+        return iTile;
+    }
 
     //GAME STATE
     public int gameState;
-    public final int playState = 1;
-    public final int pauseState = 2;
+    private int playState = 1;
+    private int pauseState = 2;
 
-    public final int titleState = 0;
+    private int titleState = 0;
     private static final Logger logger = Logger.getLogger(GamePannel.class.getName());
 
+    public int getCharacterState() {
+        return characterState;
+    }
+
+    public int getGameOverState() {
+        return gameOverState;
+    }
+
+    public int getDialogueState() {
+        return dialogueState;
+    }
+
+    public int getPlayState() {
+        return playState;
+    }
+
+    public int getPauseState() {
+        return pauseState;
+    }
+
+    public int getTitleState() {
+        return titleState;
+    }
+
+    public TileManager getTileManager() {
+        return tileManager;
+    }
 
 
+    public UserInterface getUserInterface() {
+        return userInterface;
+    }
+
+    public EventHandler getEventHandler() {
+        return eventHandler;
+    }
+
+    public CollisionController getCollisionController() {
+        return collisionController;
+    }
+
+    public AssetSetter getAssetSetter() {
+        return assetSetter;
+    }
+
+    public SaveLoad getSaveLoad() {
+        return saveLoad;
+    }
 
     public GamePannel() throws IOException {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -68,6 +117,10 @@ public class GamePannel extends JPanel implements Runnable {
         this.addKeyListener(this.keyHandler);
         this.setFocusable(true);
         player = new Player(this, this.keyHandler);
+    }
+
+    public void setMonster(Entity[] monster) {
+        this.monster = monster;
     }
 
     /**
@@ -218,7 +271,7 @@ public class GamePannel extends JPanel implements Runnable {
             //PLAYER
             player.draw(g2);
             userInterface.draw(g2);
-            g2.dispose(); 
+            g2.dispose();
         }
 
     }

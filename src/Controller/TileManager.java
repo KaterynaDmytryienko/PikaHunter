@@ -17,8 +17,9 @@ public class TileManager {
 
     public TileManager(GamePannel gp){
         this.gp = gp;
-        tile = new Tile[10]; // maximum 10 kinds of tiles
-        mapTileNum = new int[gp.maxworldcol][gp.maxworldrow];
+        tile = new Tile[10]; // maximum 10 kinds of tiles\]
+
+        mapTileNum = new int[GamePannel.MAXWORLDCOL][GamePannel.MAXWORLDROW];
         getTileImage();
         loadMap("/maps/worldmap.txt");
     }
@@ -69,10 +70,10 @@ public class TileManager {
 
             int col = 0;
             int row = 0;
-            while (col<gp.maxworldcol && row< gp.maxworldrow){
+            while (col<GamePannel.MAXWORLDCOL && row< GamePannel.MAXWORLDROW){
                 String line = bufferedReader.readLine();
 
-                while (col< gp.maxworldcol){
+                while (col< GamePannel.MAXWORLDCOL){
                     String numbers[] = line.split(" "); // getting numbers from the map and put them into an array
                     int num = Integer.parseInt(numbers[col]);
 
@@ -80,7 +81,7 @@ public class TileManager {
                     col++;
                 }
 
-                if(col == gp.maxworldcol){
+                if(col == GamePannel.MAXWORLDCOL){
                     col = 0;
                     row++;
                 }
@@ -100,7 +101,7 @@ public class TileManager {
         int worldcol = 0;
         int worldrow = 0;
 
-        while (worldcol<gp.maxworldcol && worldrow<gp.maxworldrow){
+        while (worldcol<GamePannel.MAXWORLDCOL && worldrow<GamePannel.MAXWORLDROW){
 
             int tileNum = mapTileNum[worldcol][worldrow];
 
@@ -117,7 +118,7 @@ public class TileManager {
 
             worldcol++;
 
-            if(worldcol == gp.maxworldcol){
+            if(worldcol == GamePannel.MAXWORLDCOL){
                 worldcol = 0; // resetting column and increase row by 1
                 worldrow++;
 

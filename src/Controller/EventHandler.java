@@ -75,8 +75,8 @@ public class EventHandler {
      * @throws IOException
      */
     public void savingPool() throws IOException {
-            gp.saveLoad.save();
-            gp.gameState = gp.dialogueState;
+            gp.getSaveLoad().save();
+            gp.gameState = gp.getDialogueState();
     }
 
 }

@@ -91,7 +91,7 @@ class PlayerTest {
 
         GamePannel gp = new GamePannel();
         Entity monster = new Enemy(gp);
-        gp.monster = new Entity[]{monster};
+        gp.setMonster(new Entity[]{monster});
 
         Player player = new Player(gp, null);
         player.getCurrentWeapon().setType(3);

@@ -90,7 +90,7 @@ public class KeyHandler implements KeyListener {
 
 
         //TITLE STATE
-        if (gp.gameState == gp.titleState) {
+        if (gp.gameState == gp.getTitleState()) {
             try {
                 titleState(code);
             } catch (IOException ex) {
@@ -100,11 +100,11 @@ public class KeyHandler implements KeyListener {
             }
         }
         //PLAY STATE
-        else if (gp.gameState == gp.playState) {
+        else if (gp.gameState == gp.getPlayState()) {
             playState(code);
         }
         //CHARACTER STATE
-        else if(gp.gameState == gp.characterState){
+        else if(gp.gameState == gp.getCharacterState()){
             try {
                 characterState(code);
             } catch (IOException ex) {
@@ -113,7 +113,7 @@ public class KeyHandler implements KeyListener {
         }
 
         //GAME OVER STATE
-        else if(gp.gameState == gp.gameOverState){
+        else if(gp.gameState == gp.getGameOverState()){
             try {
                 gameOverState(code);
                 logger.info("Game state is Game over state.");
@@ -123,14 +123,14 @@ public class KeyHandler implements KeyListener {
         }
 
         //PAUSE STATE
-        else if(gp.gameState == gp.pauseState){
+        else if(gp.gameState == gp.getPauseState()){
             pauseState(code);
             logger.info("Game state is Pause state.");
 
         }
 
         //DIALOG STATE
-        else if(gp.gameState == gp.dialogueState){
+        else if(gp.gameState == gp.getDialogueState()){
             dialogueState(code);
         }
     }
@@ -141,7 +141,7 @@ public class KeyHandler implements KeyListener {
      */
     public void pauseState(int code){
         if(code == KeyEvent.VK_P){
-            gp.gameState = gp.playState;
+            gp.gameState = gp.getPlayState();
             logger.info("Back to Play state.");
         }
     }
@@ -152,7 +152,7 @@ public class KeyHandler implements KeyListener {
      */
     public void dialogueState(int code){
         if(code == KeyEvent.VK_Y){
-            gp.gameState = gp.playState;
+            gp.gameState = gp.getPlayState();
             gp.player.worldy += 20;
         }
     }
@@ -165,29 +165,29 @@ public class KeyHandler implements KeyListener {
      */
     public void titleState(int code) throws IOException, ClassNotFoundException {
         if (code == KeyEvent.VK_W) {
-            gp.userInterface.setCommandNum(gp.userInterface.getCommandNum() - 1);
-            if (gp.userInterface.getCommandNum() < 0) {
-                gp.userInterface.setCommandNum(2);
+            gp.getUserInterface().setCommandNum(gp.getUserInterface().getCommandNum() - 1);
+            if (gp.getUserInterface().getCommandNum() < 0) {
+                gp.getUserInterface().setCommandNum(2);
             }
         }
 
         if (code == KeyEvent.VK_S) {
-            gp.userInterface.setCommandNum(gp.userInterface.getCommandNum() + 1);
-            if (gp.userInterface.getCommandNum() > 2) {
-                gp.userInterface.setCommandNum(0);
+            gp.getUserInterface().setCommandNum(gp.getUserInterface().getCommandNum() + 1);
+            if (gp.getUserInterface().getCommandNum() > 2) {
+                gp.getUserInterface().setCommandNum(0);
             }
         }
 
         if (code == KeyEvent.VK_ENTER) { // start new game
-            if (gp.userInterface.getCommandNum() == 0) {
-                gp.gameState = gp.playState;
+            if (gp.getUserInterface().getCommandNum() == 0) {
+                gp.gameState = gp.getPlayState();
             }
-            if (gp.userInterface.getCommandNum() == 1) {
-                gp.saveLoad.load();
-                gp.gameState = gp.playState;
+            if (gp.getUserInterface().getCommandNum() == 1) {
+                gp.getSaveLoad().load();
+                gp.gameState = gp.getPlayState();
             }
 
-            if (gp.userInterface.getCommandNum() == 2) {
+            if (gp.getUserInterface().getCommandNum() == 2) {
                 System.exit(0);
             }
         }
@@ -218,7 +218,7 @@ public class KeyHandler implements KeyListener {
         }
         //setting key for a character state
         if(code == KeyEvent.VK_C){
-            gp.gameState = gp.characterState;
+            gp.gameState = gp.getCharacterState();
         }
 
         if (code == KeyEvent.VK_ENTER) {//press right
@@ -230,7 +230,7 @@ public class KeyHandler implements KeyListener {
         }
 
         if(code == KeyEvent.VK_P){
-            gp.gameState = gp.pauseState;
+            gp.gameState = gp.getPauseState();
         }
 
 
@@ -243,27 +243,27 @@ public class KeyHandler implements KeyListener {
      */
     public void characterState(int code) throws IOException {
         if(code == KeyEvent.VK_C){
-            gp.gameState = gp.playState;
+            gp.gameState = gp.getPlayState();
         }
         if(code == KeyEvent.VK_W){
-            if(gp.userInterface.slotRow != 0) {
-                gp.userInterface.slotRow--;
+            if(gp.getUserInterface().slotRow != 0) {
+                gp.getUserInterface().slotRow--;
             }
         }
 
         if(code == KeyEvent.VK_A){
-            if(gp.userInterface.slotCol != 0) {
-                gp.userInterface.slotCol--;
+            if(gp.getUserInterface().slotCol != 0) {
+                gp.getUserInterface().slotCol--;
             }
         }
         if(code == KeyEvent.VK_S){
-            if(gp.userInterface.slotRow != 3) {
-                gp.userInterface.slotRow++;
+            if(gp.getUserInterface().slotRow != 3) {
+                gp.getUserInterface().slotRow++;
             }
         }
         if(code == KeyEvent.VK_D){
-            if(gp.userInterface.slotCol!=4) {
-                gp.userInterface.slotCol++;
+            if(gp.getUserInterface().slotCol!=4) {
+                gp.getUserInterface().slotCol++;
             }
         }
         if(code == KeyEvent.VK_ENTER){
@@ -279,26 +279,26 @@ public class KeyHandler implements KeyListener {
      */
     public void gameOverState(int code) throws IOException {
         if(code == KeyEvent.VK_W){
-            gp.userInterface.setCommandNum(gp.userInterface.getCommandNum()-1);
-            if(gp.userInterface.commandNum < 0){
-                gp.userInterface.setCommandNum(1);
+            gp.getUserInterface().setCommandNum(gp.getUserInterface().getCommandNum()-1);
+            if(gp.getUserInterface().commandNum < 0){
+                gp.getUserInterface().setCommandNum(1);
             }
         }
 
         if(code == KeyEvent.VK_S){
-            gp.userInterface.setCommandNum(gp.userInterface.getCommandNum()+1);
-            if(gp.userInterface.commandNum > 1){
-                gp.userInterface.setCommandNum(0);
+            gp.getUserInterface().setCommandNum(gp.getUserInterface().getCommandNum()+1);
+            if(gp.getUserInterface().commandNum > 1){
+                gp.getUserInterface().setCommandNum(0);
             }
         }
         if(code == KeyEvent.VK_ENTER){
-            if(gp.userInterface.getCommandNum() == 0){
-                gp.gameState = gp.playState;
+            if(gp.getUserInterface().getCommandNum() == 0){
+                gp.gameState = gp.getPlayState();
                 gp.retry();
                 logger.info("Retrying game.");
             }
-            else if(gp.userInterface.getCommandNum() == 1){
-                gp.gameState = gp.titleState;
+            else if(gp.getUserInterface().getCommandNum() == 1){
+                gp.gameState = gp.getTitleState();
                 gp.restart();
                 logger.info("Restarted game.");
 

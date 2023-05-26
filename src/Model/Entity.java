@@ -200,6 +200,7 @@ public class Entity {
         this.name = name;
     }
 
+    //abstract
     public void setAction() {
     }
 
@@ -218,10 +219,10 @@ public class Entity {
     public void update() throws IOException {
         setAction();
         collisionOn = false;
-        gp.collisionController.checkTile(this);
-        gp.collisionController.checkObject(this, false);
-        gp.collisionController.checkEntity(this, gp.monster);
-        boolean contactPlayer = gp.collisionController.checkPlayer(this);
+        gp.getCollisionController().checkTile(this);
+        gp.getCollisionController().checkObject(this, false);
+        gp.getCollisionController().checkEntity(this, gp.getMonster());
+        boolean contactPlayer = gp.getCollisionController().checkPlayer(this);
         if(contactPlayer){
             if(!gp.player.isInvincible()){
                 // monster can give damage

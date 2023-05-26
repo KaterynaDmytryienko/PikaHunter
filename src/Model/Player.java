@@ -190,21 +190,21 @@ public class Player extends Entity{
         }
 
         setCollisionOn(false);
-        gp.collisionController.checkTile(this);
+        gp.getCollisionController().checkTile(this);
 
         //CHECK EVENT
-        gp.eventHandler.checkEvent();
+        gp.getEventHandler().checkEvent();
 
         //CHECK OBJECT COLLISION
-        int objectIndex = gp.collisionController.checkObject(this, true);
+        int objectIndex = gp.getCollisionController().checkObject(this, true);
         pickUpObject(objectIndex);
 
         //CHECK MONSTER COLLISION
-        int monsterIndex = gp.collisionController.checkEntity(this, gp.monster);
+        int monsterIndex = gp.getCollisionController().checkEntity(this, gp.getMonster());
         interactMonster(monsterIndex);
 
         //CHECK INTERACTIVE TILE COLLISION
-        int iTileIndex = gp.collisionController.checkItem(this, gp.iTile);
+        int iTileIndex = gp.getCollisionController().checkItem(this, gp.getiTile());
         damageInteractiveTile(iTileIndex);
 
         //IF COLLISION == FALSE, player can move
@@ -230,7 +230,7 @@ public class Player extends Entity{
 
         //When player do not have lives, state of a game becomes GAME OVER
        if(getLife() <= 0){
-           gp.gameState = gp.gameOverState;
+           gp.gameState = gp.getGameOverState();
        }
     }
 
@@ -286,11 +286,11 @@ public class Player extends Entity{
             solidArea.height = attackArea.height;
 
             //check monster collision with updated worldx worldy and solidArea
-            int monsterIndex = gp.collisionController.checkEntity(this, gp.monster);
+            int monsterIndex = gp.getCollisionController().checkEntity(this, gp.getMonster());
             damageMonster(monsterIndex);
 
             //INTERACTIVE TILE
-            int iTileIndex = gp.collisionController.checkItem(this, gp.iTile);
+            int iTileIndex = gp.getCollisionController().checkItem(this, gp.getiTile());
             damageInteractiveTile(iTileIndex);
 
             //restoring the original data
@@ -369,19 +369,19 @@ public class Player extends Entity{
      */
     public void damageMonster(int i){
         if(i != 999){
-           if(gp.monster[i].isInvincible() == false){
+           if(gp.getMonster()[i].isInvincible() == false){
                if(getCurrentWeapon().getType() == 3) {
-                   gp.monster[i].setLife(gp.monster[i].getLife() - 1);
+                   gp.getMonster()[i].setLife(gp.getMonster()[i].getLife() - 1);
                    logger.info("Damaging monster!");
                }
                else if (getCurrentWeapon().getType() == 4){
-                   gp.monster[i].setLife(gp.monster[i].getLife() - 2);
+                   gp.getMonster()[i].setLife(gp.getMonster()[i].getLife() - 2);
                    logger.info("Damaging monster!");
                }
-               gp.monster[i].setInvincible(true);
+               gp.getMonster()[i].setInvincible(true);
 
-               if(gp.monster[i].getLife() <= 0){
-                   gp.monster[i] = null;
+               if(gp.getMonster()[i].getLife() <= 0){
+                   gp.getMonster()[i] = null;
                }
            }
         }
@@ -392,8 +392,8 @@ public class Player extends Entity{
      * @param index
      */
     public void damageInteractiveTile(int index){
-        if(index!=999 && gp.iTile[index].isDestructible() && gp.iTile[index].isSuitableWeapon(this) && keyHandler.isPressedSpace()){
-            gp.iTile[index] = null;
+        if(index!=999 && gp.getiTile()[index].isDestructible() && gp.getiTile()[index].isSuitableWeapon(this) && keyHandler.isPressedSpace()){
+            gp.getiTile()[index] = null;
         }
     }
 
@@ -402,7 +402,7 @@ public class Player extends Entity{
      * @throws IOException
      */
     public void selectItem() throws IOException {
-        int itemIndex = gp.userInterface.getItemIndexOnSlot();
+        int itemIndex = gp.getUserInterface().getItemIndexOnSlot();
 
         if(itemIndex < inventory.size()){
             Item selectedItem = inventory.get(itemIndex);

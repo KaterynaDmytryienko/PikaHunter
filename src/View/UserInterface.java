@@ -53,30 +53,30 @@ public class UserInterface {
             drawPlayerLife(g2);
         }
         //TITLE STATE
-        if(gp.gameState == gp.titleState){
+        if(gp.gameState == gp.getTitleState()){
             drawTitleScreen(g2);
             logger.info("Drawing title screen.");
         }
 
         //CHARACTER STATE
-        if(gp.gameState == gp.characterState){
+        if(gp.gameState == gp.getCharacterState()){
             drawCharacterScreen(g2);
             drawInventory(g2);
         }
         //GAME OVER STATE
-        if(gp.gameState == gp.gameOverState){
+        if(gp.gameState == gp.getGameOverState()){
             drawGameOverScreen(g2);
             logger.info("Drawing game over screen.");
         }
 
         //PAUSE STATE
-        if(gp.gameState == gp.pauseState){
+        if(gp.gameState == gp.getPauseState()){
             drawPauseScreen(g2);
             logger.info("Drawing pause screen.");
         }
 
         //DIALOGUE STATE
-        if(gp.gameState == gp.dialogueState){
+        if(gp.gameState == gp.getDialogueState()){
             drawDialogueScreen(g2);
             logger.info("Drawing dialogue screen.");
         }
