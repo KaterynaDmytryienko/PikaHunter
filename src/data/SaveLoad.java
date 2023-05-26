@@ -19,31 +19,28 @@ public class SaveLoad {
 
     /**
      * Method gets an object depending on object name.
-     * @param itemName
+//     * @param itemName
      * @return Item
      * @throws IOException
      */
-    public Item getObject(String itemName) throws IOException {
+    public Item getObject(Item.Objects objectEnum) throws IOException {
         Item obj = null;
 
-        switch (itemName) {
-            case "axe":
-                obj = new Axe();
-                break;
-
-            case "key":
-                obj = new Key();
-                break;
-            case "elixir":
-                obj = new Elixir();
-                break;
-            case "Shield":
-                obj = new Shield(); break;
-            case "Sword":
-                obj = new Sword(); break;
+        if (objectEnum == Item.Objects.AXE) {
+            obj = new Axe();
+        } else if (objectEnum == Item.Objects.KEY) {
+            obj = new Key();
+        } else if (objectEnum == Item.Objects.ELIXIR) {
+            obj = new Elixir();
+        } else if (objectEnum == Item.Objects.SHIELD) {
+            obj = new Shield();
+        } else if (objectEnum == Item.Objects.SWORD) {
+            obj = new Sword();
         }
+
         return obj;
     }
+
 
 
     /**
@@ -91,8 +88,10 @@ public class SaveLoad {
 
         //PLAYER INVENTORY
         gp.player.inventory.clear();
-        for (int i = 0; i < ds.itemNames.size(); i++) {
-            gp.player.inventory.add(getObject(ds.itemNames.get(i)));
+        for (String itemName : ds.itemNames) {
+            Item.Objects objectEnum = Item.Objects.valueOf(itemName.toUpperCase());
+            Item item = getObject(objectEnum);
+            gp.player.inventory.add(item);
         }
 
         //PLAYER EQUIPMENT

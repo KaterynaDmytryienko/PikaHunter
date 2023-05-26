@@ -8,6 +8,16 @@ import java.io.Serializable;
 
 public class Item implements Serializable {
 
+    public enum Objects{
+        KEY,
+        AXE,
+        DOOR,
+        ELIXIR,
+        HEART,
+        SHIELD,
+        SWORD
+    }
+
     public BufferedImage image;
     public BufferedImage image2;
     public BufferedImage image3;

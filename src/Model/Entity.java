@@ -58,35 +58,11 @@ public class Entity {
     private Item currentWeapon;
     private Item currentShield;
     private String description = "";
-//
-//    public String getDescription() {
-//        return description;
-//    }
-//
-//    public void setDescription(String description) {
-//        this.description = description;
-//    }
 
     //ITEM ATTRIBUTES
-//    private int attackValue;
     private int defenceValue;
     private int type;
 
-//    public int getType() {
-//        return type;
-//    }
-//
-//    public void setType(int type) {
-//        this.type = type;
-//    }
-//
-//    public int getAttackValue() {
-//        return attackValue;
-//    }
-
-//    public void setAttackValue(int attackValue) {
-//        this.attackValue = attackValue;
-//    }
 
     public int getDefenceValue() {
         return defenceValue;
